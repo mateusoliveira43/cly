@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import subprocess
 import argparse
 import sys
@@ -26,7 +27,7 @@ def parse_arguments(arguments: List[str]) -> str:
     Parameters
     ----------
     arguments : List[str]
-        A list of strings containing the arguments.
+        A list of strings containing the commands and arguments.
 
     Returns
     -------
@@ -37,13 +38,13 @@ def parse_arguments(arguments: List[str]) -> str:
     return separator.join(arguments)
 
 
-def get_returncode_from_shell(arguments: List[str]) -> bool:
-    """Gets the returncode on the shell command.
+def get_returncode(arguments: List[str]) -> bool:
+    """Gets the returncode of the shell command.
 
     Parameters
     ----------
     arguments : List[str]
-        A list of strings containing the arguments.
+        A list of strings containing the commands and arguments.
 
     Returns
     -------
@@ -59,13 +60,13 @@ def get_returncode_from_shell(arguments: List[str]) -> bool:
     return not output.returncode
 
 
-def run_from_shell(arguments: List[str]):
+def run_command(arguments: List[str]):
     """Runs the shell command.
 
     Parameters
     ----------
     arguments : List[str]
-        A list of strings containing the arguments.
+        A list of strings containing the commands and arguments.
 
     Returns
     -------
@@ -80,8 +81,9 @@ def run_from_shell(arguments: List[str]):
     )
 
 
+script_name = 'script name'
 parser = argparse.ArgumentParser(
-    prog='python3 ./script.py',
+    prog=f'[python3] {sys.argv[0]}',
     description='Script description.',
     epilog='Script epilog.',
     allow_abbrev=False,
@@ -89,7 +91,7 @@ parser = argparse.ArgumentParser(
 )
 parser._positionals.title = 'Required options'
 parser._optionals.title = 'Options'
-parser._actions[0].help = 'Shows scipt\'s help message.'
+parser._actions[0].help = f'Shows {script_name} scipt\'s help message.'
 
 # Required options ############################################################
 parser.add_argument(
@@ -102,8 +104,8 @@ parser.add_argument(
 parser.add_argument(
     '-v', '--version',
     action='version',
-    version='Python script template 0.1.0',
-    help='Shows script\'s version.')
+    version=f'{script_name} version 0.1.0',
+    help=f'Shows {script_name} script\'s version.')
 parser.add_argument(
     '-m', '--mateus',
     action='store_const', const='mateus',
@@ -118,7 +120,7 @@ parser.add_argument(
 
 # Commands ####################################################################
 subparser = parser.add_subparsers(
-    dest='commands',
+    dest='command',
     metavar='[COMMAND]',
     title='Commands',
 )
@@ -129,6 +131,6 @@ args = parser.parse_args(args=sys.argv[1:] or ['--help'])
 
 print(args)
 if args.mateus:
-    print(args.mateus, get_returncode_from_shell(['mateus']))
-print(get_returncode_from_shell(['python3', '--version']))
-run_from_shell(['python3', '--version'])
+    print(args.mateus, get_returncode(['mateus']))
+print(get_returncode(['python3', '--version']))
+run_command(['python3', '--version'])
