@@ -4,40 +4,45 @@
 
 Modelo para criar scripts Python.
 
-## Tasks
+## Tarefas
 
 - [ ] Opção para traduzir as mensagens de erro também.
+- [ ] Adicionar testes e medidas de qualidade ao código.
 
 # Sobre o Modelo
 
 Na pasta do projeto, execute
 ```
-[python3] ./script.py
-[python3] ./script.py -h
-[python3] ./script.py --help
+[python|python3] ./script_name
+[python|python3] ./script_name -h
+[python|python3] ./script_name --help
 ```
 para mostrar a mensagem de ajuda do script.
 
-Executar o script com o comando de Python 3 é opcional. Se você não tem permissão para executá-lo no seu sistema Linux, execute
+Executar o script com o comando de Python 3 é opcional. Você pode executar o script com
+```
+./script_name/__main__.py
+```
+
+Se você não tem permissão para executá-lo no seu sistema Linux, execute
 ```
 chmod +x script.py
 ```
 para dar permissão de execução ao arquivo.
 
-- Para trocar o título de **modo de uso**, altere a linha 15 de `script.py`.
-- Para trocar o **nome do script**, altere a linha 84 de `script.py`.
-- Para trocar a mensagem de **modo de uso**, altere a linha 86 de `script.py`.
-- Para trocar a mensagem de **descrição**, altere a linha 87 de `script.py`.
-- Para trocar a mensagem de **epílogo**, altere a linha 88 de `script.py`.
-- Para trocar o título de **opções obrigatórias**, altere a linha 92 de `script.py`.
-- Para trocar o título de **opções**, altere a linha 93 de `script.py`.
-- Para trocar a mensagem de **ajuda**, altere a linha 94 de `script.py`.
+- Para trocar o **nome do script**, altere a linha 3 de `/script_name/config.py`.
+- Para trocar o título de **modo de uso**, altere a linha 7 de `/script_name/config.py`.
+- Para trocar a mensagem de **descrição**, altere a linha 8 de `/script_name/config.py`.
+- Para trocar a mensagem de **epílogo**, altere a linha 9 de `/script_name/config.py`.
+- Para trocar o título de **opções obrigatórias**, altere a linha 10 de `/script_name/config.py`.
+- Para trocar o título de **opções**, altere a linha 11 de `/script_name/config.py`.
+- Para trocar a mensagem de **ajuda**, altere a linha 12 de `/script_name/config.py`.
 
 Siga os exemplos de **Required options**, **Options** e **Commands** para criar as opções obrigatórias, opções e comandos do script.
 
-Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova os argumentos da função na linha 130 de `script.py`.
+Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova os argumentos da função na linha 86 de `/script_name/__main__.py`.
 
-Comece a lógica do script na linha 132 de `script.py`.
+Comece a lógica do script na linha 89 de `/script_name/__main__.py`.
 
 # Licença
 
