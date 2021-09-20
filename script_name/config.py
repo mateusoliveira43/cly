@@ -39,16 +39,29 @@ class CustomFormatter(argparse.HelpFormatter):
         Formats prefix of usage section.
     _format_action(self, action)
         Removes subparser's metavar when listing its parsers.
+    _format_action_invocation(self, action)
+        Adds metavar only once to arguments.
     """
     def __init__(self, *args, **kwargs):
         super(CustomFormatter, self).__init__(*args, **kwargs)
 
     def _format_usage(self, usage, actions, groups, prefix):
         return super(CustomFormatter, self)._format_usage(
-            usage, actions, groups, usage_prefix)
+            usage, actions, groups, usage_prefix
+        )
 
     def _format_action(self, action):
         parts = super(CustomFormatter, self)._format_action(action)
         if action.nargs == argparse.PARSER:
-            parts = '\n'.join(parts.split('\n')[1:])
+            line_break = '\n'
+            parts = line_break.join(parts.split(line_break)[1:])
         return parts
+
+    def _format_action_invocation(self, action):
+        if not action.option_strings or action.nargs == 0:
+            return super()._format_action_invocation(action)
+        metavar = self._format_args(
+            action, self._get_default_metavar_for_optional(action)
+        )
+        comma = ', '
+        return f'{comma.join(action.option_strings)} {metavar}'

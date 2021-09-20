@@ -1,6 +1,8 @@
 import subprocess
 from typing import List, Optional
 
+SPACE = ' '
+
 
 def parse_arguments(arguments: List[str]) -> str:
     """Parses the arguments list.
@@ -13,10 +15,9 @@ def parse_arguments(arguments: List[str]) -> str:
     Returns
     -------
     parsed_arguments : str
-        String concaneted by the values of the list.
+        String concaneted by single spaces with the values of the list.
     """
-    separator = ' '
-    return separator.join(arguments)
+    return SPACE.join(arguments)
 
 
 def get_returncode(arguments: List[str]) -> bool:
@@ -58,10 +59,11 @@ def get_output(arguments: List[str]) -> Optional[List[str]]:
     output = subprocess.run(
         command,
         shell=True,
-        capture_output=True
-    ).stdout.decode('utf-8').replace('\n', ' ').strip()
+        capture_output=True,
+        encoding='utf-8'
+    ).stdout.replace('\n', SPACE)
     if output:
-        return output.split(' ')
+        return [word for word in output.split(SPACE) if word]
     return None
 
 
@@ -75,12 +77,14 @@ def run_command(arguments: List[str]):
 
     Returns
     -------
-    subprocess.run
-        Executes the command and exits 0; else, throws an error.
+    subprocess.CompletedProcess[str]
+        Executes the command and exits 0 (success) to shell; else, throws an
+        error.
     """
     command = parse_arguments(arguments)
     return subprocess.run(
         command,
         shell=True,
-        check=True
+        check=True,
+        encoding='utf-8'
     )

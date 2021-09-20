@@ -40,9 +40,9 @@ to grant run permission to the file.
 
 Follow **Required options**, **Options** and **Commands** examples to create script's required options, options and commands.
 
-To disable showing the **help** message when running the script without arguments, remove arguments from function in line 86 of `/script_name/__main__.py`.
+To disable showing the **help** message when running the script without arguments, remove arguments from function in line 108 of `/script_name/__main__.py`.
 
-Begin script's logic at line 89 of `/script_name/__main__.py`.
+Begin script's logic at line 111 of `/script_name/__main__.py`.
 
 # License
 

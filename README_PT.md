@@ -40,9 +40,9 @@ para dar permissão de execução ao arquivo.
 
 Siga os exemplos de **Required options**, **Options** e **Commands** para criar as opções obrigatórias, opções e comandos do script.
 
-Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova os argumentos da função na linha 86 de `/script_name/__main__.py`.
+Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova os argumentos da função na linha 108 de `/script_name/__main__.py`.
 
-Comece a lógica do script na linha 89 de `/script_name/__main__.py`.
+Comece a lógica do script na linha 111 de `/script_name/__main__.py`.
 
 # Licença
 
