@@ -1,0 +1,3 @@
+# Requirements to run tests
+pytest
+pytest-cov

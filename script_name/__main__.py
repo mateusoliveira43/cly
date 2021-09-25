@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from typing import List
 
 import config
 import utils
@@ -104,12 +105,25 @@ for command_name in commands:
     )
 
 
-# Parser Initializer ##########################################################
-args = parser.parse_args(args=sys.argv[1:] or ['--help'])
+def initialize_parser(arguments: List[str]):
+    """Initializes the CLI parser.
+
+    Parameters
+    ----------
+    arguments : List[str]
+        List of arguments to be parsed.
+
+    Returns
+    -------
+    Namespace
+        Arguments used and unused.
+    """
+    return parser.parse_args(arguments)
 
 
 def main():
     """Main function of the script."""
+    args = initialize_parser(sys.argv[1:] or ['--help'])
     print(args)
     print(args._get_args())
     print(dict(args._get_kwargs()))
@@ -126,4 +140,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main()  # pragma: no cover

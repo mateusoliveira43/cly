@@ -6,8 +6,8 @@ Template to create Python scripts.
 
 ## Tasks
 
-- [ ] Option to translate error messages as well.
-- [ ] Add tests an quality measures to code.
+- [ ] Option to edit and translate error messages as well.
+- [ ] Add linter and quality measures to code.
 
 # About the Template
 
@@ -40,9 +40,23 @@ to grant run permission to the file.
 
 Follow **Required options**, **Options** and **Commands** examples to create script's required options, options and commands.
 
-To disable showing the **help** message when running the script without arguments, remove arguments from function in line 108 of `/script_name/__main__.py`.
+To disable showing the **help** message when running the script without arguments, remove arguments from function in line 126 of `/script_name/__main__.py`.
 
-Begin script's logic at line 111 of `/script_name/__main__.py`.
+Begin script's logic at line 127 of `/script_name/__main__.py`.
+
+# Tests
+
+To run the template tests, it is needed to install the testing tools. To install then, run
+```
+virtualenv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+To run tests, run
+```
+pytest
+```
 
 # License
 
