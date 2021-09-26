@@ -135,16 +135,16 @@ sub_interpretador = interpretador.add_subparsers(
 )
 comandos = dict(
     iniciar=dict(
-        help='Inicia um contêiner a partir de um arquivo Dockerfile.',
-        command=iniciar
+        ajuda='Inicia um contêiner a partir de um arquivo Dockerfile.',
+        comando=iniciar
     ),
     inspecionar=dict(
-        help='Retorna informações de um contêiner.',
-        command=inspecionar
+        ajuda='Retorna informações de um contêiner.',
+        comando=inspecionar
     ),
     destruir=dict(
-        help='Destrói um contêiner.',
-        command=destruir
+        ajuda='Destrói um contêiner.',
+        comando=destruir
     ),
 )
 # orderna os comandos em ordem alfabética automaticamente
@@ -152,13 +152,13 @@ comandos = dict(sorted(comandos.items()))
 
 for nome_comando in comandos:
     comando = sub_interpretador.add_parser(
-        nome_comando, help=comandos[nome_comando].get('help')
+        nome_comando, help=comandos[nome_comando].get('ajuda')
     )
     comando.allow_abbrev = False
     comando.formatter_class = FormatadorCustomizado
     comando._positionals.title = 'Opções obrigatórias'
     comando._optionals.title = 'Opções'
-    comando.description = str(comandos[nome_comando].get('help'))
+    comando.description = str(comandos[nome_comando].get('ajuda'))
     comando.epilog = 'Python Floripa'
 
     comando.add_argument(
@@ -188,6 +188,9 @@ def principal():
     """Função principal do script, adicone a lógica aqui."""
     argumentos = iniciar_interpretador(sys.argv[1:] or ['--ajuda'])
     print(argumentos)
+    comando = comandos.get(argumentos.comando)
+    if comando:
+        comando.get('comando')()
 
 
 if __name__ == '__main__':
