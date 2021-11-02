@@ -1,37 +1,40 @@
 import subprocess
-from typing import List, Optional
+import sys
+from typing import List, Optional, Union
 
 SPACE = ' '
 
 
-def parse_arguments(arguments: List[str]) -> str:
-    """Parses the arguments list.
+def parse_arguments(arguments: Union[str, List[str]]) -> str:
+    """Parses arguments.
 
     Parameters
     ----------
-    arguments : List[str]
-        A list of strings containing the commands and arguments.
+    arguments : Union[str, List[str]]
+        A string, or list of strings, containing the commands and arguments.
 
     Returns
     -------
-    parsed_arguments : str
-        String concaneted by single spaces with the values of the list.
+    str
+        Arguments.
     """
-    return SPACE.join(arguments)
+    if isinstance(arguments, list):
+        return SPACE.join(arguments)
+    return arguments
 
 
-def get_returncode(arguments: List[str]) -> bool:
+def get_returncode(arguments: Union[str, List[str]]) -> bool:
     """Gets the returncode of the shell command.
 
     Parameters
     ----------
-    arguments : List[str]
-        A list of strings containing the commands and arguments.
+    arguments : Union[str, List[str]]
+        A string, or list of strings, containing the commands and arguments.
 
     Returns
     -------
     shell_returncode : bool
-        True if shell's returncode was 0; else, False.
+        True if command's returncode was 0; else, False.
     """
     command = parse_arguments(arguments)
     output = subprocess.run(
@@ -42,13 +45,13 @@ def get_returncode(arguments: List[str]) -> bool:
     return not output.returncode
 
 
-def get_output(arguments: List[str]) -> Optional[List[str]]:
+def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
     """Gets the output of the shell command.
 
     Parameters
     ----------
-    arguments : List[str]
-        A list of strings containing the commands and arguments.
+    arguments : Union[str, List[str]]
+        A string, or list of strings, containing the commands and arguments.
 
     Returns
     -------
@@ -67,24 +70,28 @@ def get_output(arguments: List[str]) -> Optional[List[str]]:
     return None
 
 
-def run_command(arguments: List[str]):
+def run_command(arguments: Union[str, List[str]]):
     """Runs the shell command.
 
     Parameters
     ----------
-    arguments : List[str]
-        A list of strings containing the commands and arguments.
+    arguments : Union[str, List[str]]
+        A string, or list of strings, containing the commands and arguments.
 
     Returns
     -------
     subprocess.CompletedProcess[str]
-        Executes the command and exits 0 (success) to shell; else, throws an
-        error.
+        Executes the command (success); else, exits return code (error) of the
+        command.
     """
     command = parse_arguments(arguments)
-    return subprocess.run(
-        command,
-        shell=True,
-        check=True,
-        encoding='utf-8'
-    )
+    try:
+        return subprocess.run(
+            command,
+            shell=True,
+            check=True,
+            encoding='utf-8'
+        )
+    except subprocess.CalledProcessError as error:
+        print(f'ERROR: {error}')
+        sys.exit(error.returncode)

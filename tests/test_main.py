@@ -73,7 +73,7 @@ def test_main_with_command1_with_option_verbose_1(
 ):
     sysMock.argv = ['file_name', 'command1', '-v', '1']
     main()
-    output, error = capsys.readouterr()
+    _, error = capsys.readouterr()
     assert not error
     command1Mock.get('command1').get('command').assert_called_once_with(
         arguments=[], command='command1', example=None, ls=None,

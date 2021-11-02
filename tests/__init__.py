@@ -1,7 +1,8 @@
 import sys
-import os
+from pathlib import Path
 
-absolute_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '../script_name')
-)
-sys.path.append(absolute_path)
+ABSOLUTE_PATH = Path(__file__).resolve().parent.parent / 'script_name'
+if ABSOLUTE_PATH.exists():
+    sys.path.append(ABSOLUTE_PATH.as_posix())
+else:
+    raise FileNotFoundError(f'ERROR: {ABSOLUTE_PATH} is not a valid path.')
