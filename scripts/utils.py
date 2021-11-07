@@ -6,7 +6,8 @@ SPACE = ' '
 
 
 def parse_arguments(arguments: Union[str, List[str]]) -> str:
-    """Parses arguments.
+    """
+    Parse arguments.
 
     Parameters
     ----------
@@ -17,6 +18,7 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
     -------
     str
         Arguments.
+
     """
     if isinstance(arguments, list):
         return SPACE.join(arguments)
@@ -24,7 +26,8 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
 
 
 def get_returncode(arguments: Union[str, List[str]]) -> bool:
-    """Gets the returncode of the shell command.
+    """
+    Get the returncode of the shell command.
 
     Parameters
     ----------
@@ -35,8 +38,10 @@ def get_returncode(arguments: Union[str, List[str]]) -> bool:
     -------
     shell_returncode : bool
         True if command's returncode was 0; else, False.
+
     """
     command = parse_arguments(arguments)
+    # pylint:disable=subprocess-run-check
     output = subprocess.run(
         command,
         shell=True,
@@ -46,7 +51,8 @@ def get_returncode(arguments: Union[str, List[str]]) -> bool:
 
 
 def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
-    """Gets the output of the shell command.
+    """
+    Get the output of the shell command.
 
     Parameters
     ----------
@@ -57,8 +63,10 @@ def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
     -------
     output : Optional[List[str]]
         A list of strings containing the output's words; else, None.
+
     """
     command = parse_arguments(arguments)
+    # pylint:disable=subprocess-run-check
     output = subprocess.run(
         command,
         shell=True,
@@ -71,7 +79,8 @@ def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
 
 
 def run_command(arguments: Union[str, List[str]]):
-    """Runs the shell command.
+    """
+    Run the shell command.
 
     Parameters
     ----------
@@ -83,6 +92,7 @@ def run_command(arguments: Union[str, List[str]]):
     subprocess.CompletedProcess[str]
         Executes the command (success); else, exits return code (error) of the
         command.
+
     """
     command = parse_arguments(arguments)
     try:

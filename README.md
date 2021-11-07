@@ -7,7 +7,8 @@ Template to create Python scripts.
 ## Tasks
 
 - [ ] Option to edit and translate error messages as well.
-- [ ] Add linter and quality measures to code.
+- [ ] Add quality measures to code.
+- [ ] Remove docstring rule for tests files.
 
 # About the Template
 
@@ -44,18 +45,29 @@ To disable showing the **help** message when running the script without argument
 
 Begin script's logic at line 127 of `/script_name/__main__.py`.
 
-# Tests
+# Quality
 
-To run the template tests, it is needed to install the testing tools. To install then, run
+To run the template quality measures, it is needed to install the requirements. To install then, run
 ```
 virtualenv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-To run tests, run
+## Tests
+
+To run tests and coverage report, run
 ```
 pytest
+```
+
+To see the html report, check `tests/coverage-results/htmlcov/index.html`.
+
+## Linter
+
+To run linter, run
+```
+prospector .
 ```
 
 # License

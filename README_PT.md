@@ -7,7 +7,8 @@ Modelo para criar scripts Python.
 ## Tarefas
 
 - [ ] Opção para editar e traduzir as mensagens de erro também.
-- [ ] Adicionar linter e medidas de qualidade ao código.
+- [ ] Adicionar medidas de qualidade ao código.
+- [ ] Remover regra de docstring para arquivos de testes.
 
 # Sobre o Modelo
 
@@ -44,18 +45,27 @@ Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem ar
 
 Comece a lógica do script na linha 127 de `/script_name/__main__.py`.
 
-# Testes
+# Qualidade
 
-Para rodar os testes do modelos, é necessário instalar as ferramentas de teste. Para instalá-las, execute
+Para rodar as métricas de qualidade do modelo, é necessário instalar os requisitos. Para instalá-los, execute
 ```
 virtualenv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Testes
+
 Para rodar os testes, execute
 ```
 pytest
+```
+
+## Linter
+
+Para rodar o linter, execute
+```
+prospector .
 ```
 
 # Licença
