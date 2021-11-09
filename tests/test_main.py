@@ -4,12 +4,23 @@ from unittest.mock import patch
 import pytest
 from scripts.__main__ import commands, initialize_parser, main
 
+HELP_FLAGS = ['-h', '--help']
+VERSION_FLAGS = ['-v', '--version']
+OPTIONAL_FLAGS = ['-o', '--optional']
+INVALID_FLAGS = ['-k', '--invalid']
+
+INVALID_COMMANDS = ['riddler', 'joker']
 TEXT_OPTION_TEST_DATA = ['1', 'batman', 'nightwing']
 NUMBER_OPTION_TEST_DATA = ['1', '37', '-4']
-INVALID_NUMBER_OPTION_TEST_DATA = ['1.9', 'joker', '-0.7', '1,7']
 ARGUMENTS_OPTION_TEST_DATA = [['1.9'], ['-0.7'], ['batman', 'joker', 'robin']]
+INVALID_NUMBER_OPTION_TEST_DATA = ['1.9', 'joker', '-0.7', '1,7']
 INVALID_ARGUMENTS_OPTION_TEST_DATA = [['-k'], ['-v'], ['-batman', 'joker']]
-INVALID_COMMANDS = ['riddler', 'joker']
+
+USAGE = 'Usage:\n  [python|python3]'
+VERSION = 'Script name version 1.0.0\n'
+UNRECOGNIZED_ARGUMENTS = 'error: unrecognized arguments'
+INVALID_CHOICE = 'invalid choice'
+INVALID_INT_VALUE = 'invalid int value'
 
 
 def test_initialize_parser_without_options():
@@ -20,42 +31,42 @@ def test_initialize_parser_without_options():
 
 def test_initialize_parser_with_option_help(capsys):
     """Test initialize_parser with option help."""
-    for option in ['-h', '--help']:
+    for option in HELP_FLAGS:
         with pytest.raises(SystemExit) as sys_exit:
             initialize_parser([option])
         output, error = capsys.readouterr()
         assert not error
-        assert 'Usage:\n  [python|python3]' in output
+        assert USAGE in output
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 0
 
 
 def test_initialize_parser_with_option_version(capsys):
     """Test initialize_parser with option version."""
-    for option in ['-v', '--version']:
+    for option in VERSION_FLAGS:
         with pytest.raises(SystemExit) as sys_exit:
             initialize_parser([option])
         output, error = capsys.readouterr()
         assert not error
-        assert output == 'Script name version 1.0.0\n'
+        assert output == VERSION
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 0
 
 
 def test_initialize_parser_with_option_optional():
     """Test initialize_parser with option optional."""
-    for option in ['-o', '--optional']:
+    for option in OPTIONAL_FLAGS:
         args = initialize_parser([option])
         assert args.optional == 'optional'
 
 
 def test_initialize_parser_with_invalid_options(capsys):
     """Test initialize_parser with invalid options."""
-    for option in ['-k', '--invalid']:
+    for option in INVALID_FLAGS:
         with pytest.raises(SystemExit) as sys_exit:
             initialize_parser([option])
         output, error = capsys.readouterr()
-        assert 'error: unrecognized arguments' in error
+        assert UNRECOGNIZED_ARGUMENTS in error
         assert not output
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 2
@@ -67,7 +78,7 @@ def test_initialize_parser_invalid_commands(capsys):
         with pytest.raises(SystemExit) as sys_exit:
             initialize_parser([command])
         output, error = capsys.readouterr()
-        assert 'invalid choice' in error
+        assert INVALID_CHOICE in error
         assert not output
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 2
@@ -89,12 +100,12 @@ def test_initialize_parser_commands_without_options(capsys):
 def test_initialize_parser_commands_with_option_help(capsys):
     """Test initialize_parser commands with option help."""
     for command in commands:
-        for option in ['-h', '--help']:
+        for option in HELP_FLAGS:
             with pytest.raises(SystemExit) as sys_exit:
                 initialize_parser([command, option])
             output, error = capsys.readouterr()
             assert not error
-            assert 'Usage:\n  [python|python3]' in output
+            assert USAGE in output
             assert sys_exit.type == SystemExit
             assert sys_exit.value.code == 0
 
@@ -134,7 +145,7 @@ def test_initialize_parser_commands_with_invalid_option_number(capsys):
                 initialize_parser([command, '-n', number_input])
             output, error = capsys.readouterr()
             assert not output
-            assert 'invalid int value' in error
+            assert INVALID_INT_VALUE in error
             assert sys_exit.type == SystemExit
             assert sys_exit.value.code == 2
 
@@ -149,7 +160,7 @@ def test_initialize_parser_commands_with_invalid_option_arguments(capsys):
                 )
             output, error = capsys.readouterr()
             assert not output
-            assert 'unrecognized arguments' in error
+            assert UNRECOGNIZED_ARGUMENTS in error
             assert sys_exit.type == SystemExit
             assert sys_exit.value.code == 2
 
@@ -162,7 +173,7 @@ def test_main_without_options(sys_mock, capsys):
         main()
     output, error = capsys.readouterr()
     assert not error
-    assert 'Usage:\n  [python|python3]' in output
+    assert USAGE in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -170,13 +181,13 @@ def test_main_without_options(sys_mock, capsys):
 @patch('scripts.__main__.sys')
 def test_main_with_option_help(sys_mock, capsys):
     """Test main with option help."""
-    for option in ['-h', '--help']:
+    for option in HELP_FLAGS:
         sys_mock.argv = ['file_name', option]
         with pytest.raises(SystemExit) as sys_exit:
             main()
         output, error = capsys.readouterr()
         assert not error
-        assert 'Usage:\n  [python|python3]' in output
+        assert USAGE in output
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 0
 
@@ -184,13 +195,13 @@ def test_main_with_option_help(sys_mock, capsys):
 @patch('scripts.__main__.sys')
 def test_main_with_option_version(sys_mock, capsys):
     """Test main with option version."""
-    for option in ['-v', '--version']:
+    for option in VERSION_FLAGS:
         sys_mock.argv = ['file_name', option]
         with pytest.raises(SystemExit) as sys_exit:
             main()
         output, error = capsys.readouterr()
         assert not error
-        assert output == 'Script name version 1.0.0\n'
+        assert output == VERSION
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 0
 
@@ -198,23 +209,24 @@ def test_main_with_option_version(sys_mock, capsys):
 @patch('scripts.__main__.sys')
 def test_main_with_option_optional(sys_mock, capsys):
     """Test main with option optional."""
-    sys_mock.argv = ['file_name', '-o']
-    main()
-    output, error = capsys.readouterr()
-    assert not error
-    assert 'Usage:\n  [python|python3]' not in output
-    assert 'Optional flag called.' in output
+    for option in OPTIONAL_FLAGS:
+        sys_mock.argv = ['file_name', option]
+        main()
+        output, error = capsys.readouterr()
+        assert not error
+        assert USAGE not in output
+        assert 'Optional flag called.' in output
 
 
 @patch('scripts.__main__.sys')
 def test_main_with_invalid_options(sys_mock, capsys):
     """Test main with invalid options."""
-    for option in ['-k', '--invalid']:
+    for option in INVALID_FLAGS:
         sys_mock.argv = ['file_name', option]
         with pytest.raises(SystemExit) as sys_exit:
             main()
         output, error = capsys.readouterr()
-        assert 'error: unrecognized arguments' in error
+        assert UNRECOGNIZED_ARGUMENTS in error
         assert not output
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 2
@@ -228,7 +240,7 @@ def test_main_invalid_commands(sys_mock, capsys):
         with pytest.raises(SystemExit) as sys_exit:
             main()
         output, error = capsys.readouterr()
-        assert 'invalid choice' in error
+        assert INVALID_CHOICE in error
         assert not output
         assert sys_exit.type == SystemExit
         assert sys_exit.value.code == 2
@@ -253,13 +265,13 @@ def test_main_commands_without_options(sys_mock, capsys):
 def test_main_commands_with_option_help(sys_mock, capsys):
     """Test main commands with option help."""
     for command in commands:
-        for option in ['-h', '--help']:
+        for option in HELP_FLAGS:
             sys_mock.argv = ['file_name', command, option]
             with pytest.raises(SystemExit) as sys_exit:
                 main()
             output, error = capsys.readouterr()
             assert not error
-            assert 'Usage:\n  [python|python3]' in output
+            assert USAGE in output
             assert sys_exit.type == SystemExit
             assert sys_exit.value.code == 0
 
@@ -334,7 +346,7 @@ def test_main_commands_with_invalid_option_number(sys_mock, capsys):
                 main()
             output, error = capsys.readouterr()
             assert not output
-            assert 'invalid int value' in error
+            assert INVALID_INT_VALUE in error
             assert sys_exit.type == SystemExit
             assert sys_exit.value.code == 2
 
@@ -349,6 +361,6 @@ def test_main_commands_with_invalid_option_arguments(sys_mock, capsys):
                 main()
             output, error = capsys.readouterr()
             assert not output
-            assert 'unrecognized arguments' in error
+            assert UNRECOGNIZED_ARGUMENTS in error
             assert sys_exit.type == SystemExit
             assert sys_exit.value.code == 2

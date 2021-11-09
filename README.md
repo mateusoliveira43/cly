@@ -7,8 +7,9 @@ Template to create Python scripts.
 ## Tasks
 
 - [ ] Option to edit and translate error messages as well.
-- [ ] Add quality measures to code.
+- [ ] Add more quality measures to code and CI pipeline.
 - [ ] Remove docstring rule for tests files.
+- [ ] Add poetry to template.
 
 # About the Template
 
@@ -31,19 +32,16 @@ chmod +x script.py
 ```
 to grant run permission to the file.
 
-- To change **script name**, change line 3 of `/script_name/config.py`.
-- To change **usage** title, change line 7 of `/script_name/config.py`.
-- To change **description** message, change line 8 of `/script_name/config.py`.
-- To change **epilog** message, change line 9 of `/script_name/config.py`.
-- To change **required options** title, change line 10 of `/script_name/config.py`.
-- To change **options** title, change line 11 of `/script_name/config.py`.
-- To change **help** message, change line 12 of `/script_name/config.py`.
-
-Follow **Required options**, **Options** and **Commands** examples to create script's required options, options and commands.
+- To change **script name**, change line 11 of `/script_name/__main__.py`.
+- To change **description** message, change line 12 of `/script_name/__main__.py`.
+- To change **usage** title, change line 4 of `/script_name/config.py`.
+- To change **epilog** message, change line 5 of `/script_name/config.py`.
+- To change **required options** title, change line 6 of `/script_name/config.py`.
+- To change **options** title, change line 7 of `/script_name/config.py`.
 
 To disable showing the **help** message when running the script without arguments, remove arguments from function in line 126 of `/script_name/__main__.py`.
 
-Begin script's logic at line 127 of `/script_name/__main__.py`.
+Begin script's logic at function `main` (line 77) of `/script_name/__main__.py`.
 
 # Quality
 
@@ -53,6 +51,8 @@ virtualenv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+The quality measures of the template are reproduced by the continuos integration (CI) pipeline of the project, as described in `.github/workflows/ci.yml`.
 
 ## Tests
 
