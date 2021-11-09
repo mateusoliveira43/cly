@@ -7,8 +7,9 @@ Modelo para criar scripts Python.
 ## Tarefas
 
 - [ ] Opção para editar e traduzir as mensagens de erro também.
-- [ ] Adicionar medidas de qualidade ao código.
+- [ ] Adicionar mais medidas de qualidade ao código e às etapas de integração contínua.
 - [ ] Remover regra de docstring para arquivos de testes.
+- [ ] Adicionar poetry ao modelo.
 
 # Sobre o Modelo
 
@@ -31,19 +32,16 @@ chmod +x script.py
 ```
 para dar permissão de execução ao arquivo.
 
-- Para trocar o **nome do script**, altere a linha 3 de `/script_name/config.py`.
-- Para trocar o título de **modo de uso**, altere a linha 7 de `/script_name/config.py`.
-- Para trocar a mensagem de **descrição**, altere a linha 8 de `/script_name/config.py`.
-- Para trocar a mensagem de **epílogo**, altere a linha 9 de `/script_name/config.py`.
-- Para trocar o título de **opções obrigatórias**, altere a linha 10 de `/script_name/config.py`.
-- Para trocar o título de **opções**, altere a linha 11 de `/script_name/config.py`.
-- Para trocar a mensagem de **ajuda**, altere a linha 12 de `/script_name/config.py`.
-
-Siga os exemplos de **Required options**, **Options** e **Commands** para criar as opções obrigatórias, opções e comandos do script.
+- Para trocar o **nome do script**, altere a linha 11 de `/script_name/__main__.py`.
+- Para trocar a mensagem de **descrição**, altere a linha 12 de `/script_name/__main__.py`.
+- Para trocar o título de **modo de uso**, altere a linha 4 de `/script_name/config.py`.
+- Para trocar a mensagem de **epílogo**, altere a linha 5 de `/script_name/config.py`.
+- Para trocar o título de **opções obrigatórias**, altere a linha 6 de `/script_name/config.py`.
+- Para trocar o título de **opções**, altere a linha 7 de `/script_name/config.py`.
 
 Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova os argumentos da função na linha 126 de `/script_name/__main__.py`.
 
-Comece a lógica do script na linha 127 de `/script_name/__main__.py`.
+Comece a lógica do script na função `main` (linha 77) de `/script_name/__main__.py`.
 
 # Qualidade
 
@@ -54,12 +52,16 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+As métricas de qualidade do modelo são reproduzidas pelas etapas de integração contínua do projeto, descritas em `.github/workflows/ci.yml`.
+
 ## Testes
 
-Para rodar os testes, execute
+Para rodar os testes e relatório de cobertura, execute
 ```
 pytest
 ```
+
+Para ver o relatório html, confira `tests/coverage-results/htmlcov/index.html`.
 
 ## Linter
 

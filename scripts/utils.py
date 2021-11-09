@@ -63,6 +63,7 @@ def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
     -------
     output : Optional[List[str]]
         A list of strings containing the output's words; else, None.
+
     """
     command = parse_arguments(arguments)
     # pylint:disable=subprocess-run-check

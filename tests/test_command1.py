@@ -17,9 +17,9 @@ def test_command1_with_text(capsys):
     assert 'Text argument called with text.\n' in output
 
 
-# def test_command1_with_number(capsys):
-#     """Test command1 with number."""
-#     command1(number=1)
-#     output, error = capsys.readouterr()
-#     assert not error
-#     assert 'Number argument called with 1.\n' in output
+def test_command1_with_number(capsys):
+    """Test command1 with number."""
+    command1(number=1)
+    output, error = capsys.readouterr()
+    assert not error
+    assert 'Number argument called with 1.\n' in output
