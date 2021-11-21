@@ -3,8 +3,29 @@ from unittest.mock import patch
 
 import pytest
 from scripts.utils import (
-    get_output, get_returncode, parse_arguments, run_command
+    get_output, get_returncode, parse_arguments, print_flashy, run_command
 )
+
+
+@patch('shutil.get_terminal_size')
+def test_print_flashy(mock_shutil, capsys):
+    """Test print_flashy."""
+    test_data = [
+        {'message': '1', 'mock': 20, 'left': 8, 'right': 9},
+        {'message': '12', 'mock': 20, 'left': 8, 'right': 8},
+        {'message': '123', 'mock': 20, 'left': 7, 'right': 8},
+        {'message': '1234', 'mock': 20, 'left': 7, 'right': 7},
+    ]
+    for scenario in test_data:
+        mock_shutil.return_value = (scenario['mock'], 1)
+        expected = (
+            f"{'>'*scenario['left']} {scenario['message']} "
+            f"{'<'*scenario['right']}\n"
+        )
+        print_flashy(scenario['message'])
+        output, error = capsys.readouterr()
+        assert not error
+        assert output == expected
 
 
 def test_parse_arguments():

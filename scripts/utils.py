@@ -1,8 +1,31 @@
+import math
+import shutil
 import subprocess
 import sys
 from typing import List, Optional, Union
 
 SPACE = ' '
+
+
+def print_flashy(message: str) -> None:
+    """
+    Print centralized message by ">" and "<" with width equal to user shell.
+
+    Parameters
+    ----------
+    message : str
+        Message to centralized.
+
+    Returns
+    -------
+    None
+
+    """
+    width, _ = shutil.get_terminal_size()
+    message_width = len(message) + 2
+    left = math.floor((width - message_width) / 2)
+    right = width - left - message_width
+    print(f"{'>'*left} {message} {'<'*right}")
 
 
 def parse_arguments(arguments: Union[str, List[str]]) -> str:

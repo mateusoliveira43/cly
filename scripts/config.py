@@ -158,3 +158,21 @@ def configured_command(
     command.description = actions.get('help')
     command.epilog = EPILOG
     return command
+
+
+def initialize_parser(parser: argparse.ArgumentParser) -> argparse.Namespace:
+    """
+    Initialize the CLI parser.
+
+    Parameters
+    ----------
+    parser : ArgumentParser
+        parser to get user arguments.
+
+    Returns
+    -------
+    Namespace
+        Arguments used and unused.
+
+    """
+    return parser.parse_args(sys.argv[1:] or ['--help'])
