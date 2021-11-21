@@ -2,11 +2,13 @@ name: Python Script Template CI Pipeline
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+      - [ $default-branch ]
   pull_request:
-    branches: [ $default-branch ]
+    branches:
+      - [ $default-branch ]
   schedule:
-    cron:  '0 0 * * 1' # Every Monday at 00:00 UTC
+    - cron:  '0 0 * * 1' # Every Monday at 00:00 UTC
 
 jobs:
   build:
