@@ -1,6 +1,5 @@
 import argparse
 import sys
-from typing import Callable, TypedDict
 
 USAGE_PREFIX = 'Usage:\n  [python|python3] '
 EPILOG = 'Script epilog.'
@@ -8,12 +7,6 @@ POSITIONALS_TITLE = 'Required options'
 OPTIONALS_TITLE = 'Options'
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
-
-
-class Command(TypedDict):
-    """Actions of a command."""
-    help: str
-    command: Callable
 
 
 def get_version(name: str, version: str) -> str:
@@ -137,7 +130,7 @@ def configured_parser(
 
 
 def configured_command(
-    subparser: argparse._SubParsersAction, name: str, actions: Command
+    subparser: argparse._SubParsersAction, name: str, actions: dict
 ) -> argparse.ArgumentParser:
     """
     Create configured command to script.
@@ -148,7 +141,7 @@ def configured_command(
         Supparser to add command.
     name : str
         Name of the command.
-    actions : Command
+    actions : dict
         Actions of the command.
 
     Returns

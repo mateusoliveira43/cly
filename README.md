@@ -34,12 +34,12 @@ to grant run permission to the file.
 
 - To change **script name**, change line 11 of `/scripts/__main__.py`.
 - To change **description** message, change line 12 of `/scripts/__main__.py`.
-- To change **usage** title, change line 5 of `/scripts/config.py`.
-- To change **epilog** message, change line 6 of `/scripts/config.py`.
-- To change **required options** title, change line 7 of `/scripts/config.py`.
-- To change **options** title, change line 8 of `/scripts/config.py`.
+- To change **usage** title, change line 4 of `/scripts/config.py`.
+- To change **epilog** message, change line 5 of `/scripts/config.py`.
+- To change **required options** title, change line 6 of `/scripts/config.py`.
+- To change **options** title, change line 7 of `/scripts/config.py`.
 
-To disable showing the **help** message when running the script without arguments, remove `--help` argument from function in line 170 of `/scripts/config.py`.
+To disable showing the **help** message when running the script without arguments, remove `--help` argument from function in line 163 of `/scripts/config.py`.
 
 Begin script's logic at function `main` (line 59) of `/scripts/__main__.py`.
 

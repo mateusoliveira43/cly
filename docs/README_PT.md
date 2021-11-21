@@ -34,12 +34,12 @@ para dar permissão de execução ao arquivo.
 
 - Para trocar o **nome do script**, altere a linha 11 de `/scripts/__main__.py`.
 - Para trocar a mensagem de **descrição**, altere a linha 12 de `/scripts/__main__.py`.
-- Para trocar o título de **modo de uso**, altere a linha 5 de `/scripts/config.py`.
-- Para trocar a mensagem de **epílogo**, altere a linha 6 de `/scripts/config.py`.
-- Para trocar o título de **opções obrigatórias**, altere a linha 7 de `/scripts/config.py`.
-- Para trocar o título de **opções**, altere a linha 8 de `/scripts/config.py`.
+- Para trocar o título de **modo de uso**, altere a linha 4 de `/scripts/config.py`.
+- Para trocar a mensagem de **epílogo**, altere a linha 5 de `/scripts/config.py`.
+- Para trocar o título de **opções obrigatórias**, altere a linha 6 de `/scripts/config.py`.
+- Para trocar o título de **opções**, altere a linha 7 de `/scripts/config.py`.
 
-Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova o argumento `--help` da função na linha 170 de `/scripts/config.py`.
+Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova o argumento `--help` da função na linha 163 de `/scripts/config.py`.
 
 Comece a lógica do script na função `main` (linha 59) de `/scripts/__main__.py`.
 
