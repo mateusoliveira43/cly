@@ -4,7 +4,6 @@ on:
   push:
     branches: [ $default-branch ]
   pull_request:
-    branches: [ $default-branch ]
   schedule:
     - cron:  '0 0 * * 1' # Every Monday at 00:00 UTC
 
