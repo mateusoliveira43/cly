@@ -1,5 +1,6 @@
 import argparse
 import sys
+from typing import Callable, TypedDict
 
 USAGE_PREFIX = 'Usage:\n  [python|python3] '
 EPILOG = 'Script epilog.'
@@ -7,6 +8,12 @@ POSITIONALS_TITLE = 'Required options'
 OPTIONALS_TITLE = 'Options'
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
+
+
+class Command(TypedDict):
+    """Actions of a command."""
+    help: str
+    command: Callable
 
 
 def get_version(name: str, version: str) -> str:
@@ -130,7 +137,7 @@ def configured_parser(
 
 
 def configured_command(
-    subparser: argparse._SubParsersAction, name: str, actions: dict
+    subparser: argparse._SubParsersAction, name: str, actions: Command
 ) -> argparse.ArgumentParser:
     """
     Create configured command to script.
@@ -141,7 +148,7 @@ def configured_command(
         Supparser to add command.
     name : str
         Name of the command.
-    actions : dict
+    actions : Command
         Actions of the command.
 
     Returns
@@ -158,3 +165,21 @@ def configured_command(
     command.description = actions.get('help')
     command.epilog = EPILOG
     return command
+
+
+def initialize_parser(parser: argparse.ArgumentParser) -> argparse.Namespace:
+    """
+    Initialize the CLI parser.
+
+    Parameters
+    ----------
+    parser : ArgumentParser
+        parser to get user arguments.
+
+    Returns
+    -------
+    Namespace
+        Arguments used and unused.
+
+    """
+    return parser.parse_args(sys.argv[1:] or ['--help'])

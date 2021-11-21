@@ -2,9 +2,9 @@
 
 import argparse
 import sys
-from typing import List
 
 import config
+import utils
 from command1 import command1
 
 __version__ = '1.0.0'  # major.minor.patch
@@ -56,29 +56,11 @@ for name, actions in commands.items():
     )
 
 
-def initialize_parser(arguments: List[str]) -> argparse.Namespace:
-    """
-    Initialize the CLI parser.
-
-    Parameters
-    ----------
-    arguments : List[str]
-        List of arguments to be parsed.
-
-    Returns
-    -------
-    Namespace
-        Arguments used and unused.
-
-    """
-    return parser.parse_args(arguments)
-
-
 def main():
     """Run script on user call."""
-    args = initialize_parser(sys.argv[1:] or ['--help'])
+    args = config.initialize_parser(parser)
     if args.optional:
-        print('Optional flag called.')
+        utils.print_flashy('Optional flag called.')
     if args.command:
         commands.get(args.command).get('command')(**dict(args._get_kwargs()))
 
