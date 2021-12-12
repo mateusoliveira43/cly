@@ -36,50 +36,50 @@ def test_initialize_parser_without_options(sys_mock, capsys):
     assert sys_exit.value.code == 0
 
 
+@pytest.mark.parametrize('option', tests.HELP_FLAGS)
 @patch('scripts.config.sys')
-def test_initialize_parser_with_option_help(sys_mock, capsys):
+def test_initialize_parser_with_option_help(sys_mock, option, capsys):
     """Test initialize_parser with option help."""
-    for option in tests.HELP_FLAGS:
-        sys_mock.argv = ['file_name', option]
-        with pytest.raises(SystemExit) as sys_exit:
-            args = initialize_parser(TEST_PARSER)
-            assert args == argparse.Namespace()
-        output, error = capsys.readouterr()
-        assert not error
-        assert tests.USAGE in output
-        assert OPTIONS in output
-        assert DESCRIPTION in output
-        assert OPTIONS_DESCRIPTION in output
-        assert EPILOG in output
-        assert sys_exit.type == SystemExit
-        assert sys_exit.value.code == 0
+    sys_mock.argv = ['file_name', option]
+    with pytest.raises(SystemExit) as sys_exit:
+        args = initialize_parser(TEST_PARSER)
+        assert args == argparse.Namespace()
+    output, error = capsys.readouterr()
+    assert not error
+    assert tests.USAGE in output
+    assert OPTIONS in output
+    assert DESCRIPTION in output
+    assert OPTIONS_DESCRIPTION in output
+    assert EPILOG in output
+    assert sys_exit.type == SystemExit
+    assert sys_exit.value.code == 0
 
 
+@pytest.mark.parametrize('option', tests.VERSION_FLAGS)
 @patch('scripts.config.sys')
-def test_initialize_parser_with_option_version(sys_mock, capsys):
+def test_initialize_parser_with_option_version(sys_mock, option, capsys):
     """Test initialize_parser with option version."""
-    for option in tests.VERSION_FLAGS:
-        sys_mock.argv = ['file_name', option]
-        with pytest.raises(SystemExit) as sys_exit:
-            args = initialize_parser(TEST_PARSER)
-            assert args == argparse.Namespace()
-        output, error = capsys.readouterr()
-        assert not error
-        assert output == 'test script version major.minor.patch\n'
-        assert sys_exit.type == SystemExit
-        assert sys_exit.value.code == 0
+    sys_mock.argv = ['file_name', option]
+    with pytest.raises(SystemExit) as sys_exit:
+        args = initialize_parser(TEST_PARSER)
+        assert args == argparse.Namespace()
+    output, error = capsys.readouterr()
+    assert not error
+    assert output == 'test script version major.minor.patch\n'
+    assert sys_exit.type == SystemExit
+    assert sys_exit.value.code == 0
 
 
+@pytest.mark.parametrize('option', tests.INVALID_FLAGS)
 @patch('scripts.config.sys')
-def test_initialize_parser_with_invalid_options(sys_mock, capsys):
+def test_initialize_parser_with_invalid_options(sys_mock, option, capsys):
     """Test initialize_parser with invalid options."""
-    for option in tests.INVALID_FLAGS:
-        sys_mock.argv = ['file_name', option]
-        with pytest.raises(SystemExit) as sys_exit:
-            args = initialize_parser(TEST_PARSER)
-            assert args == argparse.Namespace()
-        output, error = capsys.readouterr()
-        assert tests.UNRECOGNIZED_ARGUMENTS in error
-        assert not output
-        assert sys_exit.type == SystemExit
-        assert sys_exit.value.code == 2
+    sys_mock.argv = ['file_name', option]
+    with pytest.raises(SystemExit) as sys_exit:
+        args = initialize_parser(TEST_PARSER)
+        assert args == argparse.Namespace()
+    output, error = capsys.readouterr()
+    assert tests.UNRECOGNIZED_ARGUMENTS in error
+    assert not output
+    assert sys_exit.type == SystemExit
+    assert sys_exit.value.code == 2
