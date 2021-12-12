@@ -1,7 +1,7 @@
 import sys
 from pathlib import Path
 
-HELP_FLAGS = ['-h', '--help']
+HELP_FLAGS = ['-h', '--helpy']
 VERSION_FLAGS = ['-v', '--version']
 OPTIONAL_FLAGS = ['-o', '--optional']
 INVALID_FLAGS = ['-k', '--invalid']
