@@ -4,7 +4,19 @@ from unittest.mock import patch
 
 import pytest
 from scripts.cli import commands, main
-import tests
+
+HELP_FLAGS = ['-h', '--help']
+VERSION_FLAGS = ['-v', '--version']
+OPTIONAL_FLAGS = ['-o', '--optional']
+INVALID_FLAGS = ['-k', '--invalid']
+
+USAGE = 'Usage:\n  [python|python3] file_name '
+OPTIONS = '[-h] [-v] [-o] [COMMAND] ...'
+OPTIONS_COMMAND = ' [-h] (-t str | -n int) ...'
+
+UNRECOGNIZED_ARGUMENTS = 'error: unrecognized arguments'
+INVALID_CHOICE = 'invalid choice'
+INVALID_INT_VALUE = 'invalid int value'
 
 INVALID_COMMANDS = ['riddler', 'joker']
 TEXT_OPTION_TEST_DATA = ['1', 'batman', 'nightwing']
@@ -22,12 +34,12 @@ def test_main_without_options(capsys):
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert tests.USAGE in output
+    assert USAGE + OPTIONS in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
 
-@pytest.mark.parametrize('option', tests.HELP_FLAGS)
+@pytest.mark.parametrize('option', HELP_FLAGS)
 def test_main_with_option_help(option, capsys):
     """Test main with option help."""
     sys_mock = ['file_name', option]
@@ -36,12 +48,12 @@ def test_main_with_option_help(option, capsys):
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert tests.USAGE in output
+    assert USAGE + OPTIONS in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
 
-@pytest.mark.parametrize('option', tests.VERSION_FLAGS)
+@pytest.mark.parametrize('option', VERSION_FLAGS)
 def test_main_with_option_version(option, capsys):
     """Test main with option version."""
     sys_mock = ['file_name', option]
@@ -55,7 +67,7 @@ def test_main_with_option_version(option, capsys):
     assert sys_exit.value.code == 0
 
 
-@pytest.mark.parametrize('option', tests.OPTIONAL_FLAGS)
+@pytest.mark.parametrize('option', OPTIONAL_FLAGS)
 def test_main_with_option_optional(option, capsys):
     """Test main with option optional."""
     sys_mock = ['file_name', option]
@@ -63,11 +75,11 @@ def test_main_with_option_optional(option, capsys):
         run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert tests.USAGE not in output
+    assert USAGE + OPTIONS not in output
     assert 'Optional flag called.' in output
 
 
-@pytest.mark.parametrize('option', tests.INVALID_FLAGS)
+@pytest.mark.parametrize('option', INVALID_FLAGS)
 def test_main_with_invalid_options(option, capsys):
     """Test main with invalid options."""
     sys_mock = ['file_name', option]
@@ -75,7 +87,7 @@ def test_main_with_invalid_options(option, capsys):
         with pytest.raises(SystemExit) as sys_exit:
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
-    assert tests.UNRECOGNIZED_ARGUMENTS in error
+    assert UNRECOGNIZED_ARGUMENTS in error
     assert not output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 2
@@ -89,7 +101,7 @@ def test_main_invalid_commands(command, capsys):
         with pytest.raises(SystemExit) as sys_exit:
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
-    assert tests.INVALID_CHOICE in error
+    assert INVALID_CHOICE in error
     assert not output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 2
@@ -110,7 +122,7 @@ def test_main_commands_without_options(command, capsys):
     assert sys_exit.value.code == 2
 
 
-@pytest.mark.parametrize('option', tests.HELP_FLAGS)
+@pytest.mark.parametrize('option', HELP_FLAGS)
 @pytest.mark.parametrize('command', commands)
 def test_main_commands_with_option_help(command, option, capsys):
     """Test main commands with option help."""
@@ -120,7 +132,7 @@ def test_main_commands_with_option_help(command, option, capsys):
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert tests.USAGE in output
+    assert USAGE + command + OPTIONS_COMMAND in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -206,7 +218,7 @@ def test_main_commands_with_invalid_option_number(
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
     assert not output
-    assert tests.INVALID_INT_VALUE in error
+    assert INVALID_INT_VALUE in error
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 2
 
@@ -221,6 +233,6 @@ def test_main_commands_with_invalid_option_arguments(command, args, capsys):
             run_module('scripts.__main__', run_name='__main__')
     output, error = capsys.readouterr()
     assert not output
-    assert tests.UNRECOGNIZED_ARGUMENTS in error
+    assert UNRECOGNIZED_ARGUMENTS in error
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 2
