@@ -9,9 +9,9 @@ COMMA = ', '
 DEFAULT = '\033[0m'
 UNDERLINE = '\033[4m'
 COLORS = {
-    'green': '\033[92m',
-    'red': '\033[91m',
-    'yellow': '\033[93m',
+    'green': '\033[1;92m',
+    'red': '\033[1;91m',
+    'yellow': '\033[1;93m',
 }
 
 
@@ -30,18 +30,19 @@ def format_options(options: list) -> str:
         Formated options.
 
     """
-    # TODO cases list being empty or with just an element
+    if len(options) < 2:
+        return ''.join(options)
     return f'{COMMA.join(options[:-1])} or {options[-1]}'
 
 
 def get_color(color: COLORS) -> str:
     """
-    Get available color.
+    Get available color by name.
 
     Parameters
     ----------
     color : COLORS
-        One of the available colors.
+        One of the available colors' name.
 
     Returns
     -------
@@ -55,7 +56,7 @@ def get_color(color: COLORS) -> str:
     except KeyError:
         print(
             f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
-            ' is not a valid color. Choose between '
+            ' is not a valid color. Available colors: '
             f'{format_options(list(COLORS.keys()))}.'
         )
         sys.exit(1)

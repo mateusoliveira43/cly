@@ -60,5 +60,23 @@ def main():
     args = parser.parse_args(config.initialize_parser())
     if args.optional:
         utils.print_flashy('Optional flag called.')
+        for color in utils.COLORS.keys():
+            utils.print_flashy(
+                utils.color_text('Optional flag called.', color)
+            )
+        utils.print_flashy(f'Optional {utils.underline_text("flag")} called.')
+        for color in utils.COLORS.keys():
+            utils.print_flashy(utils.color_text(
+                f'Optional {utils.underline_text("flag")} called.', color)
+            )
+            utils.print_flashy(utils.color_text(
+                f'Optional {utils.underline_text("flag", color)} called.',
+                color
+            ))
+        utils.print_flashy(
+            f"{utils.color_text('Optional', 'green')} "
+            f"{utils.color_text('flag', 'yellow')} "
+            f"{utils.color_text('called.', 'red')}"
+        )
     if args.command:
         commands.get(args.command).get('command')(**dict(args._get_kwargs()))
