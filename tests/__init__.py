@@ -6,7 +6,7 @@ VERSION_FLAGS = ['-v', '--version']
 OPTIONAL_FLAGS = ['-o', '--optional']
 INVALID_FLAGS = ['-k', '--invalid']
 
-USAGE = 'Usage:\n  [python|python3] '
+USAGE = 'Usage:\n  [python|python3] file_name'  # TODO add full message
 
 UNRECOGNIZED_ARGUMENTS = 'error: unrecognized arguments'
 INVALID_CHOICE = 'invalid choice'

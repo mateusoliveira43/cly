@@ -5,6 +5,130 @@ import sys
 from typing import List, Optional, Union
 
 SPACE = ' '
+COMMA = ', '
+DEFAULT = '\033[0m'
+UNDERLINE = '\033[4m'
+COLORS = {
+    'green': '\033[92m',
+    'red': '\033[91m',
+    'yellow': '\033[93m',
+}
+
+
+def format_options(options: list) -> str:
+    """
+    Format a list of options separating them with comma and 'or'.
+
+    Parameters
+    ----------
+    options : list
+        List of options.
+
+    Returns
+    -------
+    str
+        Formated options.
+
+    """
+    # TODO cases list being empty or with just an element
+    return f'{COMMA.join(options[:-1])} or {options[-1]}'
+
+
+def get_color(color: COLORS) -> str:
+    """
+    Get available color.
+
+    Parameters
+    ----------
+    color : COLORS
+        One of the available colors.
+
+    Returns
+    -------
+    str
+        Unicode character of color, if available; else, exits error returncode
+        1.
+
+    """
+    try:
+        return COLORS[color]
+    except KeyError:
+        print(
+            f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
+            ' is not a valid color. Choose between '
+            f'{format_options(list(COLORS.keys()))}.'
+        )
+        sys.exit(1)
+
+
+def underline_text(text: str, color: COLORS = None) -> str:
+    """
+    Underline text.
+
+    Parameters
+    ----------
+    text : str
+        Text to underline.
+    color : COLORS, optional
+        Color of end character of text, by defult None.
+
+    Returns
+    -------
+    str
+        Underlined text.
+
+    """
+    end_character = DEFAULT
+    if color:
+        end_character += get_color(color)
+    return f'{UNDERLINE}{text}{end_character}'
+
+
+def color_text(text: str, color: COLORS) -> str:
+    """
+    Color text with one of the available colors.
+
+    Parameters
+    ----------
+    text : str
+        Text to color.
+    color : COLOR
+        One of the available colors.
+
+    Returns
+    -------
+    str
+        Colored text.
+
+    """
+    return f'{get_color(color)}{text}{DEFAULT}'
+
+
+def get_print_length(message: str) -> int:
+    """
+    Get the length user sees in shell of message.
+
+    Parameters
+    ----------
+    message : str
+        Message to disregard length of characters user do not see in shell.
+
+    Returns
+    -------
+    int
+        Length user sees in shell.
+
+    """
+    checker = {
+        **COLORS,
+        'underline': UNDERLINE,
+        'default': DEFAULT,
+    }
+    message_length = len(message)
+    for style in checker.values():
+        if style in message:
+            message_length -= message.count(style) * len(style)
+    return message_length
 
 
 def print_flashy(message: str) -> None:
@@ -14,15 +138,11 @@ def print_flashy(message: str) -> None:
     Parameters
     ----------
     message : str
-        Message to centralized.
-
-    Returns
-    -------
-    None
+        Message to centralize.
 
     """
     width, _ = shutil.get_terminal_size()
-    message_width = len(message) + 2
+    message_width = get_print_length(message) + 2
     left = math.floor((width - message_width) / 2)
     right = width - left - message_width
     print(f"{'>'*left} {message} {'<'*right}")
@@ -30,7 +150,7 @@ def print_flashy(message: str) -> None:
 
 def parse_arguments(arguments: Union[str, List[str]]) -> str:
     """
-    Parse arguments.
+    Parse arguments into a string.
 
     Parameters
     ----------
@@ -40,7 +160,7 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
     Returns
     -------
     str
-        Arguments.
+        Parsed arguments.
 
     """
     if isinstance(arguments, list):
@@ -48,7 +168,34 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
     return arguments
 
 
-def get_returncode(arguments: Union[str, List[str]]) -> bool:
+def get_output(
+    arguments: Union[str, List[str]]
+) -> subprocess.CompletedProcess:
+    """
+    Get the output information of the shell command.
+
+    Parameters
+    ----------
+    arguments : Union[str, List[str]]
+        A string, or list of strings, containing the commands and arguments.
+
+    Returns
+    -------
+    int
+        Command's output information.
+
+    """
+    command = parse_arguments(arguments)
+    return subprocess.run(
+        command,
+        shell=True,
+        check=False,
+        capture_output=True,
+        encoding='utf-8'
+    )
+
+
+def get_returncode(arguments: Union[str, List[str]]) -> int:
     """
     Get the returncode of the shell command.
 
@@ -59,23 +206,19 @@ def get_returncode(arguments: Union[str, List[str]]) -> bool:
 
     Returns
     -------
-    shell_returncode : bool
-        True if command's returncode was 0; else, False.
+    int
+        Command's returncode.
 
     """
-    command = parse_arguments(arguments)
-    # pylint:disable=subprocess-run-check
-    output = subprocess.run(
-        command,
-        shell=True,
-        capture_output=True
-    )
-    return not output.returncode
+    output = get_output(arguments)
+    return output.returncode
 
 
-def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
+def get_standard_output(
+    arguments: Union[str, List[str]]
+) -> Optional[List[str]]:
     """
-    Get the output of the shell command.
+    Get the standard output of the shell command.
 
     Parameters
     ----------
@@ -85,23 +228,19 @@ def get_output(arguments: Union[str, List[str]]) -> Optional[List[str]]:
     Returns
     -------
     output : Optional[List[str]]
-        A list of strings containing the output's words; else, None.
+       A list of strings containing the output's words; else, None.
 
     """
-    command = parse_arguments(arguments)
-    # pylint:disable=subprocess-run-check
-    output = subprocess.run(
-        command,
-        shell=True,
-        capture_output=True,
-        encoding='utf-8'
-    ).stdout.replace('\n', SPACE)
+    # TODO add line parameter to split lines or words
+    output = get_output(arguments).stdout.replace('\n', SPACE)
     if output:
         return [word for word in output.split(SPACE) if word]
     return None
 
 
-def run_command(arguments: Union[str, List[str]]):
+def run_command(
+    arguments: Union[str, List[str]]
+) -> subprocess.CompletedProcess:
     """
     Run the shell command.
 
@@ -113,7 +252,7 @@ def run_command(arguments: Union[str, List[str]]):
     Returns
     -------
     subprocess.CompletedProcess[str]
-        Executes the command (success); else, exits return code (error) of the
+        Executes the command (success); else, exits error returncode of the
         command.
 
     """
@@ -126,5 +265,7 @@ def run_command(arguments: Union[str, List[str]]):
             encoding='utf-8'
         )
     except subprocess.CalledProcessError as error:
-        print(f'ERROR: {error}')
+        message = str(error).replace("'", UNDERLINE, 1)
+        message = (DEFAULT + COLORS['red']).join(message.rsplit("'", 1))
+        print(color_text(f'ERROR: {message}', 'red'))
         sys.exit(error.returncode)

@@ -3,14 +3,31 @@ from unittest.mock import patch
 
 import pytest
 from scripts.utils import (
-    get_output, get_returncode, parse_arguments, print_flashy, run_command
+    color_text, get_returncode, get_standard_output,
+    parse_arguments, print_flashy, run_command, underline_text
 )
 
+GET_PRINT_LENGTH_DATA = [
+    {'message': '1', 'result': 1},
+    {'message': '12', 'result': 2},
+    {'message': '123', 'result': 3},
+    {'message': '1234', 'result': 4},
+    {'message': color_text('LEGO', 'red'), 'result': 4},
+    {'message': color_text('LEGO', 'yellow'), 'result': 4},
+    {'message': color_text('LEGO', 'green'), 'result': 4},
+    {'message': underline_text('LEGO'), 'result': 4},
+    # TODO add text with color and underline
+]
 PRINT_FLASHY_DATA = [
-    {'message': '1', 'mock': 20, 'left': 8, 'right': 9},
-    {'message': '12', 'mock': 20, 'left': 8, 'right': 8},
-    {'message': '123', 'mock': 20, 'left': 7, 'right': 8},
-    {'message': '1234', 'mock': 20, 'left': 7, 'right': 7},
+    {'message_length': 1, 'mock': 20, 'left': 8, 'right': 9},
+    {'message_length': 2, 'mock': 20, 'left': 8, 'right': 8},
+    {'message_length': 3, 'mock': 20, 'left': 7, 'right': 8},
+    {'message_length': 4, 'mock': 20, 'left': 7, 'right': 7},
+    {'message_length': 5, 'mock': 20, 'left': 6, 'right': 7},
+    {'message_length': 10, 'mock': 20, 'left': 4, 'right': 4},
+    {'message_length': 20, 'mock': 20, 'left': 0, 'right': 0},
+    {'message_length': 100, 'mock': 20, 'left': 0, 'right': 0},
+    {'message_length': 100, 'mock': 200, 'left': 49, 'right': 49},
 ]
 PARSE_ARGUMENTS_DATA = [
     {'input': ['the', 'dark', 'knight'], 'output': 'the dark knight'},
@@ -18,8 +35,8 @@ PARSE_ARGUMENTS_DATA = [
     {'input': 'grep -Inr "batman" .', 'output': 'grep -Inr "batman" .'},
 ]
 RETURNCODE_DATA = [
-    {'input': ['joker', '--help'], 'mock': 0, 'output': True},
-    {'input': 'batman --version', 'mock': 127, 'output': False},
+    {'input': ['joker', '--help'], 'mock': 0},
+    {'input': 'batman --version', 'mock': 127},
 ]
 OUTPUT_DATA = [
     {
@@ -48,17 +65,30 @@ RUN_COMMAND_ERROR_DATA = [
     {'input': 'batman --version', 'return_code': 1},
 ]
 
+# TODO test format_options
+
+# TODO test get_color
+
+# TODO test underline_text
+
+# TODO test color_text
+
+# TODO test get_print_length
+
 
 @pytest.mark.parametrize('scenario', PRINT_FLASHY_DATA)
+@patch('scripts.utils.get_print_length')
 @patch('shutil.get_terminal_size')
-def test_print_flashy(mock_shutil, scenario, capsys):
+# TODO add test for new scenarios
+def test_print_flashy(mock_shutil, mock_print_length, scenario, capsys):
     """Test print_flashy."""
     mock_shutil.return_value = (scenario['mock'], 1)
+    mock_print_length.return_value = scenario['message_length']
     expected = (
-        f"{'>'*scenario['left']} {scenario['message']} "
+        f"{'>'*scenario['left']} {'a' * scenario['message_length']} "
         f"{'<'*scenario['right']}\n"
     )
-    print_flashy(scenario['message'])
+    print_flashy('a' * scenario['message_length'])
     output, error = capsys.readouterr()
     assert not error
     assert output == expected
@@ -70,6 +100,8 @@ def test_parse_arguments(scenario):
     output = parse_arguments(scenario['input'])
     assert output == scenario['output']
 
+# TODO test get_output
+
 
 @pytest.mark.parametrize('scenario', RETURNCODE_DATA)
 @patch('subprocess.run')
@@ -77,15 +109,15 @@ def test_get_returncode(mock_subprocess, scenario):
     """Test get_returncode."""
     mock_subprocess.return_value.returncode = scenario['mock']
     output = get_returncode(scenario['input'])
-    assert output == scenario['output']
+    assert output == scenario['mock']
 
 
 @pytest.mark.parametrize('scenario', OUTPUT_DATA)
 @patch('subprocess.run')
-def test_get_output(mock_subprocess, scenario):
+def test_get_standard_output(mock_subprocess, scenario):
     """Test get_output."""
     mock_subprocess.return_value.stdout = scenario['mock']
-    output = get_output(scenario['input'])
+    output = get_standard_output(scenario['input'])
     assert output == scenario['output']
 
 
@@ -100,16 +132,19 @@ def test_run_command_success(mock_subprocess, scenario):
 
 @pytest.mark.parametrize('scenario', RUN_COMMAND_ERROR_DATA)
 @patch('subprocess.run')
+# TODO add test for new scenarios
 def test_run_command_error(mock_subprocess, scenario, capsys):
     """Test run_command with error."""
     mock_subprocess.side_effect = subprocess.CalledProcessError(
         returncode=scenario['return_code'],
         cmd=scenario['input'],
     )
-    formatted = (
-        f"ERROR: Command '{scenario['input']}' returned non-zero exit "
-        f"status {scenario['return_code']}.\n"
+    formatted = color_text(
+        f'ERROR: Command {underline_text(scenario["input"], "red")} returned '
+        f'non-zero exit status {scenario["return_code"]}.',
+        'red'
     )
+    formatted += '\n'
     with pytest.raises(SystemExit) as sys_exit:
         run_command(scenario['input'])
     sys_output, sys_error = capsys.readouterr()

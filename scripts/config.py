@@ -160,19 +160,21 @@ def configured_command(
     return command
 
 
-def initialize_parser(parser: argparse.ArgumentParser) -> argparse.Namespace:
+def initialize_parser(add_help: bool = True) -> list:
     """
     Initialize the CLI parser.
 
     Parameters
     ----------
-    parser : ArgumentParser
-        parser to get user arguments.
+    add_help : bool, optional
+        Add help option if no arguments are passed, by default True.
 
     Returns
     -------
-    Namespace
-        Arguments used and unused.
+    list
+        List of arguments to be parsed by argparse.
 
     """
-    return parser.parse_args(sys.argv[1:] or ['--help'])
+    if add_help:
+        return sys.argv[1:] or ['--help']
+    return sys.argv[1:]
