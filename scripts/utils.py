@@ -216,7 +216,7 @@ def get_returncode(arguments: Union[str, List[str]]) -> int:
 
 
 def get_standard_output(
-    arguments: Union[str, List[str]]
+    arguments: Union[str, List[str]], lines: bool = False
 ) -> Optional[List[str]]:
     """
     Get the standard output of the shell command.
@@ -225,6 +225,8 @@ def get_standard_output(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
+    lines : bool, optional
+        Separate output in lines instead of word, by default False.
 
     Returns
     -------
@@ -232,10 +234,13 @@ def get_standard_output(
        A list of strings containing the output's words; else, None.
 
     """
-    # TODO add line parameter to split lines or words
-    output = get_output(arguments).stdout.replace('\n', SPACE)
+    output = get_output(arguments).stdout
     if output:
-        return [word for word in output.split(SPACE) if word]
+        if lines:
+            return [line for line in output.split('\n') if line]
+        return [
+            word for word in output.replace('\n', SPACE).split(SPACE) if word
+        ]
     return None
 
 
