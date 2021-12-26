@@ -16,9 +16,9 @@ ARGUMENTS = {
 }
 INVALID_FLAGS = ['-k', '--invalid']
 
-USAGE = f'Usage:\n  [python|python3] {EXAMPLE_FILE} '
+USAGE = f'Usage:\n  [python|python3] {EXAMPLE_FILE}'
 OPTIONS = '[-h] [-v] [-o] [COMMAND] ...'
-OPTIONS_COMMAND = ' [-h] (-t str | -n int) ...'
+OPTIONS_COMMAND = '[-h] (-t str | -n int) ...'
 
 UNRECOGNIZED_ARGUMENTS = 'error: unrecognized arguments'
 INVALID_CHOICE = 'invalid choice'
@@ -40,7 +40,8 @@ def test_main_without_options(capsys):
             run_path(EXAMPLE_FILE, run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert USAGE + OPTIONS in output
+    assert USAGE in output
+    assert OPTIONS in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -54,7 +55,8 @@ def test_main_with_option_help(option, capsys):
             run_path(EXAMPLE_FILE, run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert USAGE + OPTIONS in output
+    assert USAGE in output
+    assert OPTIONS in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -81,7 +83,8 @@ def test_main_with_option_optional(option, capsys):
         run_path(EXAMPLE_FILE, run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert USAGE + OPTIONS not in output
+    assert USAGE not in output
+    assert OPTIONS not in output
     assert 'Optional flag called.' in output
 
 
@@ -138,7 +141,9 @@ def test_main_commands_with_option_help(command, option, capsys):
             run_path(EXAMPLE_FILE, run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert USAGE + command + OPTIONS_COMMAND in output
+    assert USAGE in output
+    assert command in output
+    assert OPTIONS_COMMAND in output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
