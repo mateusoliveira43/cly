@@ -10,6 +10,9 @@ Template to create Python scripts.
 - [ ] Add more quality measures to code and CI pipeline.
 - [ ] Remove docstring rule for tests files.
 - [ ] Add poetry to template.
+- [ ] Add sphinx to template.
+- [ ] Add this tasks to issues and create Project.
+- [ ] create Wiki.
 
 # About the Template
 

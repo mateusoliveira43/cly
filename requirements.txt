@@ -1,4 +1,3 @@
-# Requirements to run quality measures check
 prospector
 pytest
 pytest-cov

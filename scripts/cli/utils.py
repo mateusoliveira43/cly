@@ -1,3 +1,21 @@
+"""
+Utils functions for calling shell.
+
+Functions:
+
+    format_options(list) -> string
+    TODO checar formato e add restante
+
+Misc variables:
+
+    SPACE
+    COMMA
+    DEFAULT
+    UNDERLINE
+    COLORS
+
+"""
+
 import math
 import shutil
 import subprocess
@@ -226,12 +244,13 @@ def get_standard_output(
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
     lines : bool, optional
-        Separate output in lines instead of word, by default False.
+        Separate output in lines instead of separating in words, by default
+        False.
 
     Returns
     -------
     output : Optional[List[str]]
-       A list of strings containing the output's words; else, None.
+       A list of strings containing the output's words or lines; else, None.
 
     """
     output = get_output(arguments).stdout

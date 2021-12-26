@@ -1,8 +1,10 @@
+"""Unit tests of module scripts.cli.utils."""
+
 import subprocess
 from unittest.mock import patch
 
 import pytest
-from scripts.utils import (
+from scripts.cli.utils import (
     COLORS, DEFAULT, UNDERLINE, color_text, format_options, get_color,
     get_output, get_print_length, get_returncode, get_standard_output,
     parse_arguments, print_flashy, run_command, underline_text
@@ -58,12 +60,29 @@ OUTPUT_DATA = [
     {
         'input': ['joker', '--help'],
         'mock': 'Why\nso\nserious\n?',
-        'output': ['Why', 'so', 'serious', '?']
+        'output': ['Why', 'so', 'serious', '?'],
+        'lines': ['Why', 'so', 'serious', '?'],
+    },
+    {
+        'input': 'dent --version',
+        'mock': (
+            'You either die a hero\nor you live long enough to see yourself '
+            'become the villain'
+        ),
+        'output': [
+            'You', 'either', 'die', 'a', 'hero', 'or', 'you', 'live', 'long',
+            'enough', 'to', 'see', 'yourself', 'become', 'the', 'villain',
+        ],
+        'lines': [
+            'You either die a hero',
+            'or you live long enough to see yourself become the villain',
+        ],
     },
     {
         'input': 'batman --version',
         'mock': '',
-        'output': None
+        'output': None,
+        'lines': None,
     },
 ]
 RUN_COMMAND_SUCCESS_DATA = [
@@ -125,7 +144,7 @@ def test_get_print_length(scenario):
 
 
 @pytest.mark.parametrize('scenario', PRINT_FLASHY_DATA)
-@patch('scripts.utils.get_print_length')
+@patch('scripts.cli.utils.get_print_length')
 @patch('shutil.get_terminal_size')
 # TODO add test for new scenarios
 def test_print_flashy(mock_shutil, mock_print_length, scenario, capsys):
@@ -177,6 +196,15 @@ def test_get_standard_output(mock_subprocess, scenario):
     mock_subprocess.return_value.stdout = scenario['mock']
     output = get_standard_output(scenario['input'])
     assert output == scenario['output']
+
+
+@pytest.mark.parametrize('scenario', OUTPUT_DATA)
+@patch('subprocess.run')
+def test_get_standard_output_with_lines(mock_subprocess, scenario):
+    """Test get_output."""
+    mock_subprocess.return_value.stdout = scenario['mock']
+    output = get_standard_output(scenario['input'], lines=True)
+    assert output == scenario['lines']
 
 
 @pytest.mark.parametrize('scenario', RUN_COMMAND_SUCCESS_DATA)

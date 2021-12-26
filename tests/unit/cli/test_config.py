@@ -1,8 +1,10 @@
+"""Unit tests of module scripts.cli.config."""
+
 import sys
 from unittest.mock import patch
 
 import pytest
-from scripts.config import initialize_parser
+from scripts.cli.config import initialize_parser
 
 PARAMETER = [True, False]
 SYS_MOCK = [

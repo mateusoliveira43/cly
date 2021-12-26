@@ -1,3 +1,22 @@
+"""
+Add scripts folder to PYTHONPATH.
+
+See module unit.cli.test_config for unit tests of module scripts.cli.config.
+See module unit.cli.test_utils for unit tests of module scripts.cli.utils.
+See module unit.example.test_command1 for unit tests of module
+scripts.example.command1.
+See module unit.example.test_main for unit tests of module
+scripts.example.main.
+See module integration.test_example for integration tests of module
+scripts.example.
+
+Misc variables:
+
+    ABSOLUTE_PATH
+    TODO ver o q vai ter de duplicidade e add aki
+
+"""
+
 import sys
 from pathlib import Path
 
