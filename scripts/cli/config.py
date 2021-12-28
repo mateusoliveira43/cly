@@ -1,25 +1,4 @@
-"""
-argparse's parser configuration.
-
-Classes:
-
-    CustomFormatter
-
-Functions:
-
-    get_version(string, string) -> string
-    TODO checar formato e add restante
-
-Misc variables:
-
-    USAGE_PREFIX
-    EPILOG
-    POSITIONALS_TITLE
-    OPTIONALS_TITLE
-    HELP_MESSAGE
-    VERSION_MESSAGE
-
-"""
+"""argparse's parser custom configuration."""
 
 import argparse
 import sys

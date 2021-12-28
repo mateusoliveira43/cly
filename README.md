@@ -10,24 +10,27 @@ Template to create Python scripts.
 - [ ] Add more quality measures to code and CI pipeline.
 - [ ] Remove docstring rule for tests files.
 - [ ] Add poetry to template.
-- [ ] Add sphinx to template.
 - [ ] Add this tasks to issues and create Project.
 - [ ] create Wiki.
+- [ ] Add Sonar to project.
 
 # About the Template
 
+TODO atualizar texto
 In the project's folder, run with your machine Python 3 command
 ```
-[python|python3] ./scripts
-[python|python3] ./scripts -h
-[python|python3] ./scripts --help
+[python|python3] scripts/run_example.py
+[python|python3] scripts/run_example.py -h
+[python|python3] scripts/run_example.py --help
 ```
 to display the script's help message.
 
 Run the script with Python 3 command is optional. You can run the script with
 ```
-./scripts/__main__.py
+scripts/run_example.py
 ```
+
+TODO WIKI
 
 If you do not have permission to run it in your Linux's system, run
 ```
@@ -45,6 +48,8 @@ to grant run permission to the file.
 To disable showing the **help** message when running the script without arguments, remove `--help` argument from function in line 163 of `/scripts/config.py`.
 
 Begin script's logic at function `main` (line 59) of `/scripts/__main__.py`.
+
+TODO WIKI
 
 # Quality
 

@@ -1,20 +1,4 @@
-"""
-Utils functions for calling shell.
-
-Functions:
-
-    format_options(list) -> string
-    TODO checar formato e add restante
-
-Misc variables:
-
-    SPACE
-    COMMA
-    DEFAULT
-    UNDERLINE
-    COLORS
-
-"""
+"""Utils functions for calling shell."""
 
 import math
 import shutil
@@ -53,13 +37,13 @@ def format_options(options: list) -> str:
     return f'{COMMA.join(options[:-1])} or {options[-1]}'
 
 
-def get_color(color: COLORS) -> str:
+def get_color(color: str) -> str:
     """
     Get available color by name.
 
     Parameters
     ----------
-    color : COLORS
+    color : str
         One of the available colors' name.
 
     Returns
@@ -80,7 +64,7 @@ def get_color(color: COLORS) -> str:
         sys.exit(1)
 
 
-def underline_text(text: str, color: COLORS = None) -> str:
+def underline_text(text: str, color: str = None) -> str:
     """
     Underline text.
 
@@ -88,8 +72,9 @@ def underline_text(text: str, color: COLORS = None) -> str:
     ----------
     text : str
         Text to underline.
-    color : COLORS, optional
-        Color of end character of text, by defult None.
+    color : str, optional
+        One of the available colors' name for end character of text, by defult
+        None.
 
     Returns
     -------
@@ -103,7 +88,7 @@ def underline_text(text: str, color: COLORS = None) -> str:
     return f'{UNDERLINE}{text}{end_character}'
 
 
-def color_text(text: str, color: COLORS) -> str:
+def color_text(text: str, color: str) -> str:
     """
     Color text with one of the available colors.
 
@@ -111,8 +96,8 @@ def color_text(text: str, color: COLORS) -> str:
     ----------
     text : str
         Text to color.
-    color : COLOR
-        One of the available colors.
+    color : str
+        One of the available colors' name.
 
     Returns
     -------

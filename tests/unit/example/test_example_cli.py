@@ -1,13 +1,13 @@
-"""Unit tests of module scripts.example.main."""
+"""Unit tests of module scripts.example.example_cli."""
 
 import sys
 from unittest.mock import patch
 
 import pytest
-from scripts.example.main import COMMANDS, main
+from scripts.example.example_cli import COMMANDS, main
 from tests import ABSOLUTE_PATH
 
-EXAMPLE_FILE = (ABSOLUTE_PATH / 'example.py').as_posix()
+EXAMPLE_FILE = (ABSOLUTE_PATH / 'run_example.py').as_posix()
 HELP_FLAGS = ['-h', '--help']
 ARGUMENTS = {
     'optional': ['-o', '--optional'],
@@ -32,7 +32,7 @@ INVALID_ARGUMENTS_OPTION_TEST_DATA = [['-k'], ['-v'], ['-batman', 'joker']]
 
 @pytest.mark.parametrize('text_input', TEXT_OPTION_TEST_DATA)
 @pytest.mark.parametrize('command', COMMANDS)
-@patch('scripts.example.main.COMMANDS')
+@patch('scripts.example.example_cli.COMMANDS')
 def test_main_commands_with_option_text(
     commands_mock, command, text_input, capsys
 ):
@@ -55,7 +55,7 @@ def test_main_commands_with_option_text(
 
 @pytest.mark.parametrize('number_input', NUMBER_OPTION_TEST_DATA)
 @pytest.mark.parametrize('command', COMMANDS)
-@patch('scripts.example.main.COMMANDS')
+@patch('scripts.example.example_cli.COMMANDS')
 def test_main_commands_with_option_number(
     commands_mock, command, number_input, capsys
 ):
@@ -78,7 +78,7 @@ def test_main_commands_with_option_number(
 
 @pytest.mark.parametrize('args', ARGUMENTS_OPTION_TEST_DATA)
 @pytest.mark.parametrize('command', COMMANDS)
-@patch('scripts.example.main.COMMANDS')
+@patch('scripts.example.example_cli.COMMANDS')
 def test_main_commands_with_option_arguments(
     commands_mock, command, args, capsys
 ):

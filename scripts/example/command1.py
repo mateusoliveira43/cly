@@ -1,11 +1,4 @@
-"""
-Create command example.
-
-Functions:
-
-    command1(**kwargs)
-
-"""
+"""Create command example."""
 
 
 def command1(**kwargs):

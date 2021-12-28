@@ -1,18 +1,4 @@
-"""
-Create configured argparse's CLI example.
-
-Functions:
-
-    main()
-
-Misc variables:
-
-    __version__
-    NAME
-    DESCRIPTION
-    COMMANDS
-
-"""
+"""Create configured argparse's CLI example."""
 
 import argparse
 

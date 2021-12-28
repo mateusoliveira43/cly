@@ -1,14 +1,14 @@
-"""Integration tests of module scripts.example."""
+"""Integration tests of module scripts.run_example."""
 
 import sys
 from runpy import run_path
 from unittest.mock import patch
 
 import pytest
-from scripts.example.main import COMMANDS
+from scripts.example.example_cli import COMMANDS
 from tests import ABSOLUTE_PATH
 
-EXAMPLE_FILE = (ABSOLUTE_PATH / 'example.py').as_posix()
+EXAMPLE_FILE = (ABSOLUTE_PATH / 'run_example.py').as_posix()
 ARGUMENTS = {
     'help': ['-h', '--help'],
     'version': ['-v', '--version'],
