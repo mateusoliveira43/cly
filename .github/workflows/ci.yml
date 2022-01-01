@@ -1,4 +1,4 @@
-name: Python Script Template CI Pipeline
+name: Continuos Integration
 
 on:
   push:

@@ -18,6 +18,7 @@ FORMAT_OPTIONS_DATA = [
     {'options': ['1', '2', '3', '4', '5'], 'result': '1, 2, 3, 4 or 5'},
 ]
 GET_COLOR_DATA_ERROR = ['batman', 'joker', 'riddler', 'blue', 'white']
+WORDS = ['Batman', 'Bruce Wayne', 'Joker', 'Edward Nigma']
 GET_PRINT_LENGTH_DATA = [
     {'message': '1', 'result': 1},
     {'message': '12', 'result': 2},
@@ -108,7 +109,7 @@ def test_format_options(scenario):
     assert output == scenario['result']
 
 
-@pytest.mark.parametrize('color', COLORS.keys())
+@pytest.mark.parametrize('color', COLORS)
 def test_get_color_success(color):
     """Test get_color with success."""
     output = get_color(color)
@@ -121,7 +122,7 @@ def test_get_color_error(color, capsys):
     expected = (
         f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
         ' is not a valid color. Available colors: '
-        f'{format_options(list(COLORS.keys()))}.\n'
+        f'{format_options(list(COLORS))}.\n'
     )
     with pytest.raises(SystemExit) as sys_exit:
         get_color(color)
@@ -131,7 +132,32 @@ def test_get_color_error(color, capsys):
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 1
 
-# TODO test underline_text
+
+@pytest.mark.parametrize('word', WORDS)
+def test_underline_text(word):
+    """Test underline_text."""
+    words = word.split()
+    if len(words) > 1:
+        remaining_words = " ".join(words[1:])
+        output = f'{underline_text(words[0])} {remaining_words}'
+        assert output == f'{UNDERLINE}{words[0]}{DEFAULT} {remaining_words}'
+    output = underline_text(word)
+    assert output == UNDERLINE + word + DEFAULT
+
+
+@pytest.mark.parametrize('color', COLORS)
+@pytest.mark.parametrize('word', WORDS)
+def test_underline_text_with_color(word, color):
+    """Test underline_text with color."""
+    words = word.split()
+    if len(words) > 1:
+        remaining_words = " ".join(words[1:])
+        output = f'{underline_text(words[0], color)} {remaining_words}'
+        assert output == (
+            f'{UNDERLINE}{words[0]}{DEFAULT}{COLORS[color]} {remaining_words}'
+        )
+    output = underline_text(word, color)
+    assert output == UNDERLINE + word + DEFAULT + COLORS[color]
 
 # TODO test color_text
 
@@ -146,12 +172,10 @@ def test_get_print_length(scenario):
 @pytest.mark.parametrize('scenario', PRINT_FLASHY_DATA)
 @patch('scripts.cli.utils.get_print_length')
 @patch('shutil.get_terminal_size')
-# TODO add test for new scenarios
 def test_print_flashy(mock_shutil, mock_print_length, scenario, capsys):
     """Test print_flashy."""
     mock_shutil.return_value = (scenario['mock'], 1)
     mock_print_length.return_value = scenario['message_length']
-    # TODO better structure this test
     expected = (
         f"{'>'*scenario['left']} {'a' * scenario['message_length']} "
         f"{'<'*scenario['right']}\n"
@@ -218,7 +242,6 @@ def test_run_command_success(mock_subprocess, scenario):
 
 @pytest.mark.parametrize('scenario', RUN_COMMAND_ERROR_DATA)
 @patch('subprocess.run')
-# TODO add test for new scenarios
 def test_run_command_error(mock_subprocess, scenario, capsys):
     """Test run_command with error."""
     mock_subprocess.side_effect = subprocess.CalledProcessError(

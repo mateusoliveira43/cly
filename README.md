@@ -1,5 +1,7 @@
 # Python script template
 
+![example workflow](https://github.com/mateusoliveira43/python-script-template/actions/workflows/ci.yml/badge.svg)
+
 - [Arquivo README em português](docs/README_PT.md)
 
 Template to create Python scripts.
