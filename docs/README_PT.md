@@ -1,52 +1,26 @@
-# Modelo de script Python
+# Modelo de script com CLI em Python
+
+![ci](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)
 
 - [README file in English](../README.md)
 
-Modelo para criar scripts Python.
+Modelo para criar scripts com interfaces de linha de comando em Python, usando a biblioteca padrão do Python [argparse](https://docs.python.org/3/library/argparse.html).
 
-## Tarefas
+Confira a [Wiki](https://github.com/mateusoliveira43/python-cli-script-template/wiki) do repositório para mais detalhes.
 
-- [ ] Opção para editar e traduzir as mensagens de erro também.
-- [ ] Adicionar mais medidas de qualidade ao código e às etapas de integração contínua.
-- [ ] Remover regra de docstring para arquivos de testes.
-- [ ] Adicionar poetry ao modelo.
-
-TODO atualizar README
-# Sobre o Modelo
+# Exemplo de uso
 
 Na pasta do projeto, execute
 ```
-[python|python3] ./scripts
-[python|python3] ./scripts -h
-[python|python3] ./scripts --help
+[python|python3] scripts/run_example.py
+[python|python3] scripts/run_example.py -h
+[python|python3] scripts/run_example.py --help
 ```
-para mostrar a mensagem de ajuda do script.
-
-Executar o script com o comando de Python 3 é opcional. Você pode executar o script com
-```
-./scripts/__main__.py
-```
-
-Se você não tem permissão para executá-lo no seu sistema Linux, execute
-```
-chmod +x ./scripts/__main__.py
-```
-para dar permissão de execução ao arquivo.
-
-- Para trocar o **nome do script**, altere a linha 11 de `/scripts/__main__.py`.
-- Para trocar a mensagem de **descrição**, altere a linha 12 de `/scripts/__main__.py`.
-- Para trocar o título de **modo de uso**, altere a linha 4 de `/scripts/config.py`.
-- Para trocar a mensagem de **epílogo**, altere a linha 5 de `/scripts/config.py`.
-- Para trocar o título de **opções obrigatórias**, altere a linha 6 de `/scripts/config.py`.
-- Para trocar o título de **opções**, altere a linha 7 de `/scripts/config.py`.
-
-Para desabilitar mostrar a mensagem de **ajuda** quando executar o script sem argumentos, remova o argumento `--help` da função na linha 163 de `/scripts/config.py`.
-
-Comece a lógica do script na função `main` (linha 59) de `/scripts/__main__.py`.
+para mostrar a mensagem de ajuda do script. Executar o script com o comando de Python 3 é opcional.
 
 # Qualidade
 
-Para rodar as métricas de qualidade do modelo, é necessário instalar os requisitos. Para instalá-los, execute
+Para rodar as métricas de qualidade do modelo, é necessário instalar seus requisitos. Para instalá-los, execute
 ```
 virtualenv .venv
 source .venv/bin/activate
