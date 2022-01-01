@@ -1,4 +1,6 @@
-from scripts.command1 import command1
+"""Unit tests of module scripts.example.command1."""
+
+from scripts.example.command1 import command1
 
 
 def test_command1_without_options(capsys):

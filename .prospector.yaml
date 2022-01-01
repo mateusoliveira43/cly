@@ -5,16 +5,10 @@ max-line-length: 79
 
 pep257:
   disable:
-    - D100 # Missing docstring in public module
-    - D104 # Missing docstring in public package
     - D212 # Multi-line docstring summary should start at the first line
     - D203 # 1 blank line required before class docstring
-    - D204 # 1 blank line required after class docstring
-
 
 pylint:
   disable:
-    - import-error
-    - missing-module-docstring
     - protected-access
 

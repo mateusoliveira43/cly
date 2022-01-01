@@ -1,3 +1,5 @@
+"""argparse's parser custom configuration."""
+
 import argparse
 import sys
 
@@ -63,6 +65,7 @@ class CustomFormatter(argparse.HelpFormatter):
         Adds metavar only once to arguments.
 
     """
+
     def __init__(self, *args, **kwargs):
         """Call super class init's."""
         super().__init__(*args, **kwargs)
@@ -129,8 +132,35 @@ def configured_parser(
     return parser
 
 
+def configured_subparser(
+    parser: argparse.ArgumentParser
+) -> argparse._SubParsersAction:
+    """
+    Create configured subparser to add commands.
+
+    Parameters
+    ----------
+    parser : ArgumentParser
+        Argparse's parser.
+
+    Returns
+    -------
+    _SubParsersAction
+        Configured argparse's subparser.
+
+    """
+    return parser.add_subparsers(
+        dest='command',
+        metavar='[COMMAND]',
+        title='Commands',
+        prog=sys.argv[0]
+    )
+
+
 def configured_command(
-    subparser: argparse._SubParsersAction, name: str, actions: dict
+    subparser: argparse._SubParsersAction,
+    name: str,
+    help_message: str
 ) -> argparse.ArgumentParser:
     """
     Create configured command to script.
@@ -138,11 +168,11 @@ def configured_command(
     Parameters
     ----------
     subparser : _SubParsersAction
-        Supparser to add command.
+        Subparser to add command.
     name : str
         Name of the command.
-    actions : dict
-        Actions of the command.
+    help_message : str
+        Help message of the command.
 
     Returns
     -------
@@ -150,29 +180,31 @@ def configured_command(
         Configured argparse's parser command.
 
     """
-    command = subparser.add_parser(name, help=actions.get('help'))
+    command = subparser.add_parser(name, help=help_message)
     command.formatter_class = CustomFormatter
     command._positionals.title = POSITIONALS_TITLE
     command._optionals.title = OPTIONALS_TITLE
     command._actions[0].help = get_command_help_messsage(name)
-    command.description = actions.get('help')
+    command.description = help_message
     command.epilog = EPILOG
     return command
 
 
-def initialize_parser(parser: argparse.ArgumentParser) -> argparse.Namespace:
+def initialize_parser(add_help: bool = True) -> list:
     """
     Initialize the CLI parser.
 
     Parameters
     ----------
-    parser : ArgumentParser
-        parser to get user arguments.
+    add_help : bool, optional
+        Add help option if no arguments are passed, by default True.
 
     Returns
     -------
-    Namespace
-        Arguments used and unused.
+    list
+        List of arguments to be parsed by argparse.
 
     """
-    return parser.parse_args(sys.argv[1:] or ['--help'])
+    if add_help:
+        return sys.argv[1:] or ['--help']
+    return sys.argv[1:]

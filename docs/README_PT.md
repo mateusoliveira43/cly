@@ -11,6 +11,7 @@ Modelo para criar scripts Python.
 - [ ] Remover regra de docstring para arquivos de testes.
 - [ ] Adicionar poetry ao modelo.
 
+TODO atualizar README
 # Sobre o Modelo
 
 Na pasta do projeto, execute

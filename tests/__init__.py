@@ -1,16 +1,9 @@
+"""Add scripts folder to PYTHONPATH for pytest."""
+
 import sys
 from pathlib import Path
 
-HELP_FLAGS = ['-h', '--help']
-VERSION_FLAGS = ['-v', '--version']
-OPTIONAL_FLAGS = ['-o', '--optional']
-INVALID_FLAGS = ['-k', '--invalid']
-
-USAGE = 'Usage:\n  [python|python3] '
-
-UNRECOGNIZED_ARGUMENTS = 'error: unrecognized arguments'
-INVALID_CHOICE = 'invalid choice'
-INVALID_INT_VALUE = 'invalid int value'
+# TODO melhorar testes ainda, deixar tudo temático
 
 ABSOLUTE_PATH = Path(__file__).resolve().parent.parent / 'scripts'
 if ABSOLUTE_PATH.exists():
