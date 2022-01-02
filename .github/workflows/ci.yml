@@ -50,3 +50,6 @@ jobs:
 
       - name: Linter
         run: prospector .
+
+      - name: Code format
+        run: isort -cvm 5 --gitignore --df .

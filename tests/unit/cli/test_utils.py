@@ -4,6 +4,7 @@ import subprocess
 from unittest.mock import patch
 
 import pytest
+
 from scripts.cli.utils import (
     COLORS, DEFAULT, UNDERLINE, color_text, format_options, get_color,
     get_output, get_print_length, get_returncode, get_standard_output,

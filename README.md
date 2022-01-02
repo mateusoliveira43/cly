@@ -1,6 +1,7 @@
 # Python CLI script template
 
 ![ci](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 
 - [Arquivo README em português](docs/README_PT.md)
 
@@ -10,7 +11,7 @@ Check the repository [Wiki](https://github.com/mateusoliveira43/python-cli-scrip
 
 # Example of use
 
-In the scripts's folder, the `example` Python package and `run_example` Python module are example of use of the script.
+In the scripts folder, the `example` Python package and `run_example` Python module are example of use of the template.
 
 To run the example, run
 ```
@@ -50,6 +51,13 @@ prospector .
 ```
 
 Linter configuration in `.prospector.yml` file.
+
+## Code formatters
+
+To format imports, run
+```
+isort -v -m 5 --gitignore .
+```
 
 # License
 
