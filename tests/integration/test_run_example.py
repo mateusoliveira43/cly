@@ -5,6 +5,7 @@ from runpy import run_path
 from unittest.mock import patch
 
 import pytest
+
 from scripts.example.example_cli import COMMANDS
 from tests import ABSOLUTE_PATH
 

@@ -1,3 +1,5 @@
+# Requirements for development only
+isort
 prospector
 pytest
 pytest-cov

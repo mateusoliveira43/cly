@@ -4,6 +4,7 @@ import math
 from unittest.mock import patch
 
 import pytest
+
 from scripts.cli.utils import (
     COLORS, DEFAULT, UNDERLINE, color_text, print_flashy, underline_text
 )

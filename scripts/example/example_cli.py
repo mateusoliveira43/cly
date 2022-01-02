@@ -2,8 +2,7 @@
 
 import argparse
 
-from cli import config
-from cli import utils
+from cli import config, utils
 from example.command1 import command1
 
 __version__ = '1.0.0'  # major.minor.patch

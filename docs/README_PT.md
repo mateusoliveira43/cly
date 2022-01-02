@@ -1,6 +1,7 @@
 # Modelo de script com CLI em Python
 
 ![ci](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 
 - [README file in English](../README.md)
 
@@ -10,13 +11,15 @@ Confira a [Wiki](https://github.com/mateusoliveira43/python-cli-script-template/
 
 # Exemplo de uso
 
-Na pasta do projeto, execute
+Na pasta script, o pacote Python `example` e o módulo Python `run_example` são exemplos de uso do modelo.
+
+Na rodar o exemplo, execute
 ```
 [python|python3] scripts/run_example.py
 [python|python3] scripts/run_example.py -h
 [python|python3] scripts/run_example.py --help
 ```
-para mostrar a mensagem de ajuda do script. Executar o script com o comando de Python 3 é opcional.
+para mostrar a mensagem de ajuda do script de exemplo. Executar o script com o comando de Python 3 é opcional.
 
 # Qualidade
 
@@ -48,6 +51,13 @@ prospector .
 ```
 
 Configurações do Linter descritas no arquivo `.prospector.yml`.
+
+## Formatadores de código
+
+Para formatar as importações, execute
+```
+isort -v -m 5 --gitignore .
+```
 
 # Licença
 
