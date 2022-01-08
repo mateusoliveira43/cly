@@ -52,4 +52,9 @@ jobs:
         run: prospector .
 
       - name: Code format
-        run: isort -cvm 5 --gitignore --df .
+        run: isort -cvm 3 --tc --gitignore --df .
+
+      - name: Security vulnerability scan
+        run: |
+          bandit -r scripts
+          safety check

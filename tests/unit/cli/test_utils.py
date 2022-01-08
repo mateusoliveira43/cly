@@ -6,9 +6,20 @@ from unittest.mock import patch
 import pytest
 
 from scripts.cli.utils import (
-    COLORS, DEFAULT, UNDERLINE, color_text, format_options, get_color,
-    get_output, get_print_length, get_returncode, get_standard_output,
-    parse_arguments, print_flashy, run_command, underline_text
+    COLORS,
+    DEFAULT,
+    UNDERLINE,
+    color_text,
+    format_options,
+    get_color,
+    get_output,
+    get_print_length,
+    get_returncode,
+    get_standard_output,
+    parse_arguments,
+    print_flashy,
+    run_command,
+    underline_text,
 )
 
 FORMAT_OPTIONS_DATA = [
