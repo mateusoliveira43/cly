@@ -2,7 +2,9 @@
 
 import math
 import shutil
-import subprocess
+# Scripts that manipulate the shell must always be careful with possible
+# security implications.
+import subprocess  # nosec
 import sys
 from typing import List, Optional, Union
 
@@ -178,6 +180,8 @@ def get_output(
     """
     Get the output information of the shell command.
 
+    **Be careful about security implications when manipulating the shell!**
+
     Parameters
     ----------
     arguments : Union[str, List[str]]
@@ -192,7 +196,7 @@ def get_output(
     command = parse_arguments(arguments)
     return subprocess.run(
         command,
-        shell=True,
+        shell=True,  # nosec
         check=False,
         capture_output=True,
         encoding='utf-8'
@@ -202,6 +206,8 @@ def get_output(
 def get_returncode(arguments: Union[str, List[str]]) -> int:
     """
     Get the returncode of the shell command.
+
+    **Be careful about security implications when manipulating the shell!**
 
     Parameters
     ----------
@@ -223,6 +229,8 @@ def get_standard_output(
 ) -> Optional[List[str]]:
     """
     Get the standard output of the shell command.
+
+    **Be careful about security implications when manipulating the shell!**
 
     Parameters
     ----------
@@ -254,6 +262,8 @@ def run_command(
     """
     Run the shell command.
 
+    **Be careful about security implications when manipulating the shell!**
+
     Parameters
     ----------
     arguments : Union[str, List[str]]
@@ -270,7 +280,7 @@ def run_command(
     try:
         return subprocess.run(
             command,
-            shell=True,
+            shell=True,  # nosec
             check=True,
             encoding='utf-8'
         )

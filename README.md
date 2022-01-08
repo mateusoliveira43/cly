@@ -2,6 +2,7 @@
 
 ![ci](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 - [Arquivo README em português](docs/README_PT.md)
 
@@ -56,7 +57,19 @@ Linter configuration in `.prospector.yml` file.
 
 To format imports, run
 ```
-isort -v -m 5 --gitignore .
+isort -vm 3 --tc --gitignore .
+```
+
+## Security vulnerability scanners
+
+To check common security issues in source code, run
+```
+bandit -r scripts
+```
+
+To check known security vulnerabilities in installed dependencies, run
+```
+safety check
 ```
 
 # License

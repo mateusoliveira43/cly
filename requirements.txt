@@ -1,5 +1,7 @@
 # Requirements for development only
+bandit
 isort
 prospector
 pytest
 pytest-cov
+safety
