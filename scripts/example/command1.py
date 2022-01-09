@@ -9,5 +9,5 @@ def command1(**kwargs):
     if isinstance(kwargs.get('number'), int):
         print(f'Number argument called with {kwargs["number"]}.')
 
-def error:
-    
+# def error:
+#     pass
