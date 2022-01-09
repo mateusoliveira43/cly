@@ -3,6 +3,7 @@
 [![Integração Contínua](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
 [![Importações: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![segurança: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=mateusoliveira43_python-cli-script-template)](https://sonarcloud.io/summary/new_code?id=mateusoliveira43_python-cli-script-template)
 
 - [README file in English](../README.md)
 
