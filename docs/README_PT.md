@@ -73,6 +73,10 @@ Para checar vulnerabilidades de segurança conhecidas nas dependências instalad
 safety check
 ```
 
+## Análise de código com SonarCloud
+
+[SonarCloud](https://sonarcloud.io/) analisa o código fonte do repositório através das etapas de integração contínua.
+
 # Licença
 
 Esse repositório é licenciado sob os termos da [Licença MIT](LICENSE).

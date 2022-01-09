@@ -73,9 +73,11 @@ To check known security vulnerabilities in installed dependencies, run
 safety check
 ```
 
-## Sonarqube
+## SonarCloud Code Analysis
 
 TODO add sonar lint config to wiki
+
+[SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through CI pipeline.
 
 # License
 
