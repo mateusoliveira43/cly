@@ -8,3 +8,6 @@ def command1(**kwargs):
         print(f'Text argument called with {kwargs["text"]}.')
     if isinstance(kwargs.get('number'), int):
         print(f'Number argument called with {kwargs["number"]}.')
+
+# def error:
+#     pass
