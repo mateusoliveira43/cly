@@ -16,11 +16,10 @@ jobs:
     strategy:
       matrix:
         python-version: [
-          "3.6",
           "3.7",
           "3.8",
           "3.9",
-          "pypy-3.6",
+          "3.10",
           "pypy-3.7",
           "pypy-3.8"
         ]
@@ -40,12 +39,6 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: ${{ runner.os }}-pip-
 
-      - name: Should break for 3.6
-        run: |
-          scripts/run_example.py -h
-          scripts/run_example.py command1 -h
-          scripts/run_example.py -o
-
       - name: Install dependencies
         run: pip install -r requirements.txt
 
@@ -62,6 +55,11 @@ jobs:
         run: |
           bandit -r scripts
           safety check
+
+      - name: Usage example
+        run: |
+          scripts/run_example.py --help
+          scripts/run_example.py command1 --help
 
   sonarcloud:
       runs-on: ubuntu-latest
