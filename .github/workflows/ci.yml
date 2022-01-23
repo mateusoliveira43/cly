@@ -45,11 +45,11 @@ jobs:
       - name: Test and coverage
         run: pytest
 
-      # - name: Save xml coverage report
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: xml-coverage-report
-      #     path: tests/coverage-results/coverage.xml
+      - name: Save xml coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: xml-coverage-report
+          path: tests/coverage-results/coverage.xml
 
       - name: Linter
         run: prospector .
@@ -75,10 +75,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: Use xml coverage report
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: xml-coverage-report
+      - name: Use xml coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: xml-coverage-report
+          path: tests/coverage-results/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
