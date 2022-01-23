@@ -45,11 +45,11 @@ jobs:
       - name: Test and coverage
         run: pytest
 
-      - name: Save xml coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: xml-coverage-report
-          path: tests/coverage-results/coverage.xml
+      # - name: Save xml coverage report
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: xml-coverage-report
+      #     path: tests/coverage-results/coverage.xml
 
       - name: Linter
         run: prospector .
@@ -68,19 +68,20 @@ jobs:
           scripts/run_example.py command1 --help
 
   sonarcloud:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-        - name: Use xml coverage report
-          uses: actions/download-artifact@v2
-          with:
-            name: xml-coverage-report
+      # - name: Use xml coverage report
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: xml-coverage-report
 
-        - name: SonarCloud Scan
-          uses: SonarSource/sonarcloud-github-action@master
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
