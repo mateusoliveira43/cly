@@ -9,6 +9,19 @@ POSITIONALS_TITLE = 'Required options'
 OPTIONALS_TITLE = 'Options'
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
+PYTHON_MINIMUM_VERSION = (3, 7)
+
+
+def check_python_minimum_version():
+    """Check if user Python's version is valid to running the template."""
+    user_version = (sys.version_info.major, sys.version_info.minor)
+    if user_version < PYTHON_MINIMUM_VERSION:
+        # TODO create colors file, to avoid cyclic dependencies
+        print(
+            'Python version does not meet minimum requirement',
+            PYTHON_MINIMUM_VERSION
+        )
+        sys.exit(1)
 
 
 def get_version(name: str, version: str) -> str:
@@ -113,6 +126,7 @@ def configured_parser(
         Configured argparse's parser.
 
     """
+    check_python_minimum_version()
     parser = argparse.ArgumentParser(
         prog=sys.argv[0],
         description=description,
