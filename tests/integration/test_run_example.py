@@ -18,8 +18,8 @@ ARGUMENTS = {
 INVALID_FLAGS = ['-k', '--invalid']
 
 USAGE = f'Usage:\n  [python|python3] {EXAMPLE_FILE}'
-OPTIONS = '[-h] [-v] [-o] [COMMAND] ...'
-OPTIONS_COMMAND = '[-h] (-t str | -n int) ...'
+OPTIONS = ['[-h]', '[-v]', '[-o]', '[COMMAND]', '...']
+OPTIONS_COMMAND = ['[-h]', '(-t str | -n int)', '...']
 
 UNRECOGNIZED_ARGUMENTS = 'error: unrecognized arguments'
 INVALID_CHOICE = 'invalid choice'
@@ -42,7 +42,7 @@ def test_main_without_options(capsys):
     output, error = capsys.readouterr()
     assert not error
     assert USAGE in output
-    assert OPTIONS in output
+    assert all(option in output for option in OPTIONS)
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -57,7 +57,7 @@ def test_main_with_option_help(option, capsys):
     output, error = capsys.readouterr()
     assert not error
     assert USAGE in output
-    assert OPTIONS in output
+    assert all(option in output for option in OPTIONS)
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -71,7 +71,9 @@ def test_main_with_option_version(option, capsys):
             run_path(EXAMPLE_FILE, run_name='__main__')
     output, error = capsys.readouterr()
     assert not error
-    assert output == 'Script name version 1.0.0\n'
+    assert all(word in output for word in [
+        'Script', 'name', 'version', '1.0.0', '\n'
+    ])
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 
@@ -85,7 +87,7 @@ def test_main_with_option_optional(option, capsys):
     output, error = capsys.readouterr()
     assert not error
     assert USAGE not in output
-    assert OPTIONS not in output
+    assert not all(option in output for option in OPTIONS)
     assert 'Optional flag called.' in output
 
 
@@ -144,7 +146,7 @@ def test_main_commands_with_option_help(command, option, capsys):
     assert not error
     assert USAGE in output
     assert command in output
-    assert OPTIONS_COMMAND in output
+    assert all(option_command in output for option_command in OPTIONS_COMMAND)
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 0
 

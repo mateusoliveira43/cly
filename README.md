@@ -82,6 +82,8 @@ TODO add sonar lint config to wiki
 
 ## Pre-commit
 
+TODO write
+
 https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
 ```
 # install pre-commit globally
