@@ -81,10 +81,11 @@ jobs:
           name: xml-coverage-report
           path: tests/coverage-results/
 
+      - name: Change dir name for sonar
+        run: sed -i 's*home/runner/work/python-cli-script-template/python-cli-script-template*github/workspace*g' tests/coverage-results/coverage.xml
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: /home/runner/work/python-cli-script-template/python-cli-script-template/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
