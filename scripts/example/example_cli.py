@@ -49,5 +49,7 @@ def main():
     args = parser.parse_args(config.initialize_parser())
     if args.optional:
         utils.print_flashy('Optional flag called.')
+        if utils.get_returncode('python3 --version') == 0:
+            utils.run_command('python3 --version')
     if args.command:
         COMMANDS.get(args.command)(**dict(args._get_kwargs()))
