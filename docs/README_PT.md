@@ -84,7 +84,7 @@ Para configurar o pre-commit automaticamente ao clonar o repositório, execute
 ```
 pip install pre-commit
 git config --global init.templateDir ~/.git-template
-pre-commit init-templatedir ~/.git-template
+pre-commit init-templatedir --hook-type commit-msg ~/.git-template
 ```
 Precisa ser instalado de forma global. Mais informações em https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
 
