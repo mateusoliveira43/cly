@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/jorisroovers/gitlint
+    rev:  v0.17.0
+    hooks:
+    - id: gitlint
+  - repo: local
+    hooks:
+    - id: tests
+      name: Tests
+      description: Run project tests
+      entry: .venv/bin/pytest --no-cov
+      pass_filenames: false
+      language: python
+  - repo: local
+    hooks:
+    - id: linter
+      name: Linter
+      description: Run project linter
+      entry: .venv/bin/prospector .
+      pass_filenames: false
+      language: python
+  - repo: local
+    hooks:
+    - id: code-format
+      name: Code formatters
+      description: Run project code formatters
+      entry: .venv/bin/isort -cvm 3 --tc --gitignore --df .
+      pass_filenames: false
+      language: python
+  - repo: local
+    hooks:
+    - id: security-scan
+      name: Security vulnerability scanners
+      description: Run project's security vulnerability scanners
+      entry: .venv/bin/bandit -r scripts && .venv/bin/safety check
+      pass_filenames: false
+      language: python

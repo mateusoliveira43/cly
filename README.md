@@ -4,6 +4,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateusoliveira43_python-cli-script-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateusoliveira43_python-cli-script-template)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 - [Arquivo README em português](docs/README_PT.md)
 
@@ -78,6 +79,23 @@ safety check
 TODO add sonar lint config to wiki
 
 [SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through CI pipeline.
+
+## Pre-commit
+
+To configure pre-commit automatically when cloning the repo, run
+```
+pip install pre-commit
+git config --global init.templateDir ~/.git-template
+pre-commit init-templatedir ~/.git-template
+```
+Must be installed globally. More information in https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
+
+To configure pre-commit locally, run
+```
+pip install pre-commit
+pre-commit install --hook-type commit-msg
+```
+with your virtual environment active.
 
 # License
 
