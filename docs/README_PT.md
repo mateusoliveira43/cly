@@ -78,6 +78,23 @@ safety check
 
 [SonarCloud](https://sonarcloud.io/) analisa o código fonte do repositório através das etapas de integração contínua.
 
+## Pre-commit
+
+Para configurar o pre-commit automaticamente ao clonar o repositório, execute
+```
+pip install pre-commit
+git config --global init.templateDir ~/.git-template
+pre-commit init-templatedir ~/.git-template
+```
+Precisa ser instalado de forma global. Mais informações em https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
+
+Para configurar o pre-commit localmente, execute
+```
+pip install pre-commit
+pre-commit install --hook-type commit-msg
+```
+com seu ambiente virtual ativo.
+
 # Licença
 
 Esse repositório é licenciado sob os termos da [Licença MIT](LICENSE).

@@ -82,20 +82,20 @@ TODO add sonar lint config to wiki
 
 ## Pre-commit
 
-TODO write
-
-https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
+To configure pre-commit automatically when cloning the repo, run
 ```
-# install pre-commit globally
 pip install pre-commit
 git config --global init.templateDir ~/.git-template
 pre-commit init-templatedir ~/.git-template
 ```
+Must be installed globally. More information in https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
 
+To configure pre-commit locally, run
 ```
 pip install pre-commit
 pre-commit install --hook-type commit-msg
 ```
+with your virtual environment active.
 
 # License
 
