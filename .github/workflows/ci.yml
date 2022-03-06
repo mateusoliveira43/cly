@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-reports
-          path: tests/coverage-results
+          path: tests/coverage-results/
 
       - name: Linter
         run: prospector .
@@ -80,10 +80,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-reports
-          path: tests/
+          path: ${{ github.workspace }}/tests/
 
-      - name: Change dir name for sonar
-        run: sed -i 's*home/runner/work/python-cli-script-template/python-cli-script-template*github/workspace*g' tests/coverage-results/coverage.xml
+      # - name: Change dir name for sonar
+      #   run: sed -i 's*home/runner/work/python-cli-script-template/python-cli-script-template*github/workspace*g' tests/coverage-results/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
