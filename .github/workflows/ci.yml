@@ -45,12 +45,20 @@ jobs:
       - name: Test and coverage
         run: pytest
 
-      - name: Save coverage reports
+      - name: Save html coverage reports
+        # always download after previous step!?
         if: ${{ matrix.python-version == '3.10' }}
         uses: actions/upload-artifact@v2
         with:
-          name: coverage-reports
-          path: tests/coverage-results/
+          name: html-coverage-report
+          path: tests/coverage-results/htmlcov/
+
+      - name: Save xml coverage reports
+        if: ${{ matrix.python-version == '3.10' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: xml-coverage-report
+          path: tests/coverage-results/coverage.xml
 
       - name: Linter
         run: prospector .
@@ -79,11 +87,11 @@ jobs:
       - name: Use xml coverage report
         uses: actions/download-artifact@v2
         with:
-          name: coverage-reports
-          path: ${{ github.workspace }}/tests/
+          name: xml-coverage-report
+          path: github/workspace/tests/coverage-results/
 
-      - name: Change dir name for sonar
-        run: sed -i 's*home/runner/work/python-cli-script-template/python-cli-script-template*github/workspace*g' tests/coverage-results/coverage.xml
+      # - name: Change dir name for sonar
+      #   run: sed -i 's*home/runner/work/python-cli-script-template/python-cli-script-template*github/workspace*g' tests/coverage-results/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
