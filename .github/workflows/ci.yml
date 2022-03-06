@@ -46,7 +46,7 @@ jobs:
         run: pytest
 
       - name: Save html coverage report
-        if: ${{ matrix.python-version == '3.10' }} && success() || failure()
+        if: ${{ matrix.python-version == '3.10' && success() || failure() }}
         uses: actions/upload-artifact@v2
         with:
           name: html-coverage-report
