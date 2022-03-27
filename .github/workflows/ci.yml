@@ -63,7 +63,7 @@ jobs:
         run: prospector .
 
       - name: Code format
-        run: isort -cvm 3 --tc --gitignore --df .
+        run: isort -c --df .
 
       - name: Security vulnerability scan
         run: |

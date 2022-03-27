@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "python-cli-script-template"
+version = "0.1.0"
+description = "Template to create Python CLI scripts"
+authors = ["Mateus Oliveira"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+bandit = "^1.7.4"
+isort = "^5.10.1"
+prospector = "^1.7.7"
+pytest = "^7.1.1"
+pytest-cov = "^3.0.0"
+safety = "^1.10.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+filterwarnings = "error"
+addopts = [
+    "-vv",
+    "-s",
+    "--cov-report=term-missing",
+    "--cov-report=html:tests/coverage-results/htmlcov",
+    "--cov-report=xml:tests/coverage-results/coverage.xml",
+    "--cov=scripts",
+    "--cov-fail-under=100",
+]
+
+[tool.isort]
+verbose = true
+multi_line_output = 3
+include_trailing_comma = true
+skip_gitignore = true

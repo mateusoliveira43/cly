@@ -24,7 +24,7 @@ repos:
     - id: code-format
       name: Code formatters
       description: Run project code formatters
-      entry: .venv/bin/isort -cvm 3 --tc --gitignore --df .
+      entry: .venv/bin/isort -c --df .
       pass_filenames: false
       language: python
   - repo: local
