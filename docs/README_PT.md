@@ -26,11 +26,16 @@ para mostrar a mensagem de ajuda do script de exemplo. Executar o script com o c
 
 # Qualidade
 
-Para rodar as métricas de qualidade do modelo, é necessário instalar seus requisitos. Para instalá-los, execute
+Para rodar as métricas de qualidade do modelo, é necessário instalar seus requisitos de desenvolvimento. Para instalá-los, execute
 ```
 virtualenv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements/dev.txt
+```
+ou
+```
+poetry install --no-root
+poetry shell
 ```
 
 As métricas de qualidade do modelo são reproduzidas pelas etapas de integração contínua do projeto. Configurações das etapas de integração contínua descritas no arquivo `.github/workflows/ci.yml`.
@@ -44,7 +49,7 @@ pytest
 
 Para ver o relatório html, confira `tests/coverage-results/htmlcov/index.html`.
 
-Configurações dos testes e relatório de cobertura descritas no arquivo `pytest.ini`.
+Configurações dos testes e relatório de cobertura descritas no arquivo `pyproject.toml`.
 
 ## Linter
 
@@ -53,14 +58,16 @@ Para rodar o linter, execute
 prospector .
 ```
 
-Configurações do Linter descritas no arquivo `.prospector.yml`.
+Configurações do Linter descritas no arquivo `.prospector.yaml`.
 
 ## Formatadores de código
 
 Para formatar as importações, execute
 ```
-isort -vm 3 --tc --gitignore .
+isort .
 ```
+
+Configurações do isort descritas no arquivo `pyproject.toml`.
 
 ## Varredura de vulnerabilidades de segurança
 

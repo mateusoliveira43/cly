@@ -26,11 +26,16 @@ to display the example script's help message. Run the script with Python 3 comma
 
 # Quality
 
-To run the template quality measures, it is needed to install its requirements. To install then, run
+To run the template quality measures, it is needed to install its development requirements. To install then, run
 ```
 virtualenv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements/dev.txt
+```
+or
+```
+poetry install --no-root
+poetry shell
 ```
 
 The quality measures of the template are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in `.github/workflows/ci.yml` file.
@@ -44,7 +49,7 @@ pytest
 
 To see the html report, check `tests/coverage-results/htmlcov/index.html`.
 
-Tests and coverage configuration in `pytest.ini` file.
+Tests and coverage configuration in `pyproject.toml` file.
 
 ## Linter
 
@@ -53,14 +58,16 @@ To run linter, run
 prospector .
 ```
 
-Linter configuration in `.prospector.yml` file.
+Linter configuration in `.prospector.yaml` file.
 
 ## Code formatters
 
 To format imports, run
 ```
-isort -vm 3 --tc --gitignore .
+isort .
 ```
+
+isort configuration in `pyproject.toml` file.
 
 ## Security vulnerability scanners
 
@@ -78,7 +85,7 @@ safety check
 
 TODO add sonar lint config to wiki
 
-[SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through CI pipeline.
+[SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through the CI pipeline.
 
 ## Pre-commit
 
