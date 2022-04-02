@@ -19,13 +19,14 @@ repos:
       entry: .venv/bin/prospector .
       pass_filenames: false
       language: python
-  - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
+  - repo: local
     hooks:
     - id: isort
-      args:
-      - -c
-      - --df
+      name: Python code formatter for imports
+      description: Run Python code formatter for imports
+      entry: .venv/bin/isort -c --df .
+      pass_filenames: false
+      language: python
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
     rev: 2.4.0
     hooks:

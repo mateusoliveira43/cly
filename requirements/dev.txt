@@ -73,6 +73,8 @@ dodgy==0.2.1; python_full_version >= "3.6.2" and python_version < "4.0" \
 dparse==0.5.1; python_version >= "3.5" \
     --hash=sha256:e953a25e44ebb60a5c6efc2add4420c177f1d8404509da88da9729202f306994 \
     --hash=sha256:a1b5f169102e1c894f9a7d5ccf6f9402a836a5d24be80a986c7ce9eaed78f367
+editorconfig-checker==2.4.0; python_version >= "2.7" \
+    --hash=sha256:1f7839df7d967d95f0cf2ed6a42a0f456c65072d2ffcff1fedc0eac62ed236ea
 flake8-polyfill==1.0.2; python_full_version >= "3.6.2" and python_version < "4.0" \
     --hash=sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda \
     --hash=sha256:12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9
@@ -275,7 +277,7 @@ typed-ast==1.5.2; implementation_name == "cpython" and python_version < "3.8" an
     --hash=sha256:f290617f74a610849bd8f5514e34ae3d09eafd521dceaa6cf68b3f4414266d4e \
     --hash=sha256:df05aa5b241e2e8045f5f4367a9f6187b09c4cdf8578bb219861c4e27c443db5 \
     --hash=sha256:525a2d4088e70a9f75b08b3f87a51acc9cde640e19cc523c7e41aa355564ae27
-typing-extensions==4.1.1; python_version >= "3.7" and python_full_version >= "3.6.2" \
+typing-extensions==4.1.1; python_version < "3.8" and python_version >= "3.7" and python_full_version >= "3.6.2" \
     --hash=sha256:21c85e0fe4b9a155d0799430b0ad741cdce7e359660ccbd8b530613e8df88ce2 \
     --hash=sha256:1a9462dcc3347a79b1f1c0271fbe79e844580bb598bafa1ed208b94da3cdcd42
 urllib3==1.26.9; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4" and python_version >= "3.5" \
