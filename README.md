@@ -62,7 +62,12 @@ Python linter configuration in `.prospector.yaml` file.
 
 ## Code formatters
 
-To format imports, run
+To check Python code imports format, run
+```
+isort -c --df .
+```
+
+To format Python code imports, run
 ```
 isort .
 ```
@@ -78,12 +83,12 @@ File format configuration in `.editorconfig` file.
 
 ## Security vulnerability scanners
 
-To check common security issues in source code, run
+To check common security issues in Python code, run
 ```
 bandit -r scripts
 ```
 
-To check known security vulnerabilities in installed dependencies, run
+To check known security vulnerabilities in Python dependencies, run
 ```
 safety check -r requirements/dev.txt --full-report
 ```
