@@ -16,7 +16,7 @@ Confira a [Wiki](https://github.com/mateusoliveira43/python-cli-script-template/
 
 Na pasta script, o pacote Python `example` e o módulo Python `run_example` são exemplos de uso do modelo.
 
-Na rodar o exemplo, execute
+Para rodar o exemplo, execute
 ```
 [python|python3] scripts/run_example.py
 [python|python3] scripts/run_example.py -h
@@ -53,30 +53,42 @@ Configurações dos testes e relatório de cobertura descritas no arquivo `pypro
 
 ## Linter
 
-Para rodar o linter, execute
+Para rodar o linter de código Python, execute
 ```
 prospector .
 ```
 
-Configurações do Linter descritas no arquivo `.prospector.yaml`.
+Configurações do linter de Python descritas no arquivo `.prospector.yaml`.
 
 ## Formatadores de código
 
-Para formatar as importações, execute
+Para checar o formato das importações no código Python, execute
+```
+isort -c --df .
+```
+
+Para formatar as importações no código Python, execute
 ```
 isort .
 ```
 
 Configurações do isort descritas no arquivo `pyproject.toml`.
 
+Para checar o formato de todos os arquivos do repositório, execute
+```
+ec -v
+```
+
+Configurações do formato dos arquivos descritas no arquivo `.editorconfig`.
+
 ## Varredura de vulnerabilidades de segurança
 
-Para checar problemas de segurança comuns no código fonte, execute
+Para checar problemas de segurança comuns no código Python, execute
 ```
 bandit -r scripts
 ```
 
-Para checar vulnerabilidades de segurança conhecidas nas dependências instaladas, execute
+Para checar vulnerabilidades de segurança conhecidas nas dependências Python, execute
 ```
 safety check
 ```
@@ -101,6 +113,11 @@ pip install pre-commit
 pre-commit install --hook-type commit-msg
 ```
 com seu ambiente virtual ativo.
+
+Para testá-lo, execute
+```
+pre-commit run --all-files
+```
 
 # Licença
 

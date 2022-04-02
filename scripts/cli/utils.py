@@ -243,7 +243,7 @@ def get_standard_output(
     Returns
     -------
     output : Optional[List[str]]
-       A list of strings containing the output's words or lines; else, None.
+        A list of strings containing the output's words or lines; else, None.
 
     """
     output = get_output(arguments).stdout

@@ -5,33 +5,45 @@ repos:
     - id: gitlint
   - repo: local
     hooks:
-    - id: tests
-      name: Tests
-      description: Run project tests
+    - id: pytest
+      name: Python tests
+      description: Run project's Python tests
       entry: .venv/bin/pytest --no-cov
       pass_filenames: false
       language: python
   - repo: local
     hooks:
-    - id: linter
-      name: Linter
-      description: Run project linter
+    - id: prospector
+      name: Python linter
+      description: Run project's Python linter
       entry: .venv/bin/prospector .
       pass_filenames: false
       language: python
   - repo: local
     hooks:
-    - id: code-format
-      name: Code formatters
-      description: Run project code formatters
+    - id: isort
+      name: Python code formatter for imports
+      description: Run Python code formatter for imports
       entry: .venv/bin/isort -c --df .
+      pass_filenames: false
+      language: python
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.4.0
+    hooks:
+    - id: editorconfig-checker
+  - repo: local
+    hooks:
+    - id: bandit
+      name: Python code security vulnerability scan
+      description: Check Python code for security vulnerabilities
+      entry: .venv/bin/bandit -r scripts
       pass_filenames: false
       language: python
   - repo: local
     hooks:
-    - id: security-scan
-      name: Security vulnerability scanners
-      description: Run project's security vulnerability scanners
-      entry: .venv/bin/bandit -r scripts && .venv/bin/safety check
+    - id: safety
+      name: Python dependencies security vulnerability scan
+      description: Check Python dependencies for security vulnerabilities
+      entry: .venv/bin/safety check -r requirements/dev.txt --full-report
       pass_filenames: false
       language: python

@@ -53,32 +53,44 @@ Tests and coverage configuration in `pyproject.toml` file.
 
 ## Linter
 
-To run linter, run
+To run Python linter, run
 ```
 prospector .
 ```
 
-Linter configuration in `.prospector.yaml` file.
+Python linter configuration in `.prospector.yaml` file.
 
 ## Code formatters
 
-To format imports, run
+To check Python code imports format, run
+```
+isort -c --df .
+```
+
+To format Python code imports, run
 ```
 isort .
 ```
 
 isort configuration in `pyproject.toml` file.
 
+To check all repository's files format, run
+```
+ec -v
+```
+
+File format configuration in `.editorconfig` file.
+
 ## Security vulnerability scanners
 
-To check common security issues in source code, run
+To check common security issues in Python code, run
 ```
 bandit -r scripts
 ```
 
-To check known security vulnerabilities in installed dependencies, run
+To check known security vulnerabilities in Python dependencies, run
 ```
-safety check
+safety check -r requirements/dev.txt --full-report
 ```
 
 ## SonarCloud Code Analysis
@@ -103,6 +115,11 @@ pip install pre-commit
 pre-commit install --hook-type commit-msg
 ```
 with your virtual environment active.
+
+To test it, run
+```
+pre-commit run --all-files
+```
 
 # License
 

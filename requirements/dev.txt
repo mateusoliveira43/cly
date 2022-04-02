@@ -73,6 +73,8 @@ dodgy==0.2.1; python_full_version >= "3.6.2" and python_version < "4.0" \
 dparse==0.5.1; python_version >= "3.5" \
     --hash=sha256:e953a25e44ebb60a5c6efc2add4420c177f1d8404509da88da9729202f306994 \
     --hash=sha256:a1b5f169102e1c894f9a7d5ccf6f9402a836a5d24be80a986c7ce9eaed78f367
+editorconfig-checker==2.4.0; python_version >= "2.7" \
+    --hash=sha256:1f7839df7d967d95f0cf2ed6a42a0f456c65072d2ffcff1fedc0eac62ed236ea
 flake8-polyfill==1.0.2; python_full_version >= "3.6.2" and python_version < "4.0" \
     --hash=sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda \
     --hash=sha256:12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9
