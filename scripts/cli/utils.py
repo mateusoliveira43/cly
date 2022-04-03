@@ -2,20 +2,21 @@
 
 import math
 import shutil
+
 # Scripts that manipulate the shell must always be careful with possible
 # security implications.
 import subprocess  # nosec
 import sys
 from typing import List, Optional, Union
 
-SPACE = ' '
-COMMA = ', '
-DEFAULT = '\033[0m'
-UNDERLINE = '\033[4m'
+SPACE = " "
+COMMA = ", "
+DEFAULT = "\033[0m"
+UNDERLINE = "\033[4m"
 COLORS = {
-    'green': '\033[1;92m',
-    'red': '\033[1;91m',
-    'yellow': '\033[1;93m',
+    "green": "\033[1;92m",
+    "red": "\033[1;91m",
+    "yellow": "\033[1;93m",
 }
 
 
@@ -35,8 +36,8 @@ def format_options(options: list) -> str:
 
     """
     if len(options) < 2:
-        return ''.join(options)
-    return f'{COMMA.join(options[:-1])} or {options[-1]}'
+        return "".join(options)
+    return f"{COMMA.join(options[:-1])} or {options[-1]}"
 
 
 def get_color(color: str) -> str:
@@ -60,8 +61,8 @@ def get_color(color: str) -> str:
     except KeyError:
         print(
             f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
-            ' is not a valid color. Available colors: '
-            f'{format_options(list(COLORS.keys()))}.'
+            " is not a valid color. Available colors: "
+            f"{format_options(list(COLORS.keys()))}."
         )
         sys.exit(1)
 
@@ -87,7 +88,7 @@ def underline_text(text: str, color: str = None) -> str:
     end_character = DEFAULT
     if color:
         end_character += get_color(color)
-    return f'{UNDERLINE}{text}{end_character}'
+    return f"{UNDERLINE}{text}{end_character}"
 
 
 def color_text(text: str, color: str) -> str:
@@ -107,7 +108,7 @@ def color_text(text: str, color: str) -> str:
         Colored text.
 
     """
-    return f'{get_color(color)}{text}{DEFAULT}'
+    return f"{get_color(color)}{text}{DEFAULT}"
 
 
 def get_print_length(message: str) -> int:
@@ -127,8 +128,8 @@ def get_print_length(message: str) -> int:
     """
     checker = {
         **COLORS,
-        'underline': UNDERLINE,
-        'default': DEFAULT,
+        "underline": UNDERLINE,
+        "default": DEFAULT,
     }
     message_length = len(message)
     for style in checker.values():
@@ -199,7 +200,7 @@ def get_output(
         shell=True,  # nosec
         check=False,
         capture_output=True,
-        encoding='utf-8'
+        encoding="utf-8",
     )
 
 
@@ -249,9 +250,9 @@ def get_standard_output(
     output = get_output(arguments).stdout
     if output:
         if lines:
-            return [line for line in output.split('\n') if line]
+            return [line for line in output.split("\n") if line]
         return [
-            word for word in output.replace('\n', SPACE).split(SPACE) if word
+            word for word in output.replace("\n", SPACE).split(SPACE) if word
         ]
     return None
 
@@ -279,13 +280,10 @@ def run_command(
     command = parse_arguments(arguments)
     try:
         return subprocess.run(
-            command,
-            shell=True,  # nosec
-            check=True,
-            encoding='utf-8'
+            command, shell=True, check=True, encoding="utf-8"  # nosec
         )
     except subprocess.CalledProcessError as error:
         message = str(error).replace("'", UNDERLINE, 1)
-        message = (DEFAULT + COLORS['red']).join(message.rsplit("'", 1))
-        print(color_text(f'ERROR: {message}', 'red'))
+        message = (DEFAULT + COLORS["red"]).join(message.rsplit("'", 1))
+        print(color_text(f"ERROR: {message}", "red"))
         sys.exit(error.returncode)

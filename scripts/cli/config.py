@@ -3,10 +3,10 @@
 import argparse
 import sys
 
-USAGE_PREFIX = 'Usage:\n  [python|python3] '
-EPILOG = 'Script epilog.'
-POSITIONALS_TITLE = 'Required options'
-OPTIONALS_TITLE = 'Options'
+USAGE_PREFIX = "Usage:\n  [python|python3] "
+EPILOG = "Script epilog."
+POSITIONALS_TITLE = "Required options"
+OPTIONALS_TITLE = "Options"
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
 PYTHON_MINIMUM_VERSION = (3, 7)
@@ -18,8 +18,8 @@ def check_python_minimum_version():
     if user_version < PYTHON_MINIMUM_VERSION:
         # TODO create colors file, to avoid cyclic dependencies
         print(
-            'Python version does not meet minimum requirement',
-            PYTHON_MINIMUM_VERSION
+            "Python version does not meet minimum requirement",
+            PYTHON_MINIMUM_VERSION,
         )
         sys.exit(1)
 
@@ -41,7 +41,7 @@ def get_version(name: str, version: str) -> str:
         Script's version.
 
     """
-    return f'{name} version {version}'
+    return f"{name} version {version}"
 
 
 def get_command_help_messsage(command: str) -> str:
@@ -59,7 +59,7 @@ def get_command_help_messsage(command: str) -> str:
         Command's help message.
 
     """
-    return f'Show {command} command help message.'
+    return f"Show {command} command help message."
 
 
 class CustomFormatter(argparse.HelpFormatter):
@@ -84,14 +84,12 @@ class CustomFormatter(argparse.HelpFormatter):
         super().__init__(*args, **kwargs)
 
     def _format_usage(self, usage, actions, groups, prefix):
-        return super()._format_usage(
-            usage, actions, groups, USAGE_PREFIX
-        )
+        return super()._format_usage(usage, actions, groups, USAGE_PREFIX)
 
     def _format_action(self, action):
         parts = super()._format_action(action)
         if action.nargs == argparse.PARSER:
-            line_break = '\n'
+            line_break = "\n"
             parts = line_break.join(parts.split(line_break)[1:])
         return parts
 
@@ -101,8 +99,8 @@ class CustomFormatter(argparse.HelpFormatter):
         metavar = self._format_args(
             action, self._get_default_metavar_for_optional(action)
         )
-        comma = ', '
-        return f'{comma.join(action.option_strings)} {metavar}'
+        comma = ", "
+        return f"{comma.join(action.option_strings)} {metavar}"
 
 
 def configured_parser(
@@ -135,10 +133,11 @@ def configured_parser(
         formatter_class=CustomFormatter,
     )
     parser.add_argument(
-        '-v', '--version',
-        action='version',
+        "-v",
+        "--version",
+        action="version",
         version=get_version(name, version),
-        help=VERSION_MESSAGE
+        help=VERSION_MESSAGE,
     )
     parser._positionals.title = POSITIONALS_TITLE
     parser._optionals.title = OPTIONALS_TITLE
@@ -147,7 +146,7 @@ def configured_parser(
 
 
 def configured_subparser(
-    parser: argparse.ArgumentParser
+    parser: argparse.ArgumentParser,
 ) -> argparse._SubParsersAction:
     """
     Create configured subparser to add commands.
@@ -164,17 +163,12 @@ def configured_subparser(
 
     """
     return parser.add_subparsers(
-        dest='command',
-        metavar='[COMMAND]',
-        title='Commands',
-        prog=sys.argv[0]
+        dest="command", metavar="[COMMAND]", title="Commands", prog=sys.argv[0]
     )
 
 
 def configured_command(
-    subparser: argparse._SubParsersAction,
-    name: str,
-    help_message: str
+    subparser: argparse._SubParsersAction, name: str, help_message: str
 ) -> argparse.ArgumentParser:
     """
     Create configured command to script.
@@ -220,5 +214,5 @@ def initialize_parser(add_help: bool = True) -> list:
 
     """
     if add_help:
-        return sys.argv[1:] or ['--help']
+        return sys.argv[1:] or ["--help"]
     return sys.argv[1:]
