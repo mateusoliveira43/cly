@@ -39,10 +39,10 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/*.txt') }}
           restore-keys: ${{ runner.os }}-pip-
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: pip install -r requirements/dev.txt
 
-      - name: Test and coverage
+      - name: Python test and coverage
         run: pytest
 
       - name: Save html coverage report
@@ -59,16 +59,19 @@ jobs:
           name: xml-coverage-report
           path: tests/coverage-results/coverage.xml
 
-      - name: Linter
+      - name: Python linter
         run: prospector .
 
       - name: Code format
-        run: isort -c --df .
+        run: |
+          isort -c --df .
+          black --check --diff .
+          ec -v
 
       - name: Security vulnerability scan
         run: |
           bandit -r scripts
-          safety check
+          safety check -r requirements/dev.txt --full-report
 
       - name: Usage example
         run: |

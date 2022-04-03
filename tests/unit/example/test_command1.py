@@ -8,15 +8,15 @@ def test_command1_without_options(capsys):
     command1()
     output, error = capsys.readouterr()
     assert not error
-    assert output == 'Command 1 called.\n'
+    assert output == "Command 1 called.\n"
 
 
 def test_command1_with_text(capsys):
     """Test command1 with text."""
-    command1(text='text')
+    command1(text="text")
     output, error = capsys.readouterr()
     assert not error
-    assert 'Text argument called with text.\n' in output
+    assert "Text argument called with text.\n" in output
 
 
 def test_command1_with_number(capsys):
@@ -24,4 +24,4 @@ def test_command1_with_number(capsys):
     command1(number=1)
     output, error = capsys.readouterr()
     assert not error
-    assert 'Number argument called with 1.\n' in output
+    assert "Number argument called with 1.\n" in output

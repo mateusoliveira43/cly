@@ -3,6 +3,7 @@
 [![Integração Contínua](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateusoliveira43_python-cli-script-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateusoliveira43_python-cli-script-template)
 [![Importações: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Estilo de código: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![segurança: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
@@ -72,7 +73,17 @@ Para formatar as importações no código Python, execute
 isort .
 ```
 
-Configurações do isort descritas no arquivo `pyproject.toml`.
+Para checar o formato do código Python, execute
+```
+black --check --diff .
+```
+
+Para formatar o código Python, execute
+```
+black .
+```
+
+Configurações do isort e black descritas no arquivo `pyproject.toml`.
 
 Para checar o formato de todos os arquivos do repositório, execute
 ```
