@@ -27,15 +27,14 @@ repos:
       entry: .venv/bin/isort -c --df .
       pass_filenames: false
       language: python
-  - repo: https://github.com/psf/black
-    rev: 22.3.0
+  - repo: local
     hooks:
     - id: black
-      args:
-      - --check
-      - --diff
-      - .
+      name: Python code formatter
+      description: Run Python code formatter
+      entry: .venv/bin/black --check --diff .
       pass_filenames: false
+      language: python
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
     rev: 2.4.0
     hooks:
