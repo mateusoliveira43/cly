@@ -41,6 +41,12 @@ poetry shell
 
 The quality measures of the template are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in `.github/workflows/ci.yml` file.
 
+```
+docker-compose -f docker/docker-compose.yml --project-directory ./ up -d
+docker exec -it python-cli-script-template sh
+docker-compose -f docker/docker-compose.yml --project-directory ./ down -v
+```
+
 ## Tests
 
 To run tests and coverage report, run

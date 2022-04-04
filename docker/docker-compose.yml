@@ -1,0 +1,49 @@
+version: '3.9'
+# pesquisar sobre essa versão
+
+services:
+  python-cli-script-template:
+    container_name: python-cli-script-template
+    image: python-cli-script-template
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    working_dir: /python-cli-script-template
+    command: tail -f /dev/null
+    volumes:
+      - type: bind
+        source: ./.github
+        target: /python-cli-script-template/.github
+      - type: bind
+        source: ./docs
+        target: /python-cli-script-template/docs
+      - type: bind
+        source: ./requirements
+        target: /python-cli-script-template/requirements
+      - type: bind
+        source: ./scripts
+        target: /python-cli-script-template/scripts
+      - type: bind
+        source: ./tests
+        target: /python-cli-script-template/tests
+      - type: bind
+        source: ./.editorconfig
+        target: /python-cli-script-template/.editorconfig
+      - type: bind
+        source: ./.git
+        target: /python-cli-script-template/.git
+      - type: bind
+        source: ./.gitignore
+        target: /python-cli-script-template/.gitignore
+      - type: bind
+        source: ./.prospector.yaml
+        target: /python-cli-script-template/.prospector.yaml
+      - type: bind
+        source: ./poetry.lock
+        target: /python-cli-script-template/poetry.lock
+      - type: bind
+        source: ./pyproject.toml
+        target: /python-cli-script-template/pyproject.toml
+      - type: bind
+        source: ./README.md
+        target: /python-cli-script-template/README.md
