@@ -46,7 +46,7 @@ docker-compose -f docker/docker-compose.yml --project-directory ./ up -d
 docker-compose -f docker/docker-compose.yml --project-directory ./ exec python-cli-script-template sh
 docker-compose -f docker/docker-compose.yml --project-directory ./ down -v
 
-docker-compose -f docker/docker-compose.yml --project-directory ./ rum --rm python-cli-script-template <COMMAND>
+docker-compose -f docker/docker-compose.yml --project-directory ./ run --rm python-cli-script-template <COMMAND>
 ```
 adicionar comando de matar volumes, networks, imagens, containers e tudo mais
 
@@ -56,6 +56,8 @@ adicionar comando de matar volumes, networks, imagens, containers e tudo mais
 USER_ID=1000
 # `id -g`
 GROUP_ID=1000
+PROJECT=python-cli-script-template
+WORK_DIR=/home/python-cli-script-template/python-cli-script-template
 ```
 
 ## Tests
