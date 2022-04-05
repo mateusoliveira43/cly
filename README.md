@@ -43,8 +43,19 @@ The quality measures of the template are reproduced by the continuos integration
 
 ```
 docker-compose -f docker/docker-compose.yml --project-directory ./ up -d
-docker exec -it python-cli-script-template sh
+docker-compose -f docker/docker-compose.yml --project-directory ./ exec python-cli-script-template sh
 docker-compose -f docker/docker-compose.yml --project-directory ./ down -v
+
+docker-compose -f docker/docker-compose.yml --project-directory ./ rum --rm python-cli-script-template <COMMAND>
+```
+adicionar comando de matar volumes, networks, imagens, containers e tudo mais
+
+.env file : create script to generate it
+```
+# `id -u`
+USER_ID=1000
+# `id -g`
+GROUP_ID=1000
 ```
 
 ## Tests

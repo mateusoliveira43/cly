@@ -8,42 +8,47 @@ services:
     build:
       context: ./
       dockerfile: ./docker/Dockerfile
-    working_dir: /python-cli-script-template
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
+    user: python-cli-script-template
+    # tentar remover duplicação e jogar coisas pro .env
+    working_dir: /home/python-cli-script-template/python-cli-script-template
     command: tail -f /dev/null
     volumes:
       - type: bind
         source: ./.github
-        target: /python-cli-script-template/.github
+        target: /home/python-cli-script-template/python-cli-script-template/.github
       - type: bind
         source: ./docs
-        target: /python-cli-script-template/docs
+        target: /home/python-cli-script-template/python-cli-script-template/docs
       - type: bind
         source: ./requirements
-        target: /python-cli-script-template/requirements
+        target: /home/python-cli-script-template/python-cli-script-template/requirements
       - type: bind
         source: ./scripts
-        target: /python-cli-script-template/scripts
+        target: /home/python-cli-script-template/python-cli-script-template/scripts
       - type: bind
         source: ./tests
-        target: /python-cli-script-template/tests
+        target: /home/python-cli-script-template/python-cli-script-template/tests
       - type: bind
         source: ./.editorconfig
-        target: /python-cli-script-template/.editorconfig
+        target: /home/python-cli-script-template/python-cli-script-template/.editorconfig
       - type: bind
         source: ./.git
-        target: /python-cli-script-template/.git
+        target: /home/python-cli-script-template/python-cli-script-template/.git
       - type: bind
         source: ./.gitignore
-        target: /python-cli-script-template/.gitignore
+        target: /home/python-cli-script-template/python-cli-script-template/.gitignore
       - type: bind
         source: ./.prospector.yaml
-        target: /python-cli-script-template/.prospector.yaml
+        target: /home/python-cli-script-template/python-cli-script-template/.prospector.yaml
       - type: bind
         source: ./poetry.lock
-        target: /python-cli-script-template/poetry.lock
+        target: /home/python-cli-script-template/python-cli-script-template/poetry.lock
       - type: bind
         source: ./pyproject.toml
-        target: /python-cli-script-template/pyproject.toml
+        target: /home/python-cli-script-template/python-cli-script-template/pyproject.toml
       - type: bind
         source: ./README.md
-        target: /python-cli-script-template/README.md
+        target: /home/python-cli-script-template/python-cli-script-template/README.md
