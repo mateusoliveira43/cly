@@ -1,12 +1,10 @@
-version: '3.9'
-# pesquisar sobre essa versão
-
 services:
   python-cli-script-template:
     container_name: ${PROJECT}
     image: ${PROJECT}
     user: ${PROJECT}
     working_dir: ${WORK_DIR}
+    command: sleep infinity
     build:
       context: ./
       dockerfile: ./docker/Dockerfile
@@ -15,7 +13,6 @@ services:
         GROUP_ID: ${GROUP_ID}
         USERNAME: ${PROJECT}
         WORK_DIR: ${WORK_DIR}
-    command: tail -f /dev/null
     volumes:
       - type: bind
         source: ./.github
@@ -42,8 +39,14 @@ services:
         source: ./.gitignore
         target: ${WORK_DIR}/.gitignore
       - type: bind
+        source: ./.pre-commit-config.yaml
+        target: ${WORK_DIR}/.pre-commit-config.yaml
+      - type: bind
         source: ./.prospector.yaml
         target: ${WORK_DIR}/.prospector.yaml
+      - type: bind
+        source: ./LICENSE
+        target: ${WORK_DIR}/LICENSE
       - type: bind
         source: ./poetry.lock
         target: ${WORK_DIR}/poetry.lock
@@ -53,3 +56,4 @@ services:
       - type: bind
         source: ./README.md
         target: ${WORK_DIR}/README.md
+      # TODO add sonar use on docker

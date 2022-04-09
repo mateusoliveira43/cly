@@ -24,7 +24,7 @@ repos:
     - id: isort
       name: Python code format for imports
       description: Check Python code format for imports
-      entry: .venv/bin/isort -c --df .
+      entry: .venv/bin/isort --check --diff .
       pass_filenames: false
       language: python
   - repo: local
@@ -44,7 +44,7 @@ repos:
     - id: bandit
       name: Python code security vulnerability scan
       description: Check Python code for security vulnerabilities
-      entry: .venv/bin/bandit -r scripts
+      entry: .venv/bin/bandit --recursive scripts
       pass_filenames: false
       language: python
   - repo: local
@@ -52,6 +52,6 @@ repos:
     - id: safety
       name: Python dependencies security vulnerability scan
       description: Check Python dependencies for security vulnerabilities
-      entry: .venv/bin/safety check -r requirements/dev.txt --full-report
+      entry: .venv/bin/safety check --file requirements/dev.txt --full-report
       pass_filenames: false
       language: python
