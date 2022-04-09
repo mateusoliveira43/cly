@@ -64,14 +64,14 @@ jobs:
 
       - name: Code format
         run: |
-          isort -c --df .
+          isort --check --diff .
           black --check --diff .
-          ec -v
+          ec -verbose
 
       - name: Security vulnerability scan
         run: |
-          bandit -r scripts
-          safety check -r requirements/dev.txt --full-report
+          bandit --recursive scripts
+          safety check --file requirements/dev.txt --full-report
 
       - name: Usage example
         run: |

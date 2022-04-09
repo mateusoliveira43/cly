@@ -65,7 +65,7 @@ Configurações do linter de Python descritas no arquivo `.prospector.yaml`.
 
 Para checar o formato das importações no código Python, execute
 ```
-isort -c --df .
+isort --check --diff .
 ```
 
 Para formatar as importações no código Python, execute
@@ -87,7 +87,7 @@ Configurações do isort e black descritas no arquivo `pyproject.toml`.
 
 Para checar o formato de todos os arquivos do repositório, execute
 ```
-ec -v
+ec -verbose
 ```
 
 Configurações do formato dos arquivos descritas no arquivo `.editorconfig`.
@@ -96,19 +96,40 @@ Configurações do formato dos arquivos descritas no arquivo `.editorconfig`.
 
 Para checar problemas de segurança comuns no código Python, execute
 ```
-bandit -r scripts
+bandit --recursive scripts
 ```
 
 Para checar vulnerabilidades de segurança conhecidas nas dependências Python, execute
 ```
-safety check
+safety check --file requirements/dev.txt --full-report
 ```
 
 ## Análise de código com SonarCloud
 
 [SonarCloud](https://sonarcloud.io/) analisa o código fonte do repositório através das etapas de integração contínua.
 
-## Pre-commit
+# Docker
+
+Para rodar um único comando do projeto no Docker, execute
+```
+docker/run.sh <COMMAND>
+```
+Por exemplo, `docker/run.sh .venv/bin/pytest` ou `docker/run.sh poetry run pytest`.
+
+Para rodar múltiplos comandos do projeto no Docker, execute
+```
+docker/exec.sh
+```
+e execute os comandos na shell do container, por exemplo `source .venv/bin/activate` ou `poetry shell`.
+
+Para sair da shell do container, execute `CTRL+D`.
+
+Para remover os containers, imagens, volumes e redes do projeto, execute
+```
+docker/down.sh
+```
+
+# Pre-commit
 
 Para configurar o pre-commit automaticamente ao clonar o repositório, execute
 ```

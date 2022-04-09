@@ -65,7 +65,7 @@ Python linter configuration in `.prospector.yaml` file.
 
 To check Python code imports format, run
 ```
-isort -c --df .
+isort --check --diff .
 ```
 
 To format Python code imports, run
@@ -87,7 +87,7 @@ isort and black configuration in `pyproject.toml` file.
 
 To check all repository's files format, run
 ```
-ec -v
+ec -verbose
 ```
 
 File format configuration in `.editorconfig` file.
@@ -96,12 +96,12 @@ File format configuration in `.editorconfig` file.
 
 To check common security issues in Python code, run
 ```
-bandit -r scripts
+bandit --recursive scripts
 ```
 
 To check known security vulnerabilities in Python dependencies, run
 ```
-safety check -r requirements/dev.txt --full-report
+safety check --file requirements/dev.txt --full-report
 ```
 
 ## SonarCloud Code Analysis
@@ -110,7 +110,28 @@ TODO add sonar lint config to wiki
 
 [SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through the CI pipeline.
 
-## Pre-commit
+# Docker
+
+To run the a single project's command in Docker, run
+```
+docker/run.sh <COMMAND>
+```
+for example, `docker/run.sh .venv/bin/pytest` or `docker/run.sh poetry run pytest`.
+
+To run the multiple project's commands in Docker, run
+```
+docker/exec.sh
+```
+and run the commands in the container's shell, for example `source .venv/bin/activate` or `poetry shell`.
+
+To exit the container's shell, run `CTRL+D`.
+
+To remove the project's containers, images, volumes and networks, run
+```
+docker/down.sh
+```
+
+# Pre-commit
 
 To configure pre-commit automatically when cloning the repo, run
 ```
