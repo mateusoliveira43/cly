@@ -118,16 +118,18 @@ Por exemplo, `docker/run.sh .venv/bin/pytest` ou `docker/run.sh poetry run pytes
 
 Para rodar múltiplos comandos do projeto no Docker, execute
 ```
-docker/exec.sh
+docker/run.sh sh
 ```
 e execute os comandos na shell do container, por exemplo `source .venv/bin/activate` ou `poetry shell`.
 
-Para sair da shell do container, execute `CTRL+D`.
+Para sair da shell do container, execute `CTRL+D` ou `exit`.
 
 Para remover os containers, imagens, volumes e redes do projeto, execute
 ```
 docker/down.sh
 ```
+
+Para mudar a configuração do Docker, altere as variáveis no arquivo `.env`.
 
 # Pre-commit
 

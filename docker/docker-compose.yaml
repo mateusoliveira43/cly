@@ -4,7 +4,6 @@ services:
     image: ${PROJECT}
     user: ${PROJECT}
     working_dir: ${WORK_DIR}
-    command: sleep infinity
     build:
       context: ./
       dockerfile: ./docker/Dockerfile

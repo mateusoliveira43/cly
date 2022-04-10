@@ -112,24 +112,26 @@ TODO add sonar lint config to wiki
 
 # Docker
 
-To run the a single project's command in Docker, run
+To run a single project's command in Docker, run
 ```
 docker/run.sh <COMMAND>
 ```
 for example, `docker/run.sh .venv/bin/pytest` or `docker/run.sh poetry run pytest`.
 
-To run the multiple project's commands in Docker, run
+To run multiple project's commands in Docker, run
 ```
-docker/exec.sh
+docker/run.sh sh
 ```
 and run the commands in the container's shell, for example `source .venv/bin/activate` or `poetry shell`.
 
-To exit the container's shell, run `CTRL+D`.
+To exit the container's shell, run `CTRL+D` or `exit`.
 
 To remove the project's containers, images, volumes and networks, run
 ```
 docker/down.sh
 ```
+
+To change Docker configuration, change the variables in `.env` file.
 
 # Pre-commit
 
