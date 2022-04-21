@@ -26,7 +26,7 @@ TWO_WORD_DATA = [
 PRINT_FLASHY_DATA = WORD_DATA + TWO_WORD_DATA
 
 PRINT_FLASHY_COLOR_DATA = [
-    # TODO automatizar
+    # TODO automatizar!
     # {
     #     'message': color_text(
     #         f'{underline_text("LEGO", "green")} is awesome!', 'green'

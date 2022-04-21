@@ -186,7 +186,7 @@ def test_underline_text_with_color(word, color):
     assert output == UNDERLINE + word + DEFAULT + COLORS[color]
 
 
-# TODO test color_text
+# TODO test color_text!
 
 
 @pytest.mark.parametrize("scenario", GET_PRINT_LENGTH_DATA)
