@@ -13,9 +13,6 @@ pylint:
   disable:
     - protected-access
 
-pyroma:
-  run: true
-
 vulture:
   run: true
 
