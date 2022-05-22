@@ -1,6 +1,7 @@
 strictness: veryhigh
-test-warnings: true
 doc-warnings: true
+test-warnings: true
+member-warnings: true
 max-line-length: 79
 
 pydocstyle:
@@ -11,4 +12,14 @@ pydocstyle:
 pylint:
   disable:
     - protected-access
+
+pyroma:
+  run: true
+
+vulture:
+  run: true
+
+# TODO [FEATURE] add typing config to project
+mypy:
+  run: true
 

@@ -106,8 +106,6 @@ safety check --file requirements/dev.txt --full-report
 
 ## SonarCloud Code Analysis
 
-TODO add sonar lint config to wiki!
-
 [SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through the CI pipeline.
 
 # Docker
