@@ -1,3 +1,5 @@
+"""Shell output formatters functions, like coloring and underlining."""
+
 import math
 import shutil
 import sys

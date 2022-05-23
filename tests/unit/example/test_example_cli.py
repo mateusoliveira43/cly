@@ -9,7 +9,6 @@ from scripts.example.example_cli import COMMANDS, main
 from tests import ABSOLUTE_PATH
 
 EXAMPLE_FILE = (ABSOLUTE_PATH / "run_example.py").as_posix()
-HELP_FLAGS = ["-h", "--help"]
 ARGUMENTS = {
     "optional": ["-o", "--optional"],
 }

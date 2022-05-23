@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from typing import Union
 
 from cli.colors import color_text
 
@@ -11,7 +12,7 @@ OPTIONALS_TITLE = "Options"
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
 MAJOR_VERSION = 3
-MINOR_VERSION = 9
+MINOR_VERSION = 7
 PYTHON_MINIMUM_VERSION = (MAJOR_VERSION, MINOR_VERSION)
 
 
@@ -130,18 +131,33 @@ class CustomFormatter(argparse.HelpFormatter):
 
 
 class ConfiguredParser:
+    """Configured argparse's argument parser."""
+
     def __init__(
         self,
         config: dict,
         add_help: bool = True,
     ) -> None:
+        """
+        Initialize parser class.
+
+        Parameters
+        ----------
+        config : dict
+            Configurations dict for parser with keys name, description, epilog
+            and version.
+        add_help : bool, optional
+            If parser should call the script help if no arguments are provided,
+            by default True.
+
+        """
         self.name = config["name"]
         self.description = config["description"]
         self.epilog = config["epilog"]
         self.version = config["version"]
         self.add_help = add_help
         self.parser = self.create_parser()
-        self.subparser = None
+        self.subparser: Union[argparse._SubParsersAction, None] = None
 
     def create_parser(self) -> argparse.ArgumentParser:
         """
@@ -219,5 +235,14 @@ class ConfiguredParser:
         command.epilog = self.epilog
         return command
 
-    def get_arguments(self):
+    def get_arguments(self) -> argparse.Namespace:
+        """
+        Get arguments the script was called with.
+
+        Returns
+        -------
+        Namespace
+            Arguments in argparse's namespace.
+
+        """
         return self.parser.parse_args(initialize_parser(self.add_help))
