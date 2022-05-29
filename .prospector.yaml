@@ -12,11 +12,3 @@ pydocstyle:
 pylint:
   disable:
     - protected-access
-
-vulture:
-  run: true
-
-# TODO [FEATURE] add typing config to project
-mypy:
-  run: true
-
