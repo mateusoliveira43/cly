@@ -14,45 +14,6 @@ services:
         WORK_DIR: ${WORK_DIR}
     volumes:
       - type: bind
-        source: ./.github
-        target: ${WORK_DIR}/.github
-      - type: bind
-        source: ./docs
-        target: ${WORK_DIR}/docs
-      - type: bind
-        source: ./requirements
-        target: ${WORK_DIR}/requirements
-      - type: bind
-        source: ./scripts
-        target: ${WORK_DIR}/scripts
-      - type: bind
-        source: ./tests
-        target: ${WORK_DIR}/tests
-      - type: bind
-        source: ./.editorconfig
-        target: ${WORK_DIR}/.editorconfig
-      - type: bind
-        source: ./.git
-        target: ${WORK_DIR}/.git
-      - type: bind
-        source: ./.gitignore
-        target: ${WORK_DIR}/.gitignore
-      - type: bind
-        source: ./.pre-commit-config.yaml
-        target: ${WORK_DIR}/.pre-commit-config.yaml
-      - type: bind
-        source: ./.prospector.yaml
-        target: ${WORK_DIR}/.prospector.yaml
-      - type: bind
-        source: ./LICENSE
-        target: ${WORK_DIR}/LICENSE
-      - type: bind
-        source: ./poetry.lock
-        target: ${WORK_DIR}/poetry.lock
-      - type: bind
-        source: ./pyproject.toml
-        target: ${WORK_DIR}/pyproject.toml
-      - type: bind
-        source: ./README.md
-        target: ${WORK_DIR}/README.md
-      # TODO add sonar use on docker
+        source: ./
+        target: ${WORK_DIR}/
+      - ${WORK_DIR}/.venv
