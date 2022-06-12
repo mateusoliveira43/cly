@@ -137,14 +137,14 @@ To configure pre-commit automatically when cloning the repo, run
 ```
 pip install pre-commit
 git config --global init.templateDir ~/.git-template
-pre-commit init-templatedir --hook-type commit-msg ~/.git-template
+pre-commit init-templatedir --hook-type commit-msg --hook-type pre-commit ~/.git-template
 ```
 Must be installed globally. More information in https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
 
 To configure pre-commit locally, run
 ```
 pip install pre-commit
-pre-commit install --hook-type commit-msg
+pre-commit install --hook-type commit-msg --hook-type pre-commit
 ```
 with your virtual environment active.
 

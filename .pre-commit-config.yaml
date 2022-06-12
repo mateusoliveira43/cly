@@ -1,57 +1,60 @@
+default_stages: [commit]
 repos:
-  - repo: https://github.com/jorisroovers/gitlint
-    rev:  v0.17.0
-    hooks:
-    - id: gitlint
   - repo: local
     hooks:
+    - id: virtualenv
+      name: create virtual environment
+      description: Create virtual environment
+      entry: virtualenv .venv
+      pass_filenames: false
+      language: python
+    - id: requirements
+      name: install requirements
+      description: Install project requirements in virtual environment
+      entry: .venv/bin/pip install -r requirements/dev.txt
+      pass_filenames: false
+      language: python
     - id: pytest
       name: Python tests
       description: Run project's Python tests
       entry: .venv/bin/pytest --no-cov
       pass_filenames: false
       language: python
-  - repo: local
-    hooks:
-    - id: prospector
-      name: Python linter
-      description: Run project's Python linter
-      entry: .venv/bin/prospector .
-      pass_filenames: false
-      language: python
-  - repo: local
-    hooks:
-    - id: isort
-      name: Python code format for imports
-      description: Check Python code format for imports
-      entry: .venv/bin/isort --check --diff .
-      pass_filenames: false
-      language: python
-  - repo: local
-    hooks:
-    - id: black
-      name: Python code format
-      description: Check Python code format
-      entry: .venv/bin/black --check --diff .
-      pass_filenames: false
-      language: python
-  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.4.0
-    hooks:
-    - id: editorconfig-checker
-  - repo: local
-    hooks:
-    - id: bandit
-      name: Python code security vulnerability scan
-      description: Check Python code for security vulnerabilities
-      entry: .venv/bin/bandit --recursive scripts
-      pass_filenames: false
-      language: python
-  - repo: local
-    hooks:
     - id: safety
       name: Python dependencies security vulnerability scan
       description: Check Python dependencies for security vulnerabilities
       entry: .venv/bin/safety check --file requirements/dev.txt --full-report
       pass_filenames: false
       language: python
+  - repo: https://github.com/jorisroovers/gitlint
+    rev:  v0.17.0
+    hooks:
+    - id: gitlint
+      stages: [commit-msg]
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+    - id: isort
+      args:
+      - --check
+      - --diff
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    - id: black
+      args:
+      - --check
+      - --diff
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.4.0
+    hooks:
+    - id: editorconfig-checker
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+    - id: bandit
+      exclude: tests
+  - repo: https://github.com/PyCQA/prospector
+    rev: 1.7.7
+    hooks:
+    - id: prospector
