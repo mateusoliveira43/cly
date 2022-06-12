@@ -3,8 +3,6 @@
 import sys
 from pathlib import Path
 
-# TODO melhorar testes ainda, deixar tudo temático
-
 ABSOLUTE_PATH = Path(__file__).resolve().parent.parent / "scripts"
 if ABSOLUTE_PATH.exists():
     sys.path.append(ABSOLUTE_PATH.as_posix())

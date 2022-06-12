@@ -6,8 +6,10 @@ from unittest.mock import patch
 
 import pytest
 
+from scripts.cli.colors import color_text
 from scripts.cli.config import (
-    PYTHON_MINIMUM_VERSION,
+    MAJOR_VERSION,
+    MINOR_VERSION,
     check_python_minimum_version,
     initialize_parser,
 )
@@ -50,8 +52,12 @@ def test_check_python_minimum_version_with_invalid_version(
     sys_output, sys_error = capsys.readouterr()
     assert not sys_error
     assert sys_output == (
-        "Python version does not meet minimum requirement "
-        f"{PYTHON_MINIMUM_VERSION}\n"
+        color_text(
+            f"ERROR: Python version {version[0]}.{version[1]} does not meet "
+            f"minimum requirement of {MAJOR_VERSION}.{MINOR_VERSION}.",
+            "red",
+        )
+        + "\n"
     )
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 1

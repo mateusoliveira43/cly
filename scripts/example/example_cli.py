@@ -2,31 +2,29 @@
 
 import argparse
 
-from cli import config, utils
+from cli import colors, config, utils
+from example import __version__
 from example.command1 import command1
 
-__version__ = "1.0.0"  # major.minor.patch
-NAME = "Script name"
-DESCRIPTION = "Script description."
-
+cli_config = {
+    "name": "Script name",
+    "description": "Script description.",
+    "epilog": "Script epilog.",
+    "version": __version__,
+}
 COMMANDS = {
     command1.__name__: command1,
 }
 
-parser = config.configured_parser(NAME, __version__, DESCRIPTION)
-
-parser.add_argument(
+CLI = config.ConfiguredParser(cli_config)
+CLI.parser.add_argument(
     "-o",
     "--optional",
     action="store_true",
     help="Description of the optional flag.",
 )
 
-subparser = config.configured_subparser(parser)
-
-command = config.configured_command(
-    subparser, command1.__name__, "Description of the command1."
-)
+command = CLI.create_command(command1.__name__, "Description of the command1.")
 group = command.add_mutually_exclusive_group(required=True)
 group.add_argument(
     "-t",
@@ -51,8 +49,9 @@ command.add_argument(
 
 def main():
     """Run script on user call."""
-    args = parser.parse_args(config.initialize_parser())
-    if args.optional:
-        utils.print_flashy("Optional flag called.")
-    if args.command:
-        COMMANDS.get(args.command)(**dict(args._get_kwargs()))
+    arguments = CLI.get_arguments()
+    if arguments.optional:
+        colors.print_flashy("Optional flag called.")
+        utils.run_command("ls -1a")
+    if arguments.command:
+        COMMANDS.get(arguments.command)(**dict(arguments._get_kwargs()))

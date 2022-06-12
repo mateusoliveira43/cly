@@ -2,24 +2,31 @@
 
 import argparse
 import sys
+from typing import Union
+
+from cli.colors import color_text
 
 USAGE_PREFIX = "Usage:\n  [python|python3] "
-EPILOG = "Script epilog."
 POSITIONALS_TITLE = "Required options"
 OPTIONALS_TITLE = "Options"
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
-PYTHON_MINIMUM_VERSION = (3, 7)
+MAJOR_VERSION = 3
+MINOR_VERSION = 7
+PYTHON_MINIMUM_VERSION = (MAJOR_VERSION, MINOR_VERSION)
 
 
 def check_python_minimum_version():
     """Check if user Python's version is valid to running the template."""
     user_version = (sys.version_info.major, sys.version_info.minor)
     if user_version < PYTHON_MINIMUM_VERSION:
-        # TODO create colors file, to avoid cyclic dependencies
         print(
-            "Python version does not meet minimum requirement",
-            PYTHON_MINIMUM_VERSION,
+            color_text(
+                f"ERROR: Python version {user_version[0]}.{user_version[1]} "
+                f"does not meet minimum requirement of {MAJOR_VERSION}."
+                f"{MINOR_VERSION}.",
+                "red",
+            )
         )
         sys.exit(1)
 
@@ -60,6 +67,26 @@ def get_command_help_messsage(command: str) -> str:
 
     """
     return f"Show {command} command help message."
+
+
+def initialize_parser(add_help: bool = True) -> list:
+    """
+    Initialize the CLI parser.
+
+    Parameters
+    ----------
+    add_help : bool, optional
+        Add help option if no arguments are passed, by default True.
+
+    Returns
+    -------
+    list
+        List of arguments to be parsed by argparse.
+
+    """
+    if add_help:
+        return sys.argv[1:] or ["--help"]
+    return sys.argv[1:]
 
 
 class CustomFormatter(argparse.HelpFormatter):
@@ -103,116 +130,119 @@ class CustomFormatter(argparse.HelpFormatter):
         return f"{comma.join(action.option_strings)} {metavar}"
 
 
-def configured_parser(
-    name: str, version: str, description: str
-) -> argparse.ArgumentParser:
-    """
-    Create configured parser to create script.
+class ConfiguredParser:
+    """Configured argparse's argument parser."""
 
-    Parameters
-    ----------
-    name : str
-        Name of the script.
-    version : str
-        Version of the script, in format major.minor.patch.
-    description : str
-        Description of the script.
+    def __init__(
+        self,
+        config: dict,
+        add_help: bool = True,
+    ) -> None:
+        """
+        Initialize parser class.
 
-    Returns
-    -------
-    ArgumentParser
-        Configured argparse's parser.
+        Parameters
+        ----------
+        config : dict
+            Configurations dict for parser with keys name, description, epilog
+            and version.
+        add_help : bool, optional
+            If parser should call the script help if no arguments are provided,
+            by default True.
 
-    """
-    check_python_minimum_version()
-    parser = argparse.ArgumentParser(
-        prog=sys.argv[0],
-        description=description,
-        epilog=EPILOG,
-        allow_abbrev=False,
-        formatter_class=CustomFormatter,
-    )
-    parser.add_argument(
-        "-v",
-        "--version",
-        action="version",
-        version=get_version(name, version),
-        help=VERSION_MESSAGE,
-    )
-    parser._positionals.title = POSITIONALS_TITLE
-    parser._optionals.title = OPTIONALS_TITLE
-    parser._actions[0].help = HELP_MESSAGE
-    return parser
+        """
+        self.name = config["name"]
+        self.description = config["description"]
+        self.epilog = config["epilog"]
+        self.version = config["version"]
+        self.add_help = add_help
+        self.parser = self.create_parser()
+        self.subparser: Union[argparse._SubParsersAction, None] = None
 
+    def create_parser(self) -> argparse.ArgumentParser:
+        """
+        Create configured parser to create script.
 
-def configured_subparser(
-    parser: argparse.ArgumentParser,
-) -> argparse._SubParsersAction:
-    """
-    Create configured subparser to add commands.
+        Returns
+        -------
+        ArgumentParser
+            Configured argparse's parser.
 
-    Parameters
-    ----------
-    parser : ArgumentParser
-        Argparse's parser.
+        """
+        check_python_minimum_version()
+        parser = argparse.ArgumentParser(
+            prog=sys.argv[0],
+            description=self.description,
+            epilog=self.epilog,
+            allow_abbrev=False,
+            formatter_class=CustomFormatter,
+        )
+        parser.add_argument(
+            "-v",
+            "--version",
+            action="version",
+            version=get_version(self.name, self.version),
+            help=VERSION_MESSAGE,
+        )
+        parser._positionals.title = POSITIONALS_TITLE
+        parser._optionals.title = OPTIONALS_TITLE
+        parser._actions[0].help = HELP_MESSAGE
+        return parser
 
-    Returns
-    -------
-    _SubParsersAction
-        Configured argparse's subparser.
+    def create_subparser(self) -> argparse._SubParsersAction:
+        """
+        Create configured subparser to add commands.
 
-    """
-    return parser.add_subparsers(
-        dest="command", metavar="[COMMAND]", title="Commands", prog=sys.argv[0]
-    )
+        Returns
+        -------
+        _SubParsersAction
+            Configured argparse's subparser.
 
+        """
+        return self.parser.add_subparsers(
+            dest="command",
+            metavar="[COMMAND]",
+            title="Commands",
+            prog=sys.argv[0],
+        )
 
-def configured_command(
-    subparser: argparse._SubParsersAction, name: str, help_message: str
-) -> argparse.ArgumentParser:
-    """
-    Create configured command to script.
+    def create_command(
+        self, name: str, help_message: str
+    ) -> argparse.ArgumentParser:
+        """
+        Create configured command to script.
 
-    Parameters
-    ----------
-    subparser : _SubParsersAction
-        Subparser to add command.
-    name : str
-        Name of the command.
-    help_message : str
-        Help message of the command.
+        Parameters
+        ----------
+        name : str
+            Name of the command.
+        help_message : str
+            Help message of the command.
 
-    Returns
-    -------
-    ArgumentParser
-        Configured argparse's parser command.
+        Returns
+        -------
+        ArgumentParser
+            Configured argparse's parser command.
 
-    """
-    command = subparser.add_parser(name, help=help_message)
-    command.formatter_class = CustomFormatter
-    command._positionals.title = POSITIONALS_TITLE
-    command._optionals.title = OPTIONALS_TITLE
-    command._actions[0].help = get_command_help_messsage(name)
-    command.description = help_message
-    command.epilog = EPILOG
-    return command
+        """
+        self.subparser = self.subparser or self.create_subparser()
+        command = self.subparser.add_parser(name, help=help_message)
+        command.formatter_class = CustomFormatter
+        command._positionals.title = POSITIONALS_TITLE
+        command._optionals.title = OPTIONALS_TITLE
+        command._actions[0].help = get_command_help_messsage(name)
+        command.description = help_message
+        command.epilog = self.epilog
+        return command
 
+    def get_arguments(self) -> argparse.Namespace:
+        """
+        Get arguments the script was called with.
 
-def initialize_parser(add_help: bool = True) -> list:
-    """
-    Initialize the CLI parser.
+        Returns
+        -------
+        Namespace
+            Arguments in argparse's namespace.
 
-    Parameters
-    ----------
-    add_help : bool, optional
-        Add help option if no arguments are passed, by default True.
-
-    Returns
-    -------
-    list
-        List of arguments to be parsed by argparse.
-
-    """
-    if add_help:
-        return sys.argv[1:] or ["--help"]
-    return sys.argv[1:]
+        """
+        return self.parser.parse_args(initialize_parser(self.add_help))

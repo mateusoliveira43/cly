@@ -1,6 +1,7 @@
 strictness: veryhigh
-test-warnings: true
 doc-warnings: true
+test-warnings: true
+member-warnings: true
 max-line-length: 79
 
 pydocstyle:
@@ -11,4 +12,3 @@ pydocstyle:
 pylint:
   disable:
     - protected-access
-
