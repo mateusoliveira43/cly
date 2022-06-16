@@ -9,6 +9,8 @@
 
 - [README file in English](../README.md)
 
+TODO atualizar esse README!!!!
+
 Modelo para criar scripts com interfaces de linha de comando em Python, usando a biblioteca padrão do Python [argparse](https://docs.python.org/3/library/argparse.html).
 
 Confira a [Wiki](https://github.com/mateusoliveira43/python-cli-script-template/wiki) do repositório para mais detalhes.

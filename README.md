@@ -25,6 +25,29 @@ To run the example, run
 ```
 to display the example script's help message. Run the script with Python 3 command is optional.
 
+# Docker
+
+To run a single project's command in Docker, run
+```
+docker/run.sh <COMMAND>
+```
+for example, `docker/run.sh .venv/bin/pytest` or `docker/run.sh poetry run pytest`.
+
+To run multiple project's commands in Docker, run
+```
+docker/run.sh sh
+```
+and run the commands in the container's shell, for example `source .venv/bin/activate` or `poetry shell`.
+
+To exit the container's shell, run `CTRL+D` or `exit`.
+
+To remove the project's containers, images, volumes and networks, run
+```
+docker/down.sh
+```
+
+To change Docker configuration, change the variables in `.env` file.
+
 # Quality
 
 To run the template quality measures, it is needed to install its development requirements. To install then, run
@@ -122,28 +145,15 @@ safety check --file requirements/dev.txt --full-report
 
 [SonarCloud](https://sonarcloud.io/) analyzes the source code of the project through the CI pipeline.
 
-# Docker
+## Docker
 
-To run a single project's command in Docker, run
+To run Dockerfile linter, run
 ```
-docker/run.sh <COMMAND>
-```
-for example, `docker/run.sh .venv/bin/pytest` or `docker/run.sh poetry run pytest`.
-
-To run multiple project's commands in Docker, run
-```
-docker/run.sh sh
-```
-and run the commands in the container's shell, for example `source .venv/bin/activate` or `poetry shell`.
-
-To exit the container's shell, run `CTRL+D` or `exit`.
-
-To remove the project's containers, images, volumes and networks, run
-```
-docker/down.sh
+docker run --rm -i ghcr.io/hadolint/hadolint < docker/Dockerfile
 ```
 
-To change Docker configuration, change the variables in `.env` file.
+TODO add how to install executable and configure VS Code plugin
+
 
 # Pre-commit
 

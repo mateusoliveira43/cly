@@ -3,7 +3,10 @@ services:
     container_name: ${PROJECT}
     image: ${PROJECT}
     user: ${PROJECT}
+    hostname: docker
     working_dir: ${WORK_DIR}
+    # entrypoint: ["./scripts/run_example.py"]
+    # command: ["--help"]
     build:
       context: ./
       dockerfile: ./docker/Dockerfile

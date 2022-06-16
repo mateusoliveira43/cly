@@ -10,7 +10,7 @@ RUN groupadd --gid $GROUP_ID $USERNAME \
 USER $USERNAME
 
 ENV PATH /home/$USERNAME/.local/bin:$PATH
-RUN pip install poetry==1.1.13 \
+RUN pip install --no-cache-dir poetry==1.1.13 \
     && poetry config virtualenvs.in-project true \
     && mkdir $WORK_DIR
 WORKDIR $WORK_DIR
