@@ -43,7 +43,7 @@ def test_main_commands_with_option_text(
     output, error = capsys.readouterr()
     assert not output
     assert not error
-    commands_mock.get(command).assert_called_once_with(
+    commands_mock.__getitem__(command).assert_called_once_with(
         optional=False,
         command=command,
         text=text_input,
@@ -66,7 +66,7 @@ def test_main_commands_with_option_number(
     output, error = capsys.readouterr()
     assert not output
     assert not error
-    commands_mock.get(command).assert_called_once_with(
+    commands_mock.__getitem__(command).assert_called_once_with(
         optional=False,
         command=command,
         text=None,
@@ -89,7 +89,7 @@ def test_main_commands_with_option_arguments(
     output, error = capsys.readouterr()
     assert not output
     assert not error
-    commands_mock.get(command).assert_called_once_with(
+    commands_mock.__getitem__(command).assert_called_once_with(
         optional=False,
         command=command,
         text="text_input",

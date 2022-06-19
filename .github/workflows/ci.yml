@@ -52,6 +52,9 @@ jobs:
           name: xml-coverage-report
           path: tests/coverage-results/coverage.xml
 
+      - name: Python type check
+        run: mypy .
+
       - name: Python linter
         run: prospector .
 

@@ -52,6 +52,20 @@ To see the html report, check `tests/coverage-results/htmlcov/index.html`.
 
 Tests and coverage configuration in `pyproject.toml` file.
 
+## Type checking
+
+To generate Python type files, run
+```
+stubgen --verbose --package scripts --output .
+```
+
+To run Python type checker, run
+```
+mypy .
+```
+
+Python type checker configuration in `pyproject.toml` file.
+
 ## Linter
 
 To run Python linter, run

@@ -2,7 +2,7 @@
 
 import argparse
 import sys
-from typing import Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 from cli.colors import color_text
 
@@ -16,8 +16,16 @@ MINOR_VERSION = 7
 PYTHON_MINIMUM_VERSION = (MAJOR_VERSION, MINOR_VERSION)
 
 
-def check_python_minimum_version():
-    """Check if user Python's version is valid to running the template."""
+def check_python_minimum_version() -> None:
+    """
+    Check if user Python's version is valid to running the template.
+
+    Raises
+    ------
+    SystemExit
+        If user Python's version is invalid.
+
+    """
     user_version = (sys.version_info.major, sys.version_info.minor)
     if user_version < PYTHON_MINIMUM_VERSION:
         print(
@@ -28,7 +36,7 @@ def check_python_minimum_version():
                 "red",
             )
         )
-        sys.exit(1)
+        raise SystemExit(1)
 
 
 def get_version(name: str, version: str) -> str:
@@ -51,7 +59,7 @@ def get_version(name: str, version: str) -> str:
     return f"{name} version {version}"
 
 
-def get_command_help_messsage(command: str) -> str:
+def get_command_help_message(command: str) -> str:
     """
     Get the help message for a command.
 
@@ -69,7 +77,7 @@ def get_command_help_messsage(command: str) -> str:
     return f"Show {command} command help message."
 
 
-def initialize_parser(add_help: bool = True) -> list:
+def initialize_parser(add_help: bool = True) -> List[str]:
     """
     Initialize the CLI parser.
 
@@ -80,7 +88,7 @@ def initialize_parser(add_help: bool = True) -> list:
 
     Returns
     -------
-    list
+    List[str]
         List of arguments to be parsed by argparse.
 
     """
@@ -106,21 +114,27 @@ class CustomFormatter(argparse.HelpFormatter):
 
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Call super class init's."""
         super().__init__(*args, **kwargs)
 
-    def _format_usage(self, usage, actions, groups, prefix):
+    def _format_usage(
+        self,
+        usage: str,
+        actions: Iterable[argparse.Action],
+        groups: Iterable[argparse._ArgumentGroup],
+        prefix: Optional[str],
+    ) -> str:
         return super()._format_usage(usage, actions, groups, USAGE_PREFIX)
 
-    def _format_action(self, action):
+    def _format_action(self, action: argparse.Action) -> str:
         parts = super()._format_action(action)
         if action.nargs == argparse.PARSER:
             line_break = "\n"
             parts = line_break.join(parts.split(line_break)[1:])
         return parts
 
-    def _format_action_invocation(self, action):
+    def _format_action_invocation(self, action: argparse.Action) -> str:
         if not action.option_strings or action.nargs == 0:
             return super()._format_action_invocation(action)
         metavar = self._format_args(
@@ -135,7 +149,7 @@ class ConfiguredParser:
 
     def __init__(
         self,
-        config: dict,
+        config: Dict[str, str],
         add_help: bool = True,
     ) -> None:
         """
@@ -226,11 +240,13 @@ class ConfiguredParser:
 
         """
         self.subparser = self.subparser or self.create_subparser()
-        command = self.subparser.add_parser(name, help=help_message)
+        command: argparse.ArgumentParser = self.subparser.add_parser(
+            name, help=help_message
+        )
         command.formatter_class = CustomFormatter
         command._positionals.title = POSITIONALS_TITLE
         command._optionals.title = OPTIONALS_TITLE
-        command._actions[0].help = get_command_help_messsage(name)
+        command._actions[0].help = get_command_help_message(name)
         command.description = help_message
         command.epilog = self.epilog
         return command

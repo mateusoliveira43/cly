@@ -1,0 +1,3 @@
+from typing import Optional, Union
+
+def command1(**kwargs: Optional[Union[str, int]]) -> None: ...
