@@ -1,6 +1,7 @@
 """Unit tests of module scripts.cli.colors."""
 
-from unittest.mock import patch
+from typing import Dict, List, Union
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -56,21 +57,23 @@ PRINT_FLASHY_DATA = [
 
 
 @pytest.mark.parametrize("scenario", FORMAT_OPTIONS_DATA)
-def test_format_options(scenario):
+def test_format_options(scenario: Dict[str, Union[str, List[str]]]) -> None:
     """Test format_options."""
     output = format_options(scenario["options"])
     assert output == scenario["result"]
 
 
 @pytest.mark.parametrize("color", COLORS)
-def test_get_color_success(color):
+def test_get_color_success(color: str) -> None:
     """Test get_color with success."""
     output = get_color(color)
     assert output == COLORS[color]
 
 
 @pytest.mark.parametrize("color", GET_COLOR_DATA_ERROR)
-def test_get_color_error(color, capsys):
+def test_get_color_error(
+    color: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test get_color with error."""
     expected = (
         f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
@@ -87,7 +90,7 @@ def test_get_color_error(color, capsys):
 
 
 @pytest.mark.parametrize("word", WORDS)
-def test_underline_text(word):
+def test_underline_text(word: str) -> None:
     """Test underline_text."""
     words = word.split()
     if len(words) > 1:
@@ -100,7 +103,7 @@ def test_underline_text(word):
 
 @pytest.mark.parametrize("color", COLORS)
 @pytest.mark.parametrize("word", WORDS)
-def test_underline_text_with_color(word, color):
+def test_underline_text_with_color(word: str, color: str) -> None:
     """Test underline_text with color."""
     words = word.split()
     if len(words) > 1:
@@ -117,7 +120,7 @@ def test_underline_text_with_color(word, color):
 
 
 @pytest.mark.parametrize("scenario", GET_PRINT_LENGTH_DATA)
-def test_get_print_length(scenario):
+def test_get_print_length(scenario: Dict[str, Union[str, int]]) -> None:
     """Test get_print_length."""
     output = get_print_length(scenario["message"])
     assert output == scenario["result"]
@@ -126,7 +129,12 @@ def test_get_print_length(scenario):
 @pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
 @patch("scripts.cli.colors.get_print_length")
 @patch("shutil.get_terminal_size")
-def test_print_flashy(mock_shutil, mock_print_length, scenario, capsys):
+def test_print_flashy(
+    mock_shutil: Mock,
+    mock_print_length: Mock,
+    scenario: Dict[str, int],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test print_flashy."""
     mock_shutil.return_value = (scenario["mock"], 1)
     mock_print_length.return_value = scenario["message_length"]

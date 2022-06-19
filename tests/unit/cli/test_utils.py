@@ -1,7 +1,8 @@
 """Unit tests of module scripts.cli.utils."""
 
 import subprocess
-from unittest.mock import patch
+from typing import Dict, List, Union
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -84,7 +85,7 @@ RUN_COMMAND_ERROR_DATA = [
 
 
 @pytest.mark.parametrize("scenario", PARSE_ARGUMENTS_DATA)
-def test_parse_arguments(scenario):
+def test_parse_arguments(scenario: Dict[str, Union[str, List[str]]]) -> None:
     """Test parse_arguments."""
     output = parse_arguments(scenario["input"])
     assert output == scenario["output"]
@@ -92,7 +93,9 @@ def test_parse_arguments(scenario):
 
 @pytest.mark.parametrize("scenario", GET_OUTPUT_DATA)
 @patch("subprocess.run")
-def test_get_output(mock_subprocess, scenario):
+def test_get_output(
+    mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str]]]
+) -> None:
     """Test get_output."""
     get_output(scenario["input"])
     mock_subprocess.assert_called_once_with(
@@ -106,7 +109,9 @@ def test_get_output(mock_subprocess, scenario):
 
 @pytest.mark.parametrize("scenario", RETURNCODE_DATA)
 @patch("subprocess.run")
-def test_get_returncode(mock_subprocess, scenario):
+def test_get_returncode(
+    mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str], int]]
+) -> None:
     """Test get_returncode."""
     mock_subprocess.return_value.returncode = scenario["mock"]
     output = get_returncode(scenario["input"])
@@ -115,7 +120,9 @@ def test_get_returncode(mock_subprocess, scenario):
 
 @pytest.mark.parametrize("scenario", OUTPUT_DATA)
 @patch("subprocess.run")
-def test_get_standard_output(mock_subprocess, scenario):
+def test_get_standard_output(
+    mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str], None]]
+) -> None:
     """Test get_output."""
     mock_subprocess.return_value.stdout = scenario["mock"]
     output = get_standard_output(scenario["input"])
@@ -124,7 +131,9 @@ def test_get_standard_output(mock_subprocess, scenario):
 
 @pytest.mark.parametrize("scenario", OUTPUT_DATA)
 @patch("subprocess.run")
-def test_get_standard_output_with_lines(mock_subprocess, scenario):
+def test_get_standard_output_with_lines(
+    mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str], None]]
+) -> None:
     """Test get_output."""
     mock_subprocess.return_value.stdout = scenario["mock"]
     output = get_standard_output(scenario["input"], lines=True)
@@ -133,7 +142,9 @@ def test_get_standard_output_with_lines(mock_subprocess, scenario):
 
 @pytest.mark.parametrize("scenario", RUN_COMMAND_SUCCESS_DATA)
 @patch("subprocess.run")
-def test_run_command_success(mock_subprocess, scenario):
+def test_run_command_success(
+    mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str]]]
+) -> None:
     """Test run_command successfully."""
     mock_subprocess.return_value = scenario["output"]
     output = run_command(scenario["input"])
@@ -141,7 +152,10 @@ def test_run_command_success(mock_subprocess, scenario):
 
 
 @pytest.mark.parametrize("scenario", RUN_COMMAND_ERROR_DATA)
-def test_run_command_error(scenario, capsys):
+def test_run_command_error(
+    scenario: Dict[str, Union[str, List[str], int]],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test run_command with error."""
     side_effect = subprocess.CalledProcessError(
         returncode=scenario["return_code"],

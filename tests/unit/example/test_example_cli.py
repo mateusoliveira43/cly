@@ -1,7 +1,8 @@
 """Unit tests of module scripts.example.example_cli."""
 
 import sys
-from unittest.mock import patch
+from typing import List
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -34,8 +35,11 @@ INVALID_ARGUMENTS_OPTION_TEST_DATA = [["-k"], ["-v"], ["-batman", "joker"]]
 @pytest.mark.parametrize("command", COMMANDS)
 @patch("scripts.example.example_cli.COMMANDS")
 def test_main_commands_with_option_text(
-    commands_mock, command, text_input, capsys
-):
+    commands_mock: Mock,
+    command: str,
+    text_input: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test main commands with option text."""
     sys_mock = ["file_name", command, "-t", text_input]
     with patch.object(sys, "argv", sys_mock):
@@ -57,8 +61,11 @@ def test_main_commands_with_option_text(
 @pytest.mark.parametrize("command", COMMANDS)
 @patch("scripts.example.example_cli.COMMANDS")
 def test_main_commands_with_option_number(
-    commands_mock, command, number_input, capsys
-):
+    commands_mock: Mock,
+    command: str,
+    number_input: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test main commands with option number."""
     sys_mock = ["file_name", command, "-n", number_input]
     with patch.object(sys, "argv", sys_mock):
@@ -80,8 +87,11 @@ def test_main_commands_with_option_number(
 @pytest.mark.parametrize("command", COMMANDS)
 @patch("scripts.example.example_cli.COMMANDS")
 def test_main_commands_with_option_arguments(
-    commands_mock, command, args, capsys
-):
+    commands_mock: Mock,
+    command: str,
+    args: List[str],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test main commands with option arguments."""
     sys_mock = ["file_name", command, "-t", "text_input", *args]
     with patch.object(sys, "argv", sys_mock):

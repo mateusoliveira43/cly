@@ -2,7 +2,8 @@
 
 import sys
 from contextlib import nullcontext
-from unittest.mock import patch
+from typing import Dict, List, Optional, Tuple, Union
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -26,8 +27,10 @@ INVALID_VERSIONS = [(2, 7), (3, 5), (3, 6)]
 @pytest.mark.parametrize("version", VALID_VERSIONS)
 @patch("sys.version_info")
 def test_check_python_minimum_version_with_valid_version(
-    mock_version_info, version, capsys
-):
+    mock_version_info: Mock,
+    version: Tuple[int, int],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test check_python_minimum_version with valid versions."""
     mock_version_info.major = version[0]
     mock_version_info.minor = version[1]
@@ -42,8 +45,10 @@ def test_check_python_minimum_version_with_valid_version(
 @pytest.mark.parametrize("version", INVALID_VERSIONS)
 @patch("sys.version_info")
 def test_check_python_minimum_version_with_invalid_version(
-    mock_version_info, version, capsys
-):
+    mock_version_info: Mock,
+    version: Tuple[int, int],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test check_python_minimum_version with invalid versions."""
     mock_version_info.major = version[0]
     mock_version_info.minor = version[1]
@@ -64,7 +69,9 @@ def test_check_python_minimum_version_with_invalid_version(
 
 
 @pytest.mark.parametrize("sys_mock", SYS_MOCK)
-def test_initialize_parser_without_parameter(sys_mock):
+def test_initialize_parser_without_parameter(
+    sys_mock: Dict[Union[str, bool], List[Optional[str]]]
+) -> None:
     """Test initialize_parser without options."""
     with patch.object(sys, "argv", sys_mock["mock"]):
         args = initialize_parser()
@@ -73,7 +80,9 @@ def test_initialize_parser_without_parameter(sys_mock):
 
 @pytest.mark.parametrize("sys_mock", SYS_MOCK)
 @pytest.mark.parametrize("parameter", PARAMETER)
-def test_initialize_parser_with_parameter(parameter, sys_mock):
+def test_initialize_parser_with_parameter(
+    parameter: bool, sys_mock: Dict[Union[str, bool], List[Optional[str]]]
+) -> None:
     """Test initialize_parser with option help."""
     with patch.object(sys, "argv", sys_mock["mock"]):
         args = initialize_parser(parameter)

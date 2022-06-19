@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from types import GenericAlias
 from typing import Any, Dict, Iterable, List, Optional, Union
 
 from cli.colors import color_text
@@ -14,6 +15,11 @@ VERSION_MESSAGE = "Show script's version."
 MAJOR_VERSION = 3
 MINOR_VERSION = 7
 PYTHON_MINIMUM_VERSION = (MAJOR_VERSION, MINOR_VERSION)
+
+
+setattr(
+    argparse._SubParsersAction, "__class_getitem__", classmethod(GenericAlias)
+)
 
 
 def check_python_minimum_version() -> None:
@@ -203,13 +209,15 @@ class ConfiguredParser:
         parser._actions[0].help = HELP_MESSAGE
         return parser
 
-    def create_subparser(self) -> argparse._SubParsersAction:
+    def create_subparser(
+        self,
+    ) -> argparse._SubParsersAction[argparse.ArgumentParser]:
         """
         Create configured subparser to add commands.
 
         Returns
         -------
-        _SubParsersAction
+        argparse._SubParsersAction[argparse.ArgumentParser]
             Configured argparse's subparser.
 
         """

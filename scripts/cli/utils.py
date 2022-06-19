@@ -32,7 +32,7 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
 
 def get_output(
     arguments: Union[str, List[str]]
-) -> subprocess.CompletedProcess:
+) -> subprocess.CompletedProcess[str]:
     """
     Get the output information of the shell command.
 
@@ -45,7 +45,7 @@ def get_output(
 
     Returns
     -------
-    int
+    subprocess.CompletedProcess[str]
         Command's output information.
 
     """
@@ -114,7 +114,7 @@ def get_standard_output(
 
 def run_command(
     arguments: Union[str, List[str]]
-) -> subprocess.CompletedProcess:
+) -> subprocess.CompletedProcess[str]:
     """
     Run the shell command.
 

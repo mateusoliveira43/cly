@@ -1,7 +1,8 @@
 """Integration tests of module scripts.cli.colors."""
 
 import math
-from unittest.mock import patch
+from typing import Dict, Union
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -66,7 +67,11 @@ PRINT_FLASHY_DATA = WORD_DATA + TWO_WORD_DATA
 
 @pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
 @patch("shutil.get_terminal_size")
-def test_print_flashy(mock_shutil, scenario, capsys):
+def test_print_flashy(
+    mock_shutil: Mock,
+    scenario: Dict[str, Union[str, int]],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test print_flashy."""
     mock_shutil.return_value = (scenario["mock"], 1)
     expected = (
@@ -82,7 +87,12 @@ def test_print_flashy(mock_shutil, scenario, capsys):
 @pytest.mark.parametrize("color", COLORS)
 @pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
 @patch("shutil.get_terminal_size")
-def test_print_flashy_with_color(mock_shutil, scenario, color, capsys):
+def test_print_flashy_with_color(
+    mock_shutil: Mock,
+    scenario: Dict[str, Union[str, int]],
+    color: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test print_flashy with colors."""
     mock_shutil.return_value = (scenario["mock"], 1)
     expected = (
@@ -97,7 +107,11 @@ def test_print_flashy_with_color(mock_shutil, scenario, color, capsys):
 
 @pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
 @patch("shutil.get_terminal_size")
-def test_print_flashy_with_underline(mock_shutil, scenario, capsys):
+def test_print_flashy_with_underline(
+    mock_shutil: Mock,
+    scenario: Dict[str, Union[str, int]],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test print_flashy with underline."""
     mock_shutil.return_value = (scenario["mock"], 1)
     expected = (
@@ -111,7 +125,9 @@ def test_print_flashy_with_underline(mock_shutil, scenario, capsys):
 
 
 @patch("shutil.get_terminal_size")
-def test_print_flashy_with_all_colors(mock_shutil, capsys):
+def test_print_flashy_with_all_colors(
+    mock_shutil: Mock, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test print_flashy with all colors."""
     mock_shutil_width = 40
     mock_shutil.return_value = (mock_shutil_width, 1)
