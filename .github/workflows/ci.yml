@@ -72,11 +72,6 @@ jobs:
           bandit --recursive scripts
           safety check --file requirements/dev.txt --full-report
 
-      - name: Usage example
-        run: |
-          scripts/run_example.py --help
-          scripts/run_example.py command1 --help
-
   sonarcloud:
     needs: build
     runs-on: ubuntu-latest
