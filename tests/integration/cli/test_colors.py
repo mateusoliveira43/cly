@@ -1,12 +1,12 @@
 """Integration tests of module scripts.cli.colors."""
 
 import math
-from typing import Dict, Union
+from typing import List, Tuple
 from unittest.mock import Mock, patch
 
 import pytest
 
-from scripts.cli.colors import (
+from cli.colors import (
     COLORS,
     DEFAULT,
     UNDERLINE,
@@ -15,14 +15,15 @@ from scripts.cli.colors import (
     underline_text,
 )
 
-WORD_DATA = [
-    {"message": "1", "mock": 20, "left": 8, "right": 9},
-    {"message": "12", "mock": 20, "left": 8, "right": 8},
-    {"message": "123", "mock": 20, "left": 7, "right": 8},
-    {"message": "1234", "mock": 20, "left": 7, "right": 7},
+WORD_DATA: List[Tuple[str, int, int, int]] = [
+    # input, mocked return, left, right
+    ("1", 20, 8, 9),
+    ("12", 20, 8, 8),
+    ("123", 20, 7, 8),
+    ("1234", 20, 7, 7),
 ]
-TWO_WORD_DATA = [
-    {"message": "1234 5678", "mock": 20, "left": 4, "right": 5},
+TWO_WORD_DATA: List[Tuple[str, int, int, int]] = [
+    ("1234 5678", 20, 4, 5),
 ]
 PRINT_FLASHY_DATA = WORD_DATA + TWO_WORD_DATA
 
@@ -65,60 +66,77 @@ PRINT_FLASHY_DATA = WORD_DATA + TWO_WORD_DATA
 # ]
 
 
-@pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
+@pytest.mark.parametrize(
+    "scenario_input,scenario_mock,scenario_left,scenario_right",
+    PRINT_FLASHY_DATA,
+)
 @patch("shutil.get_terminal_size")
 def test_print_flashy(
     mock_shutil: Mock,
-    scenario: Dict[str, Union[str, int]],
+    scenario_input: str,
+    scenario_mock: int,
+    scenario_left: int,
+    scenario_right: int,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Test print_flashy."""
-    mock_shutil.return_value = (scenario["mock"], 1)
+    mock_shutil.return_value = (scenario_mock, 1)
     expected = (
-        f"{'>'*scenario['left']} {scenario['message']} "
-        f"{'<'*scenario['right']}\n"
+        f"{'>'*scenario_left} {scenario_input} " f"{'<'*scenario_right}\n"
     )
-    print_flashy(scenario["message"])
+    print_flashy(scenario_input)
     output, error = capsys.readouterr()
     assert not error
     assert output == expected
 
 
 @pytest.mark.parametrize("color", COLORS)
-@pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
+@pytest.mark.parametrize(
+    "scenario_input,scenario_mock,scenario_left,scenario_right",
+    PRINT_FLASHY_DATA,
+)
 @patch("shutil.get_terminal_size")
 def test_print_flashy_with_color(
     mock_shutil: Mock,
-    scenario: Dict[str, Union[str, int]],
+    scenario_input: str,
+    scenario_mock: int,
+    scenario_left: int,
+    scenario_right: int,
     color: str,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Test print_flashy with colors."""
-    mock_shutil.return_value = (scenario["mock"], 1)
+    mock_shutil.return_value = (scenario_mock, 1)
     expected = (
-        f"{'>'*scenario['left']} {color_text(scenario['message'], color)} "
-        f"{'<'*scenario['right']}\n"
+        f"{'>'*scenario_left} {color_text(scenario_input, color)} "
+        f"{'<'*scenario_right}\n"
     )
-    print_flashy(color_text(scenario["message"], color))
+    print_flashy(color_text(scenario_input, color))
     output, error = capsys.readouterr()
     assert not error
     assert output == expected
 
 
-@pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
+@pytest.mark.parametrize(
+    "scenario_input,scenario_mock,scenario_left,scenario_right",
+    PRINT_FLASHY_DATA,
+)
 @patch("shutil.get_terminal_size")
 def test_print_flashy_with_underline(
     mock_shutil: Mock,
-    scenario: Dict[str, Union[str, int]],
+    scenario_input: str,
+    scenario_mock: int,
+    scenario_left: int,
+    scenario_right: int,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     """Test print_flashy with underline."""
-    mock_shutil.return_value = (scenario["mock"], 1)
+    mock_shutil.return_value = (scenario_mock, 1)
     expected = (
-        f"{'>'*scenario['left']} {UNDERLINE}{scenario['message']}{DEFAULT} "
-        f"{'<'*scenario['right']}\n"
+        f"{'>'*scenario_left} {UNDERLINE}{scenario_input}{DEFAULT} "
+        f"{'<'*scenario_right}\n"
     )
-    print_flashy(underline_text(scenario["message"]))
+    print_flashy(underline_text(scenario_input))
     output, error = capsys.readouterr()
     assert not error
     assert output == expected

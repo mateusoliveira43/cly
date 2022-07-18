@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from scripts.example.example_cli import COMMANDS, main
+from example.example_cli import COMMANDS, main
 from tests import ABSOLUTE_PATH
 
 EXAMPLE_FILE = (ABSOLUTE_PATH / "run_example.py").as_posix()
@@ -33,7 +33,7 @@ INVALID_ARGUMENTS_OPTION_TEST_DATA = [["-k"], ["-v"], ["-batman", "joker"]]
 
 @pytest.mark.parametrize("text_input", TEXT_OPTION_TEST_DATA)
 @pytest.mark.parametrize("command", COMMANDS)
-@patch("scripts.example.example_cli.COMMANDS")
+@patch("example.example_cli.COMMANDS")
 def test_main_commands_with_option_text(
     commands_mock: Mock,
     command: str,
@@ -59,7 +59,7 @@ def test_main_commands_with_option_text(
 
 @pytest.mark.parametrize("number_input", NUMBER_OPTION_TEST_DATA)
 @pytest.mark.parametrize("command", COMMANDS)
-@patch("scripts.example.example_cli.COMMANDS")
+@patch("example.example_cli.COMMANDS")
 def test_main_commands_with_option_number(
     commands_mock: Mock,
     command: str,
@@ -85,7 +85,7 @@ def test_main_commands_with_option_number(
 
 @pytest.mark.parametrize("args", ARGUMENTS_OPTION_TEST_DATA)
 @pytest.mark.parametrize("command", COMMANDS)
-@patch("scripts.example.example_cli.COMMANDS")
+@patch("example.example_cli.COMMANDS")
 def test_main_commands_with_option_arguments(
     commands_mock: Mock,
     command: str,

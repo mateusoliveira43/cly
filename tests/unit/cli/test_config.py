@@ -7,8 +7,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from scripts.cli.colors import color_text
-from scripts.cli.config import (
+from cli.colors import color_text
+from cli.config import (
     MAJOR_VERSION,
     MINOR_VERSION,
     check_python_minimum_version,

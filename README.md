@@ -56,7 +56,7 @@ Tests and coverage configuration in `pyproject.toml` file.
 
 To generate Python type files, run
 ```
-stubgen --verbose --package scripts --output .
+stubgen --verbose --package cli --output .
 ```
 
 To run Python type checker, run

@@ -211,13 +211,13 @@ class ConfiguredParser:
 
     def create_subparser(
         self,
-    ) -> argparse._SubParsersAction[argparse.ArgumentParser]:
+    ) -> argparse._SubParsersAction:
         """
         Create configured subparser to add commands.
 
         Returns
         -------
-        argparse._SubParsersAction[argparse.ArgumentParser]
+        argparse._SubParsersAction
             Configured argparse's subparser.
 
         """

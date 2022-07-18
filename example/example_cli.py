@@ -57,3 +57,7 @@ def main() -> None:
         utils.run_command("ls -1a")
     if arguments.command:
         COMMANDS[arguments.command](**dict(arguments._get_kwargs()))
+
+
+if __name__ == "__main__":
+    main()

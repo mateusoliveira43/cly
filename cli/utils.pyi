@@ -1,6 +1,8 @@
 import subprocess
 from typing import List, Optional, Union
 
+from cli.colors import color_text as color_text
+
 SPACE: str
 
 def parse_arguments(arguments: Union[str, List[str]]) -> str: ...

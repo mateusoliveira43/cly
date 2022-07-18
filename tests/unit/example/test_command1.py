@@ -2,7 +2,7 @@
 
 import pytest
 
-from scripts.example.command1 import command1
+from example.command1 import command1
 
 
 def test_command1_without_options(capsys: pytest.CaptureFixture[str]) -> None:

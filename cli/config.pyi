@@ -3,6 +3,8 @@ from typing import Any, Dict, List
 
 from _typeshed import Incomplete
 
+from cli.colors import color_text as color_text
+
 USAGE_PREFIX: str
 POSITIONALS_TITLE: str
 OPTIONALS_TITLE: str

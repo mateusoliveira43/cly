@@ -7,10 +7,10 @@ from unittest.mock import patch
 
 import pytest
 
-from scripts.example.example_cli import COMMANDS
+from example.example_cli import COMMANDS
 from tests import ABSOLUTE_PATH
 
-EXAMPLE_FILE = (ABSOLUTE_PATH / "run_example.py").as_posix()
+EXAMPLE_FILE = (ABSOLUTE_PATH / "example/example_cli.py").as_posix()
 ARGUMENTS = {
     "help": ["-h", "--help"],
     "version": ["-v", "--version"],
@@ -85,17 +85,18 @@ def test_main_with_option_version(
 
 @pytest.mark.parametrize("option", ARGUMENTS["optional"])
 def test_main_with_option_optional(
-    option: str, capsys: pytest.CaptureFixture[str]
+    option: str, capfd: pytest.CaptureFixture[str]
 ) -> None:
     """Test main with option optional."""
     sys_mock = ["file_name", option]
     with patch.object(sys, "argv", sys_mock):
         run_path(EXAMPLE_FILE, run_name="__main__")
-    output, error = capsys.readouterr()
+    output, error = capfd.readouterr()
     assert not error
     assert USAGE not in output
     assert not all(option in output for option in OPTIONS)
     assert "Optional flag called." in output
+    assert "poetry.lock" in output
 
 
 @pytest.mark.parametrize("option", INVALID_FLAGS)

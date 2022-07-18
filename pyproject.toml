@@ -32,7 +32,8 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=html:tests/coverage-results/htmlcov",
     "--cov-report=xml:tests/coverage-results/coverage.xml",
-    "--cov=scripts",
+    "--cov=cli",
+    "--cov=example",
     "--cov-fail-under=100",
 ]
 
@@ -40,6 +41,8 @@ addopts = [
 python_version = "3.7"
 strict = true
 show_error_codes = true
+warn_redundant_casts = true
+warn_unused_ignores = true
 
 [tool.isort]
 profile = "black"
