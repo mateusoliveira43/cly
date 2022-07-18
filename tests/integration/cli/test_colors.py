@@ -71,6 +71,7 @@ PRINT_FLASHY_DATA = WORD_DATA + TWO_WORD_DATA
     PRINT_FLASHY_DATA,
 )
 @patch("shutil.get_terminal_size")
+# pylint: disable=too-many-arguments
 def test_print_flashy(
     mock_shutil: Mock,
     scenario_input: str,
@@ -96,6 +97,7 @@ def test_print_flashy(
     PRINT_FLASHY_DATA,
 )
 @patch("shutil.get_terminal_size")
+# pylint: disable=too-many-arguments
 def test_print_flashy_with_color(
     mock_shutil: Mock,
     scenario_input: str,
@@ -122,6 +124,7 @@ def test_print_flashy_with_color(
     PRINT_FLASHY_DATA,
 )
 @patch("shutil.get_terminal_size")
+# pylint: disable=too-many-arguments
 def test_print_flashy_with_underline(
     mock_shutil: Mock,
     scenario_input: str,
