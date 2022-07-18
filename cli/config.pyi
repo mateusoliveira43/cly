@@ -35,7 +35,7 @@ class ConfiguredParser:
     ) -> None: ...
     def create_parser(self) -> argparse.ArgumentParser: ...
     def create_subparser(
-        self
+        self,
     ) -> argparse._SubParsersAction: ...  # type: ignore
     def create_command(
         self, name: str, help_message: str
