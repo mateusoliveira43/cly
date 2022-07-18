@@ -33,7 +33,10 @@ jobs:
           cache-dependency-path: "requirements/dev.txt"
 
       - name: Install Python dependencies
-        run: pip install -r requirements/dev.txt
+        # TODO fix problem
+        run: |
+          pip install coverage==6.4.1
+          pip install -r requirements/dev.txt
 
       - name: Python test and coverage
         run: pytest
