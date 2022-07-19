@@ -68,8 +68,14 @@ jobs:
 
       - name: Security vulnerability scan
         run: |
-          bandit --recursive scripts
+          bandit --recursive cli
+          bandit --recursive example
           safety check --file requirements/dev.txt --full-report
+
+      - name: Usage example
+        run: |
+          ./run_example.py --help
+          ./run_example.py command1 --help
 
   docker-check:
     runs-on: ubuntu-latest
