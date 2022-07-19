@@ -32,9 +32,13 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=html:tests/coverage-results/htmlcov",
     "--cov-report=xml:tests/coverage-results/coverage.xml",
-    "--cov=cli",
-    "--cov=example",
+    "--cov=.",
     "--cov-fail-under=100",
+]
+
+[tool.coverage.run]
+omit = [
+    "tests/*",
 ]
 
 [tool.mypy]
