@@ -18,6 +18,7 @@ safety = "^1.10.3"
 editorconfig-checker = "^2.4.0"
 black = "^22.3.0"
 prospector = "^1.7.7"
+mypy = "^0.961"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -31,9 +32,21 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=html:tests/coverage-results/htmlcov",
     "--cov-report=xml:tests/coverage-results/coverage.xml",
-    "--cov=scripts",
+    "--cov=.",
     "--cov-fail-under=100",
 ]
+
+[tool.coverage.run]
+omit = [
+    "tests/*",
+]
+
+[tool.mypy]
+python_version = "3.7"
+strict = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_unused_ignores = true
 
 [tool.isort]
 profile = "black"

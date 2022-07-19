@@ -1,6 +1,7 @@
 """Create configured argparse's CLI example."""
 
 import argparse
+from typing import Callable, Dict
 
 from cli import colors, config, utils
 from example import __version__
@@ -12,7 +13,8 @@ cli_config = {
     "epilog": "Script epilog.",
     "version": __version__,
 }
-COMMANDS = {
+
+COMMANDS: Dict[str, Callable[..., None]] = {
     command1.__name__: command1,
 }
 
@@ -47,11 +49,15 @@ command.add_argument(
 )
 
 
-def main():
+def main() -> None:
     """Run script on user call."""
     arguments = CLI.get_arguments()
     if arguments.optional:
         colors.print_flashy("Optional flag called.")
         utils.run_command("ls -1a")
     if arguments.command:
-        COMMANDS.get(arguments.command)(**dict(arguments._get_kwargs()))
+        COMMANDS[arguments.command](**dict(arguments._get_kwargs()))
+
+
+if __name__ == "__main__":
+    main()

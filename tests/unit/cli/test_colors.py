@@ -1,10 +1,11 @@
 """Unit tests of module scripts.cli.colors."""
 
-from unittest.mock import patch
+from typing import Dict, List, Tuple
+from unittest.mock import Mock, patch
 
 import pytest
 
-from scripts.cli.colors import (
+from cli.colors import (
     COLORS,
     DEFAULT,
     UNDERLINE,
@@ -16,31 +17,31 @@ from scripts.cli.colors import (
     underline_text,
 )
 
-FORMAT_OPTIONS_DATA = [
-    {"options": [], "result": ""},
-    {"options": ["one"], "result": "one"},
-    {"options": ["one", "two"], "result": "one or two"},
-    {"options": ["one", "two", "three"], "result": "one, two or three"},
-    {"options": ["1", "2", "3", "4", "5"], "result": "1, 2, 3, 4 or 5"},
+FORMAT_OPTIONS_DATA: List[Tuple[List[str], str]] = [
+    # input, output
+    # ([], ""),
+    (["one"], "one"),
+    (["one", "two"], "one or two"),
+    (["one", "two", "three"], "one, two or three"),
+    (["1", "2", "3", "4", "5"], "1, 2, 3, 4 or 5"),
 ]
 GET_COLOR_DATA_ERROR = ["batman", "joker", "riddler", "blue", "white"]
 WORDS = ["Batman", "Bruce Wayne", "Joker", "Edward Nigma"]
-GET_PRINT_LENGTH_DATA = [
-    {"message": "1", "result": 1},
-    {"message": "12", "result": 2},
-    {"message": "123", "result": 3},
-    {"message": "1234", "result": 4},
-    {"message": color_text("LEGO", "red"), "result": 4},
-    {"message": color_text("LEGO", "yellow"), "result": 4},
-    {"message": color_text("LEGO", "green"), "result": 4},
-    {"message": underline_text("LEGO"), "result": 4},
-    {"message": f'{underline_text("LEGO")} batman', "result": 11},
-    {
-        "message": color_text(
-            f'{underline_text("LEGO", "green")} is awesome!', "green"
-        ),
-        "result": 16,
-    },
+GET_PRINT_LENGTH_DATA: List[Tuple[str, int]] = [
+    # input, output
+    ("1", 1),
+    ("12", 2),
+    ("123", 3),
+    ("1234", 4),
+    (color_text("LEGO", "red"), 4),
+    (color_text("LEGO", "yellow"), 4),
+    (color_text("LEGO", "green"), 4),
+    (underline_text("LEGO"), 4),
+    (f'{underline_text("LEGO")} batman', 11),
+    (
+        color_text(f'{underline_text("LEGO", "green")} is awesome!', "green"),
+        16,
+    ),
 ]
 PRINT_FLASHY_DATA = [
     {"message_length": 1, "mock": 20, "left": 8, "right": 9},
@@ -55,22 +56,26 @@ PRINT_FLASHY_DATA = [
 ]
 
 
-@pytest.mark.parametrize("scenario", FORMAT_OPTIONS_DATA)
-def test_format_options(scenario):
+@pytest.mark.parametrize("scenario_input,scenario_output", FORMAT_OPTIONS_DATA)
+def test_format_options(
+    scenario_input: List[str], scenario_output: str
+) -> None:
     """Test format_options."""
-    output = format_options(scenario["options"])
-    assert output == scenario["result"]
+    output = format_options(scenario_input)
+    assert output == scenario_output
 
 
 @pytest.mark.parametrize("color", COLORS)
-def test_get_color_success(color):
+def test_get_color_success(color: str) -> None:
     """Test get_color with success."""
     output = get_color(color)
     assert output == COLORS[color]
 
 
 @pytest.mark.parametrize("color", GET_COLOR_DATA_ERROR)
-def test_get_color_error(color, capsys):
+def test_get_color_error(
+    color: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test get_color with error."""
     expected = (
         f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
@@ -87,7 +92,7 @@ def test_get_color_error(color, capsys):
 
 
 @pytest.mark.parametrize("word", WORDS)
-def test_underline_text(word):
+def test_underline_text(word: str) -> None:
     """Test underline_text."""
     words = word.split()
     if len(words) > 1:
@@ -100,7 +105,7 @@ def test_underline_text(word):
 
 @pytest.mark.parametrize("color", COLORS)
 @pytest.mark.parametrize("word", WORDS)
-def test_underline_text_with_color(word, color):
+def test_underline_text_with_color(word: str, color: str) -> None:
     """Test underline_text with color."""
     words = word.split()
     if len(words) > 1:
@@ -116,17 +121,24 @@ def test_underline_text_with_color(word, color):
 # TODO test color_text!
 
 
-@pytest.mark.parametrize("scenario", GET_PRINT_LENGTH_DATA)
-def test_get_print_length(scenario):
+@pytest.mark.parametrize(
+    "scenario_input,scenario_output", GET_PRINT_LENGTH_DATA
+)
+def test_get_print_length(scenario_input: str, scenario_output: int) -> None:
     """Test get_print_length."""
-    output = get_print_length(scenario["message"])
-    assert output == scenario["result"]
+    output = get_print_length(scenario_input)
+    assert output == scenario_output
 
 
 @pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
-@patch("scripts.cli.colors.get_print_length")
+@patch("cli.colors.get_print_length")
 @patch("shutil.get_terminal_size")
-def test_print_flashy(mock_shutil, mock_print_length, scenario, capsys):
+def test_print_flashy(
+    mock_shutil: Mock,
+    mock_print_length: Mock,
+    scenario: Dict[str, int],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     """Test print_flashy."""
     mock_shutil.return_value = (scenario["mock"], 1)
     mock_print_length.return_value = scenario["message_length"]

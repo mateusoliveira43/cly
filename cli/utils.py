@@ -3,7 +3,6 @@
 # Scripts that manipulate the shell must always be careful with possible
 # security implications.
 import subprocess  # nosec
-import sys
 from typing import List, Optional, Union
 
 from cli.colors import color_text
@@ -46,7 +45,7 @@ def get_output(
 
     Returns
     -------
-    int
+    subprocess.CompletedProcess
         Command's output information.
 
     """
@@ -128,9 +127,13 @@ def run_command(
 
     Returns
     -------
-    subprocess.CompletedProcess[str]
-        Executes the command (success); else, exits error returncode of the
-        command.
+    subprocess.CompletedProcess
+        Executes the command.
+
+    Raises
+    ------
+    SystemExit
+        If command fails.
 
     """
     command = parse_arguments(arguments)
@@ -140,4 +143,4 @@ def run_command(
         )
     except subprocess.CalledProcessError as error:
         print(color_text(f"ERROR: {error}", "red"))
-        sys.exit(error.returncode)
+        raise SystemExit(error.returncode) from error

@@ -2,7 +2,7 @@
 
 import math
 import shutil
-import sys
+from typing import List, Optional
 
 COMMA = ", "
 DEFAULT = "\033[0m"
@@ -14,19 +14,19 @@ COLORS = {
 }
 
 
-def format_options(options: list) -> str:
+def format_options(options: List[str]) -> str:
     """
     Format a list of options separating them with comma and 'or'.
 
     Parameters
     ----------
-    options : list
+    options : List[str]
         List of options.
 
     Returns
     -------
     str
-        Formated options.
+        Formatted options.
 
     """
     if len(options) < 2:
@@ -46,22 +46,26 @@ def get_color(color: str) -> str:
     Returns
     -------
     str
-        Unicode character of color, if available; else, exits error returncode
-        1.
+        Unicode character of color.
+
+    Raises
+    ------
+    SystemExit
+        If color is not available.
 
     """
     try:
         return COLORS[color]
-    except KeyError:
+    except KeyError as error:
         print(
             f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
             " is not a valid color. Available colors: "
             f"{format_options(list(COLORS.keys()))}."
         )
-        sys.exit(1)
+        raise SystemExit(1) from error
 
 
-def underline_text(text: str, color: str = None) -> str:
+def underline_text(text: str, color: Optional[str] = None) -> str:
     """
     Underline text.
 
@@ -69,9 +73,9 @@ def underline_text(text: str, color: str = None) -> str:
     ----------
     text : str
         Text to underline.
-    color : str, optional
-        One of the available colors' name for end character of text, by defult
-        None.
+    color : Optional[str], optional
+        One of the available colors' name for end character of text, by default
+        None
 
     Returns
     -------

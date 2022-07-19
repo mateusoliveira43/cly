@@ -2,14 +2,15 @@
 
 import sys
 from runpy import run_path
+from typing import List
 from unittest.mock import patch
 
 import pytest
 
-from scripts.example.example_cli import COMMANDS
+from example.example_cli import COMMANDS
 from tests import ABSOLUTE_PATH
 
-EXAMPLE_FILE = (ABSOLUTE_PATH / "run_example.py").as_posix()
+EXAMPLE_FILE = (ABSOLUTE_PATH / "example/example_cli.py").as_posix()
 ARGUMENTS = {
     "help": ["-h", "--help"],
     "version": ["-v", "--version"],
@@ -33,7 +34,7 @@ INVALID_NUMBER_OPTION_TEST_DATA = ["1.9", "joker", "-0.7", "1,7"]
 INVALID_ARGUMENTS_OPTION_TEST_DATA = [["-k"], ["-v"], ["-batman", "joker"]]
 
 
-def test_main_without_options(capsys):
+def test_main_without_options(capsys: pytest.CaptureFixture[str]) -> None:
     """Test main without options."""
     sys_mock = ["file_name"]
     with patch.object(sys, "argv", sys_mock):
@@ -48,7 +49,9 @@ def test_main_without_options(capsys):
 
 
 @pytest.mark.parametrize("option", ARGUMENTS["help"])
-def test_main_with_option_help(option, capsys):
+def test_main_with_option_help(
+    option: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main with option help."""
     sys_mock = ["file_name", option]
     with patch.object(sys, "argv", sys_mock):
@@ -63,7 +66,9 @@ def test_main_with_option_help(option, capsys):
 
 
 @pytest.mark.parametrize("option", ARGUMENTS["version"])
-def test_main_with_option_version(option, capsys):
+def test_main_with_option_version(
+    option: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main with option version."""
     sys_mock = ["file_name", option]
     with patch.object(sys, "argv", sys_mock):
@@ -79,20 +84,25 @@ def test_main_with_option_version(option, capsys):
 
 
 @pytest.mark.parametrize("option", ARGUMENTS["optional"])
-def test_main_with_option_optional(option, capsys):
+def test_main_with_option_optional(
+    option: str, capfd: pytest.CaptureFixture[str]
+) -> None:
     """Test main with option optional."""
     sys_mock = ["file_name", option]
     with patch.object(sys, "argv", sys_mock):
         run_path(EXAMPLE_FILE, run_name="__main__")
-    output, error = capsys.readouterr()
+    output, error = capfd.readouterr()
     assert not error
     assert USAGE not in output
     assert not all(option in output for option in OPTIONS)
     assert "Optional flag called." in output
+    assert "poetry.lock" in output
 
 
 @pytest.mark.parametrize("option", INVALID_FLAGS)
-def test_main_with_invalid_options(option, capsys):
+def test_main_with_invalid_options(
+    option: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main with invalid options."""
     sys_mock = ["file_name", option]
     with patch.object(sys, "argv", sys_mock):
@@ -106,7 +116,9 @@ def test_main_with_invalid_options(option, capsys):
 
 
 @pytest.mark.parametrize("command", INVALID_COMMANDS)
-def test_main_invalid_commands(command, capsys):
+def test_main_invalid_commands(
+    command: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main invalid commands."""
     sys_mock = ["file_name", command]
     with patch.object(sys, "argv", sys_mock):
@@ -120,7 +132,9 @@ def test_main_invalid_commands(command, capsys):
 
 
 @pytest.mark.parametrize("command", COMMANDS)
-def test_main_commands_without_options(command, capsys):
+def test_main_commands_without_options(
+    command: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main commands without options."""
     sys_mock = ["file_name", command]
     with patch.object(sys, "argv", sys_mock):
@@ -136,7 +150,9 @@ def test_main_commands_without_options(command, capsys):
 
 @pytest.mark.parametrize("option", ARGUMENTS["help"])
 @pytest.mark.parametrize("command", COMMANDS)
-def test_main_commands_with_option_help(command, option, capsys):
+def test_main_commands_with_option_help(
+    command: str, option: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main commands with option help."""
     sys_mock = ["file_name", command, option]
     with patch.object(sys, "argv", sys_mock):
@@ -223,8 +239,8 @@ def test_main_commands_with_option_help(command, option, capsys):
 @pytest.mark.parametrize("number_input", INVALID_NUMBER_OPTION_TEST_DATA)
 @pytest.mark.parametrize("command", COMMANDS)
 def test_main_commands_with_invalid_option_number(
-    command, number_input, capsys
-):
+    command: str, number_input: str, capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main commands with invalid option number."""
     sys_mock = ["file_name", command, "-n", number_input]
     with patch.object(sys, "argv", sys_mock):
@@ -239,7 +255,9 @@ def test_main_commands_with_invalid_option_number(
 
 @pytest.mark.parametrize("args", INVALID_ARGUMENTS_OPTION_TEST_DATA)
 @pytest.mark.parametrize("command", COMMANDS)
-def test_main_commands_with_invalid_option_arguments(command, args, capsys):
+def test_main_commands_with_invalid_option_arguments(
+    command: str, args: List[str], capsys: pytest.CaptureFixture[str]
+) -> None:
     """Test main commands with invalid option arguments."""
     sys_mock = ["file_name", command, "-t", "text_input", *args]
     with patch.object(sys, "argv", sys_mock):
