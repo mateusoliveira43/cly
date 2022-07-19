@@ -15,7 +15,7 @@ Check the repository [Wiki](https://github.com/mateusoliveira43/python-cli-scrip
 
 # Example of use
 
-The `example` folder is an example of use of the template.
+The `example` folder and the `run_example.py` file are an example of use of the template.
 
 To run the example, run
 ```
