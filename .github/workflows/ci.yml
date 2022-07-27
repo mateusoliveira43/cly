@@ -81,9 +81,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: hadolint/hadolint-action@v2.0.0
+      - name: Build Docker image
+        run: docker build --tag python-cli-script-template --file docker/Dockerfile .
+      - name: Dockerfile linter
+        uses: hadolint/hadolint-action@v2.0.0
         with:
           dockerfile: docker/Dockerfile
+      - name: Docker image security vulnerability scan
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: python-cli-script-template
+          args: --file=docker/Dockerfile
 
   sonarcloud:
     needs: build

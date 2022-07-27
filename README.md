@@ -40,6 +40,8 @@ To run Dockerfile linter, run
 docker/lint.sh
 ```
 
+TODO add scan command
+
 To remove the project's containers, images, volumes and networks, run
 ```
 docker/down.sh

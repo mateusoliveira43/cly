@@ -1,9 +1,9 @@
-FROM python:3.10.4-bullseye as setup
+FROM python:3.10.5-slim-bullseye as setup
 
-ARG GROUP_ID
-ARG USER_ID
-ARG PROJECT_NAME
-ARG WORK_DIR
+ARG GROUP_ID=1000
+ARG USER_ID=1000
+ARG PROJECT_NAME=python-cli-script-template
+ARG WORK_DIR=/home/$PROJECT_NAME/$PROJECT_NAME
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -13,7 +13,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     POETRY_NO_INTERACTION=1 \
     PATH=/home/$PROJECT_NAME/.local/bin:$PATH
 
-RUN groupadd --gid $GROUP_ID $PROJECT_NAME \
+RUN apt-get update \
+    && apt-get --no-install-recommends --yes install \
+    # Run apt list package to get available versions
+    curl=7.74.* \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --gid $GROUP_ID $PROJECT_NAME \
     && useradd --uid $USER_ID --gid $GROUP_ID --create-home $PROJECT_NAME
 USER $PROJECT_NAME
 
