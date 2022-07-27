@@ -40,6 +40,12 @@ Para rodar o linter de arquivos Dockerfile, execute
 docker/lint.sh
 ```
 
+Para rodar a varredura de vulnerabilidades de segurança na imagem Docker, execute
+```
+docker/scan.sh
+```
+É necessário ter uma conta no [Docker Hub](https://hub.docker.com/).
+
 Para remover os containers, imagens, volumes e redes do projeto, execute
 ```
 docker/down.sh

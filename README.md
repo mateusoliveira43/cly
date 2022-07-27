@@ -40,7 +40,11 @@ To run Dockerfile linter, run
 docker/lint.sh
 ```
 
-TODO add scan command
+To run Docker image security vulnerability scan, run
+```
+docker/scan.sh
+```
+It is needed to have an account in [Docker Hub](https://hub.docker.com/).
 
 To remove the project's containers, images, volumes and networks, run
 ```
