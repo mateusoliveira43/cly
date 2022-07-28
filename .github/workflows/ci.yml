@@ -93,7 +93,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: python-cli-script-template
-          args: --exclude-base --file=docker/Dockerfile
+          args: --severity-threshold=medium --file=docker/Dockerfile
 
   sonarcloud:
     needs: build

@@ -1,3 +1,15 @@
+FROM python:3.10.5-slim-bullseye as install-poetry
+
+ENV POETRY_VERSION=1.1.13
+
+RUN apt-get update \
+    && apt-get --no-install-recommends --yes install \
+    # Run apt list package to get available versions
+    curl=7.74.* \
+    && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py > ./install-poetry.py \
+    && apt-get --yes purge curl* \
+    && rm -rf /var/lib/apt/lists/*
+
 FROM python:3.10.5-slim-bullseye as setup
 
 ARG GROUP_ID=1000
@@ -13,19 +25,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     POETRY_NO_INTERACTION=1 \
     PATH=/home/$PROJECT_NAME/.local/bin:$PATH
 
-RUN apt-get update \
-    && apt-get --no-install-recommends --yes install \
-    # Run apt list package to get available versions
-    curl=7.74.* \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --gid $GROUP_ID $PROJECT_NAME \
+RUN groupadd --gid $GROUP_ID $PROJECT_NAME \
     && useradd --uid $USER_ID --gid $GROUP_ID --create-home $PROJECT_NAME
 USER $PROJECT_NAME
-
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python \
-    && mkdir $WORK_DIR
+RUN mkdir $WORK_DIR
 WORKDIR $WORK_DIR
+COPY --from=install-poetry ./install-poetry.py ./
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN python ./install-poetry.py \
+    && rm -rf ./install-poetry.py
 
 FROM setup as install
 
