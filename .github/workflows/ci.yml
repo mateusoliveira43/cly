@@ -68,8 +68,32 @@ jobs:
 
       - name: Security vulnerability scan
         run: |
-          bandit --recursive scripts
+          bandit --recursive cli
+          bandit --recursive example
           safety check --file requirements/dev.txt --full-report
+
+      - name: Usage example
+        run: |
+          ./run_example.py --help
+          ./run_example.py command1 --help
+
+  docker-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker image
+        run: docker build --tag python-cli-script-template --file docker/Dockerfile .
+      - name: Dockerfile linter
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: docker/Dockerfile
+      - name: Docker image security vulnerability scan
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: python-cli-script-template
+          args: --severity-threshold=medium --file=docker/Dockerfile
 
   sonarcloud:
     needs: build
