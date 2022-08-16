@@ -27,7 +27,7 @@ LINES = {
 ICONS = {
     "batman": "\N{bat}",
     "joker": "\N{clown face}",
-    "two-face": "\N{coin}",
+    "two-face": "",
 }
 
 
