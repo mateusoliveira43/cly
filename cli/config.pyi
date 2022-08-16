@@ -25,14 +25,14 @@ class CustomFormatter(argparse.HelpFormatter):
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class ConfiguredParser:
-    name: Incomplete
-    description: Incomplete
-    epilog: Incomplete
-    version: Incomplete
-    add_help: Incomplete
-    parser: Incomplete
-    subparser: Incomplete
-    commands: Incomplete
+    name: str
+    description: str
+    epilog: str
+    version: str
+    add_help: bool
+    parser: argparse.ArgumentParser
+    subparser: Optional[argparse._SubParsersAction]  # type: ignore
+    commands: Optional[Dict[str, Callable[..., Any]]]
     def __init__(
         self, config: Dict[str, str], add_help: bool = ...
     ) -> None: ...

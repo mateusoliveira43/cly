@@ -3,21 +3,38 @@
 import inspect
 from typing import Any, Callable, List, Tuple
 
-NUMPY = "NUMPY"  # Numpy style docstring
-GOOGLE = "GOOGLE"  # Google style docstring
-SPHINX = "SPHINX"  # reST (Sphinx) style docstring
+# https://numpydoc.readthedocs.io/en/latest/format.html
+NUMPY = "NUMPY"
+# https://google.github.io/styleguide/pyguide.html#381-docstrings
+GOOGLE = "GOOGLE"
+# https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html
+SPHINX = "SPHINX"
 NUMPY_PARAMS = "Parameters"
 GOOGLE_PARAMS = "Args:"
 SPHINX_PARAM = ":param"
 SPHINX_RETURNS = ":returns"
 SPHINX_RAISES = ":raises"
 DOCSTRING_SECTIONS = {
+    # TODO format deprecation warning to shell output
+    # ".. deprecated::": True,
     NUMPY_PARAMS: True,
     "Returns": True,
+    "Yields": True,
+    "Receives": True,
     "Raises": True,
+    "Warns": True,
+    "Warnings": True,
+    "See Also": True,
+    "References": True,
+    "Notes": True,
+    "Examples": True,
+    "Attributes": True,
+    "Methods": True,
     GOOGLE_PARAMS: True,
     "Returns:": True,
+    "Yields:": True,
     "Raises:": True,
+    "Attributes:": True,
 }
 DOCSTRING_STYLES_PARAMS = {
     NUMPY: NUMPY_PARAMS,
@@ -106,6 +123,7 @@ def get_param_help_from_numpy_docstring(
     help_message = ""
     for index, line in enumerate(docstring_lines[index_param_section:]):
         if line.strip().startswith(param_name):
+            # TODO FIX get param help that breaks line
             help_message = docstring_lines[index + index_param_section + 1]
             help_message = help_message.split(", by default")[0]
             if help_message[-1] != ".":
@@ -138,6 +156,7 @@ def get_param_help_from_google_docstring(
     help_message = ""
     for index, line in enumerate(docstring_lines[index_param_section:]):
         if line.strip().startswith(param_name):
+            # TODO FIX get param help that breaks line
             help_message = docstring_lines[index + index_param_section]
             help_message = help_message.split(":", maxsplit=2)[1]
             help_message = help_message.split(" Defaults to", maxsplit=2)[0]
@@ -171,6 +190,7 @@ def get_param_help_from_sphinx_docstring(
     help_message = ""
     for index, line in enumerate(docstring_lines[index_param_section:]):
         if line.strip().startswith(f"{SPHINX_PARAM} {param_name}"):
+            # TODO FIX get param help that breaks line
             help_message = docstring_lines[index + index_param_section]
             help_message = help_message.split(":", maxsplit=3)[2]
             help_message = help_message.split(", defaults to", maxsplit=2)[0]

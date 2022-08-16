@@ -121,6 +121,15 @@ class CustomFormatter(argparse.HelpFormatter):
 class ConfiguredParser:
     """Configured argparse's argument parser."""
 
+    name: str
+    description: str
+    epilog: str
+    version: str
+    add_help: bool
+    parser: argparse.ArgumentParser
+    subparser: Optional[argparse._SubParsersAction]
+    commands: Optional[Dict[str, Callable[..., Any]]]
+
     def __init__(
         self,
         config: Dict[str, str],
@@ -269,7 +278,7 @@ class ConfiguredParser:
                     .choices[command.dest]
                     ._actions[1:]
                 ):
-                    if action.dest == param.name:
+                    if action.dest == param.name and not action.help:
                         action.help = get_param_help_from_docstring(
                             param.name, self.commands[command.dest]
                         )
