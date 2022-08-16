@@ -262,7 +262,7 @@ class ConfiguredParser:
             self.subparser._choices_actions if self.subparser else []
         ):
             for param in inspect.signature(
-                command_func := self.commands[command.dest]
+                self.commands[command.dest]
             ).parameters.values():
                 for action in (
                     self.parser._subparsers._group_actions[0]
@@ -271,9 +271,10 @@ class ConfiguredParser:
                 ):
                     if action.dest == param.name:
                         action.help = get_param_help_from_docstring(
-                            param.name, command_func
+                            param.name, self.commands[command.dest]
                         )
                         break
 
-        if (namespace := self.get_arguments()).commands:
+        namespace = self.get_arguments()
+        if namespace.commands:
             self.commands[namespace.commands](**dict(namespace._get_kwargs()))
