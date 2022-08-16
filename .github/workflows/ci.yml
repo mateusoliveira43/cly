@@ -73,8 +73,9 @@ jobs:
 
       - name: Usage example
         run: |
-          ./run_example.py --help
-          ./run_example.py command1 --help
+          ./batcomputer.py --help
+          ./batcomputer.py id --help
+          ./batcomputer.py ls --help
 
   docker-check:
     runs-on: ubuntu-latest
