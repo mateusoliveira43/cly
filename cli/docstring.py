@@ -15,7 +15,6 @@ SPHINX_PARAM = ":param"
 SPHINX_RETURNS = ":returns"
 SPHINX_RAISES = ":raises"
 DOCSTRING_SECTIONS = {
-    # TODO format deprecation warning to shell output
     # ".. deprecated::": True,
     NUMPY_PARAMS: True,
     "Returns": True,
@@ -123,7 +122,6 @@ def get_param_help_from_numpy_docstring(
     help_message = ""
     for index, line in enumerate(docstring_lines[index_param_section:]):
         if line.strip().startswith(param_name):
-            # TODO FIX get param help that breaks line
             help_message = docstring_lines[index + index_param_section + 1]
             help_message = help_message.split(", by default")[0]
             if help_message[-1] != ".":
@@ -156,7 +154,6 @@ def get_param_help_from_google_docstring(
     help_message = ""
     for index, line in enumerate(docstring_lines[index_param_section:]):
         if line.strip().startswith(param_name):
-            # TODO FIX get param help that breaks line
             help_message = docstring_lines[index + index_param_section]
             help_message = help_message.split(":", maxsplit=2)[1]
             help_message = help_message.split(" Defaults to", maxsplit=2)[0]
@@ -190,7 +187,6 @@ def get_param_help_from_sphinx_docstring(
     help_message = ""
     for index, line in enumerate(docstring_lines[index_param_section:]):
         if line.strip().startswith(f"{SPHINX_PARAM} {param_name}"):
-            # TODO FIX get param help that breaks line
             help_message = docstring_lines[index + index_param_section]
             help_message = help_message.split(":", maxsplit=3)[2]
             help_message = help_message.split(", defaults to", maxsplit=2)[0]
