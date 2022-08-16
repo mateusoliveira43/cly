@@ -32,10 +32,7 @@ jobs:
           cache-dependency-path: "requirements/dev.txt"
 
       - name: Install Python dependencies
-        # TODO fix problem
-        run: |
-          pip install coverage==6.4.1
-          pip install -r requirements/dev.txt
+        run: pip install -r requirements/dev.txt
 
       - name: Python test and coverage
         run: pytest
@@ -58,7 +55,9 @@ jobs:
         run: mypy .
 
       - name: Python linter
-        run: prospector .
+        run: |
+          prospector
+          prospector --profile tests/.prospector.yaml tests
 
       - name: Code format
         run: |
@@ -74,8 +73,9 @@ jobs:
 
       - name: Usage example
         run: |
-          ./run_example.py --help
-          ./run_example.py command1 --help
+          ./batcomputer.py --help
+          ./batcomputer.py id --help
+          ./batcomputer.py ls --help
 
   docker-check:
     runs-on: ubuntu-latest

@@ -1,5 +1,3 @@
-"""Unit tests of module scripts.cli.colors."""
-
 from typing import Dict, List, Tuple
 from unittest.mock import Mock, patch
 
@@ -60,14 +58,12 @@ PRINT_FLASHY_DATA = [
 def test_format_options(
     scenario_input: List[str], scenario_output: str
 ) -> None:
-    """Test format_options."""
     output = format_options(scenario_input)
     assert output == scenario_output
 
 
 @pytest.mark.parametrize("color", COLORS)
 def test_get_color_success(color: str) -> None:
-    """Test get_color with success."""
     output = get_color(color)
     assert output == COLORS[color]
 
@@ -76,7 +72,6 @@ def test_get_color_success(color: str) -> None:
 def test_get_color_error(
     color: str, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    """Test get_color with error."""
     expected = (
         f'{COLORS["red"]}ERROR: {UNDERLINE}{color}{DEFAULT}{COLORS["red"]}'
         " is not a valid color. Available colors: "
@@ -93,7 +88,6 @@ def test_get_color_error(
 
 @pytest.mark.parametrize("word", WORDS)
 def test_underline_text(word: str) -> None:
-    """Test underline_text."""
     words = word.split()
     if len(words) > 1:
         remaining_words = " ".join(words[1:])
@@ -106,7 +100,6 @@ def test_underline_text(word: str) -> None:
 @pytest.mark.parametrize("color", COLORS)
 @pytest.mark.parametrize("word", WORDS)
 def test_underline_text_with_color(word: str, color: str) -> None:
-    """Test underline_text with color."""
     words = word.split()
     if len(words) > 1:
         remaining_words = " ".join(words[1:])
@@ -125,7 +118,6 @@ def test_underline_text_with_color(word: str, color: str) -> None:
     "scenario_input,scenario_output", GET_PRINT_LENGTH_DATA
 )
 def test_get_print_length(scenario_input: str, scenario_output: int) -> None:
-    """Test get_print_length."""
     output = get_print_length(scenario_input)
     assert output == scenario_output
 
@@ -139,7 +131,6 @@ def test_print_flashy(
     scenario: Dict[str, int],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test print_flashy."""
     mock_shutil.return_value = (scenario["mock"], 1)
     mock_print_length.return_value = scenario["message_length"]
     expected = (

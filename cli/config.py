@@ -1,13 +1,19 @@
 """argparse's parser custom configuration."""
 
 import argparse
+import functools
+import inspect
 import sys
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any, Callable, Dict, Iterable, Optional
 
 from cli.colors import color_text
+from cli.docstring import (
+    get_help_from_docstring,
+    get_param_help_from_docstring,
+)
 
 USAGE_PREFIX = "Usage:\n  [python|python3] "
-POSITIONALS_TITLE = "Required options"
+POSITIONALS_TITLE = "Arguments"
 OPTIONALS_TITLE = "Options"
 HELP_MESSAGE = "Show script's help message."
 VERSION_MESSAGE = "Show script's version."
@@ -39,62 +45,29 @@ def check_python_minimum_version() -> None:
         raise SystemExit(1)
 
 
-def get_version(name: str, version: str) -> str:
+def decorate_kwargs(func: Callable[..., Any]) -> Callable[..., Any]:
     """
-    Get the version of a script.
+    Call decorated function only with it's key words arguments.
 
     Parameters
     ----------
-    name : str
-        Name of the script.
-    version : str
-        Version of the script, in format major.minor.patch.
+    func : Callable[..., Any]
+        Function to be decorated.
 
     Returns
     -------
-    str
-        Script's version.
+    Callable[..., Any]
+        Decorated function.
 
     """
-    return f"{name} version {version}"
 
+    @functools.wraps(func)
+    def wrap(**kwargs: Any) -> Any:
+        for kwarg in set(kwargs.keys()) - set(func.__code__.co_varnames):
+            kwargs.pop(kwarg)
+        return func(**kwargs)
 
-def get_command_help_message(command: str) -> str:
-    """
-    Get the help message for a command.
-
-    Parameters
-    ----------
-    command : str
-        Name of the command.
-
-    Returns
-    -------
-    str
-        Command's help message.
-
-    """
-    return f"Show {command} command help message."
-
-
-def initialize_parser(add_help: bool = True) -> List[str]:
-    """
-    Initialize the CLI parser.
-
-    Parameters
-    ----------
-    add_help : bool, optional
-        Add help option if no arguments are passed, by default True.
-
-    Returns
-    -------
-    List[str]
-        List of arguments to be parsed by argparse.
-
-    """
-    if add_help:
-        return sys.argv[1:] or ["--help"]
-    return sys.argv[1:]
+    return wrap
 
 
 class CustomFormatter(argparse.HelpFormatter):
@@ -144,8 +117,18 @@ class CustomFormatter(argparse.HelpFormatter):
         return f"{comma.join(action.option_strings)} {metavar}"
 
 
+# pylint: disable=too-many-instance-attributes
 class ConfiguredParser:
     """Configured argparse's argument parser."""
+
+    name: str
+    description: str
+    epilog: str
+    version: str
+    add_help: bool
+    parser: argparse.ArgumentParser
+    subparser: Optional[argparse._SubParsersAction]
+    commands: Optional[Dict[str, Callable[..., Any]]]
 
     def __init__(
         self,
@@ -171,7 +154,8 @@ class ConfiguredParser:
         self.version = config["version"]
         self.add_help = add_help
         self.parser = self.create_parser()
-        self.subparser: Union[argparse._SubParsersAction, None] = None
+        self.subparser: Optional[argparse._SubParsersAction] = None
+        self.commands: Optional[Dict[str, Callable[..., Any]]] = None
 
     def create_parser(self) -> argparse.ArgumentParser:
         """
@@ -195,7 +179,7 @@ class ConfiguredParser:
             "-v",
             "--version",
             action="version",
-            version=get_version(self.name, self.version),
+            version=f"{self.name} version {self.version}",
             help=VERSION_MESSAGE,
         )
         parser._positionals.title = POSITIONALS_TITLE
@@ -216,42 +200,56 @@ class ConfiguredParser:
 
         """
         return self.parser.add_subparsers(
-            dest="command",
-            metavar="[COMMAND]",
+            dest="commands",
+            metavar="command",
             title="Commands",
             prog=sys.argv[0],
+            required=True,
         )
 
     def create_command(
-        self, name: str, help_message: str
+        self,
+        command: Callable[..., Any],
+        alias: Optional[str] = None,
+        help_message: Optional[str] = None,
     ) -> argparse.ArgumentParser:
         """
         Create configured command to script.
 
         Parameters
         ----------
-        name : str
-            Name of the command.
-        help_message : str
-            Help message of the command.
+        command : Callable[..., Any]
+            Function that represents the command.
+        alias : Optional[str], optional
+            Alias to call command, by default None
+        help_message : Optional[str], optional
+            Help message of the command, by default None
 
         Returns
         -------
-        ArgumentParser
+        argparse.ArgumentParser
             Configured argparse's parser command.
 
         """
         self.subparser = self.subparser or self.create_subparser()
-        command: argparse.ArgumentParser = self.subparser.add_parser(
-            name, help=help_message
+        self.commands = self.commands or {}
+        argparse_help = (
+            help_message if help_message else get_help_from_docstring(command)
         )
-        command.formatter_class = CustomFormatter
-        command._positionals.title = POSITIONALS_TITLE
-        command._optionals.title = OPTIONALS_TITLE
-        command._actions[0].help = get_command_help_message(name)
-        command.description = help_message
-        command.epilog = self.epilog
-        return command
+        argparse_command: argparse.ArgumentParser = self.subparser.add_parser(
+            alias if alias else command.__name__,
+            help=argparse_help,
+        )
+        self.commands[alias if alias else command.__name__] = decorate_kwargs(
+            command
+        )
+        argparse_command.formatter_class = CustomFormatter
+        argparse_command._positionals.title = POSITIONALS_TITLE
+        argparse_command._optionals.title = OPTIONALS_TITLE
+        argparse_command._actions[0].help = "Show command's help message."
+        argparse_command.description = argparse_help
+        argparse_command.epilog = self.epilog
+        return argparse_command
 
     def get_arguments(self) -> argparse.Namespace:
         """
@@ -263,4 +261,29 @@ class ConfiguredParser:
             Arguments in argparse's namespace.
 
         """
-        return self.parser.parse_args(initialize_parser(self.add_help))
+        return self.parser.parse_args(
+            sys.argv[1:] or ["--help"] if self.add_help else sys.argv[1:]
+        )
+
+    def __call__(self) -> None:
+        """Initialize the CLI parser."""
+        for command in (
+            self.subparser._choices_actions if self.subparser else []
+        ):
+            for param in inspect.signature(
+                self.commands[command.dest]
+            ).parameters.values():
+                for action in (
+                    self.parser._subparsers._group_actions[0]
+                    .choices[command.dest]
+                    ._actions[1:]
+                ):
+                    if action.dest == param.name and not action.help:
+                        action.help = get_param_help_from_docstring(
+                            param.name, self.commands[command.dest]
+                        )
+                        break
+
+        namespace = self.get_arguments()
+        if namespace.commands:
+            self.commands[namespace.commands](**dict(namespace._get_kwargs()))

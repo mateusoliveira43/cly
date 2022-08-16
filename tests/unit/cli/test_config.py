@@ -1,8 +1,5 @@
-"""Unit tests of module scripts.cli.config."""
-
-import sys
 from contextlib import nullcontext
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Tuple
 from unittest.mock import Mock, patch
 
 import pytest
@@ -12,7 +9,6 @@ from cli.config import (
     MAJOR_VERSION,
     MINOR_VERSION,
     check_python_minimum_version,
-    initialize_parser,
 )
 
 PARAMETER = [True, False]
@@ -31,7 +27,6 @@ def test_check_python_minimum_version_with_valid_version(
     version: Tuple[int, int],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test check_python_minimum_version with valid versions."""
     mock_version_info.major = version[0]
     mock_version_info.minor = version[1]
     with nullcontext() as sys_exit:
@@ -49,7 +44,6 @@ def test_check_python_minimum_version_with_invalid_version(
     version: Tuple[int, int],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test check_python_minimum_version with invalid versions."""
     mock_version_info.major = version[0]
     mock_version_info.minor = version[1]
     with pytest.raises(SystemExit) as sys_exit:
@@ -66,24 +60,3 @@ def test_check_python_minimum_version_with_invalid_version(
     )
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == 1
-
-
-@pytest.mark.parametrize("sys_mock", SYS_MOCK)
-def test_initialize_parser_without_parameter(
-    sys_mock: Dict[Union[str, bool], List[Optional[str]]]
-) -> None:
-    """Test initialize_parser without options."""
-    with patch.object(sys, "argv", sys_mock["mock"]):
-        args = initialize_parser()
-        assert args == sys_mock[True]
-
-
-@pytest.mark.parametrize("sys_mock", SYS_MOCK)
-@pytest.mark.parametrize("parameter", PARAMETER)
-def test_initialize_parser_with_parameter(
-    parameter: bool, sys_mock: Dict[Union[str, bool], List[Optional[str]]]
-) -> None:
-    """Test initialize_parser with option help."""
-    with patch.object(sys, "argv", sys_mock["mock"]):
-        args = initialize_parser(parameter)
-        assert args == sys_mock[parameter]

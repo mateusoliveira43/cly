@@ -1,5 +1,3 @@
-"""Unit tests of module scripts.cli.utils."""
-
 import subprocess
 from typing import Dict, List, Optional, Tuple, Union
 from unittest.mock import Mock, patch
@@ -119,7 +117,6 @@ RUN_COMMAND_ERROR_DATA: List[Tuple[Union[str, List[str]], int]] = [
 
 @pytest.mark.parametrize("scenario", PARSE_ARGUMENTS_DATA)
 def test_parse_arguments(scenario: Dict[str, Union[str, List[str]]]) -> None:
-    """Test parse_arguments."""
     output = parse_arguments(scenario["input"])
     assert output == scenario["output"]
 
@@ -129,7 +126,6 @@ def test_parse_arguments(scenario: Dict[str, Union[str, List[str]]]) -> None:
 def test_get_output(
     mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str]]]
 ) -> None:
-    """Test get_output."""
     get_output(scenario["input"])
     mock_subprocess.assert_called_once_with(
         scenario["parsed"],
@@ -147,7 +143,6 @@ def test_get_returncode(
     scenario_input: Union[str, List[str]],
     scenario_mock: int,
 ) -> None:
-    """Test get_returncode."""
     mock_subprocess.return_value.returncode = scenario_mock
     output = get_returncode(scenario_input)
     assert output == scenario_mock
@@ -163,7 +158,6 @@ def test_get_standard_output(
     scenario_mock: str,
     scenario_output: Optional[List[str]],
 ) -> None:
-    """Test get_output."""
     mock_subprocess.return_value.stdout = scenario_mock
     output = get_standard_output(scenario_input)
     assert output == scenario_output
@@ -179,7 +173,6 @@ def test_get_standard_output_with_lines(
     scenario_mock: str,
     scenario_output: Optional[List[str]],
 ) -> None:
-    """Test get_output."""
     mock_subprocess.return_value.stdout = scenario_mock
     output = get_standard_output(scenario_input, lines=True)
     assert output == scenario_output
@@ -204,7 +197,6 @@ def test_run_command_error(
     scenario_returncode: int,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test run_command with error."""
     side_effect = subprocess.CalledProcessError(
         returncode=scenario_returncode,
         cmd=scenario_input,

@@ -15,7 +15,12 @@ repos:
       language: python
     - id: prospector
       name: Python linter
-      entry: .venv/bin/prospector .
+      entry: .venv/bin/prospector
+      pass_filenames: false
+      language: python
+    - id: prospector tests
+      name: Python linter for tests
+      entry: .venv/bin/prospector --profile tests/.prospector.yaml tests
       pass_filenames: false
       language: python
     - id: safety

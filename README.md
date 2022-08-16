@@ -15,13 +15,13 @@ Check the repository [Wiki](https://github.com/mateusoliveira43/python-cli-scrip
 
 # Example of use
 
-The `example` folder and the `run_example.py` file are an example of use of the template.
+The `example` folder and the `batcomputer.py` file are an example of use of the template.
 
 To run the example, run
 ```
-[python|python3] ./run_example.py
-[python|python3] ./run_example.py -h
-[python|python3] ./run_example.py --help
+[python|python3] ./batcomputer.py
+[python|python3] ./batcomputer.py -h
+[python|python3] ./batcomputer.py --help
 ```
 to display the example script's help message. Run the script with Python 3 command is optional.
 
@@ -100,9 +100,10 @@ Python type checker configuration in `pyproject.toml` file.
 To run Python linter, run
 ```
 prospector
+prospector --profile tests/.prospector.yaml tests
 ```
 
-Python linter configuration in `.prospector.yaml` file.
+Python linter configuration in `.prospector.yaml` and `tests/.prospector.yaml` files.
 
 ## Code formatters
 
