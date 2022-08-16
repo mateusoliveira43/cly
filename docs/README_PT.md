@@ -15,13 +15,13 @@ Confira a [Wiki](https://github.com/mateusoliveira43/python-cli-script-template/
 
 # Exemplo de uso
 
-A pasta `example` e o arquivo `run_example.py` são um exemplo de uso do modelo.
+A pasta `example` e o arquivo `batcomputer.py` são um exemplo de uso do modelo.
 
 Para rodar o exemplo, execute
 ```
-[python|python3] ./run_example.py
-[python|python3] ./run_example.py -h
-[python|python3] ./run_example.py --help
+[python|python3] ./batcomputer.py
+[python|python3] ./batcomputer.py -h
+[python|python3] ./batcomputer.py --help
 ```
 para mostrar a mensagem de ajuda do script de exemplo. Executar o script com o comando de Python 3 é opcional.
 
@@ -100,9 +100,10 @@ Configurações do checador de tipo do Python descritas no arquivo `pyproject.to
 Para rodar o linter de código Python, execute
 ```
 prospector
+prospector --profile tests/.prospector.yaml tests
 ```
 
-Configurações do linter de Python descritas no arquivo `.prospector.yaml`.
+Configurações do linter de Python descritas nos arquivos `.prospector.yaml` e `tests/.prospector.yaml`.
 
 ## Formatadores de código
 

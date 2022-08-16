@@ -1,5 +1,3 @@
-"""Integration tests of module scripts.cli.colors."""
-
 import math
 from typing import List, Tuple
 from unittest.mock import Mock, patch
@@ -27,43 +25,41 @@ TWO_WORD_DATA: List[Tuple[str, int, int, int]] = [
 ]
 PRINT_FLASHY_DATA = WORD_DATA + TWO_WORD_DATA
 
-# TODO automatizar!
-# PRINT_FLASHY_COLOR_DATA = [
-#     {
-#         'message': color_text(
-#             f'{underline_text("LEGO", "green")} is awesome!', 'green'
-#         ),
-#         'mock': 20, 'left': 1, 'right': 1
-#     },
-#     {
-#         'message': f'Optional {underline_text("flag")} called.',
-#         'mock': 80, 'left': 28, 'right': 29
-#     },
-#     {
-#         'message': color_text(
-#             f'Optional {underline_text("flag")} called.', 'green'
-#         ),
-#         'mock': 80, 'left': 28, 'right': 29
-#     },
-#     {
-#         'message': color_text(
-#             f'Optional {underline_text("flag")} called.', 'red'
-#         ),
-#         'mock': 80, 'left': 28, 'right': 29
-#     },
-#     {
-#         'message': color_text(
-#             f'Optional {underline_text("flag")} called.', 'yellow'
-#         ),
-#         'mock': 80, 'left': 28, 'right': 29
-#     },
-#     {
-#         'message': color_text(
-#             f'Optional {underline_text("flag", "green")} called.', 'green'
-#         ),
-#         'mock': 80, 'left': 28, 'right': 29
-#     },
-# ]
+PRINT_FLASHY_MISC_DATA: List[Tuple[str, int, int, int]] = [
+    (
+        color_text(f'{underline_text("LEGO", "green")} is awesome!', "green"),
+        20,
+        1,
+        1,
+    ),
+    (f'Optional {underline_text("flag")} called.', 80, 28, 29),
+    (
+        color_text(f'Optional {underline_text("flag")} called.', "green"),
+        80,
+        28,
+        29,
+    ),
+    (
+        color_text(f'Optional {underline_text("flag")} called.', "red"),
+        80,
+        28,
+        29,
+    ),
+    (
+        color_text(f'Optional {underline_text("flag")} called.', "yellow"),
+        80,
+        28,
+        29,
+    ),
+    (
+        color_text(
+            f'Optional {underline_text("flag", "green")} called.', "green"
+        ),
+        80,
+        28,
+        29,
+    ),
+]
 
 
 @pytest.mark.parametrize(
@@ -80,11 +76,8 @@ def test_print_flashy(
     scenario_right: int,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test print_flashy."""
     mock_shutil.return_value = (scenario_mock, 1)
-    expected = (
-        f"{'>'*scenario_left} {scenario_input} " f"{'<'*scenario_right}\n"
-    )
+    expected = f"{'>'*scenario_left} {scenario_input} {'<'*scenario_right}\n"
     print_flashy(scenario_input)
     output, error = capsys.readouterr()
     assert not error
@@ -107,7 +100,6 @@ def test_print_flashy_with_color(
     color: str,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test print_flashy with colors."""
     mock_shutil.return_value = (scenario_mock, 1)
     expected = (
         f"{'>'*scenario_left} {color_text(scenario_input, color)} "
@@ -133,7 +125,6 @@ def test_print_flashy_with_underline(
     scenario_right: int,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    """Test print_flashy with underline."""
     mock_shutil.return_value = (scenario_mock, 1)
     expected = (
         f"{'>'*scenario_left} {UNDERLINE}{scenario_input}{DEFAULT} "
@@ -149,7 +140,6 @@ def test_print_flashy_with_underline(
 def test_print_flashy_with_all_colors(
     mock_shutil: Mock, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    """Test print_flashy with all colors."""
     mock_shutil_width = 40
     mock_shutil.return_value = (mock_shutil_width, 1)
     message = "".join([color_text("a", color) for color in COLORS])
@@ -158,6 +148,28 @@ def test_print_flashy_with_all_colors(
     right = mock_shutil_width - left - message_width
     expected = f"{'>'*left} {message} {'<'*right}\n"
     print_flashy(message)
+    output, error = capsys.readouterr()
+    assert not error
+    assert output == expected
+
+
+@pytest.mark.parametrize(
+    "scenario_input,scenario_mock,scenario_left,scenario_right",
+    PRINT_FLASHY_MISC_DATA,
+)
+@patch("shutil.get_terminal_size")
+# pylint: disable=too-many-arguments
+def test_print_flashy_with_color_and_with_underline(
+    mock_shutil: Mock,
+    scenario_input: str,
+    scenario_mock: int,
+    scenario_left: int,
+    scenario_right: int,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    mock_shutil.return_value = (scenario_mock, 1)
+    expected = f"{'>'*scenario_left} {scenario_input} {'<'*scenario_right}\n"
+    print_flashy(scenario_input)
     output, error = capsys.readouterr()
     assert not error
     assert output == expected

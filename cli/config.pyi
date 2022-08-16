@@ -1,9 +1,13 @@
 import argparse
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, Optional
 
 from _typeshed import Incomplete
 
 from cli.colors import color_text as color_text
+from cli.docstring import get_help_from_docstring as get_help_from_docstring
+from cli.docstring import (
+    get_param_help_from_docstring as get_param_help_from_docstring,
+)
 
 USAGE_PREFIX: str
 POSITIONALS_TITLE: str
@@ -15,9 +19,7 @@ MINOR_VERSION: int
 PYTHON_MINIMUM_VERSION: Incomplete
 
 def check_python_minimum_version() -> None: ...
-def get_version(name: str, version: str) -> str: ...
-def get_command_help_message(command: str) -> str: ...
-def initialize_parser(add_help: bool = ...) -> List[str]: ...
+def decorate_kwargs(func: Callable[..., Any]) -> Callable[..., Any]: ...
 
 class CustomFormatter(argparse.HelpFormatter):
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
@@ -30,6 +32,7 @@ class ConfiguredParser:
     add_help: Incomplete
     parser: Incomplete
     subparser: Incomplete
+    commands: Incomplete
     def __init__(
         self, config: Dict[str, str], add_help: bool = ...
     ) -> None: ...
@@ -38,6 +41,10 @@ class ConfiguredParser:
         self,
     ) -> argparse._SubParsersAction: ...  # type: ignore
     def create_command(
-        self, name: str, help_message: str
+        self,
+        command: Callable[..., Any],
+        alias: Optional[str] = ...,
+        help_message: Optional[str] = ...,
     ) -> argparse.ArgumentParser: ...
     def get_arguments(self) -> argparse.Namespace: ...
+    def __call__(self) -> None: ...

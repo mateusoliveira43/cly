@@ -1,41 +1,32 @@
-FROM python:3.10.5-slim-bullseye as install-poetry
+FROM python:3.10.6-bullseye as install-poetry
 
-ENV POETRY_VERSION=1.1.13
+RUN curl -sSL https://install.python-poetry.org > ./install-poetry.py
 
-RUN apt-get update \
-    && apt-get --no-install-recommends --yes install \
-    # Run apt list package to get available versions
-    curl=7.74.* \
-    && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py > ./install-poetry.py \
-    && apt-get --yes purge curl* \
-    && rm -rf /var/lib/apt/lists/*
-
-FROM python:3.10.5-slim-bullseye as setup
+FROM python:3.10.6-slim-bullseye as development
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
-ARG PROJECT_NAME=python-cli-script-template
-ARG WORK_DIR=/home/$PROJECT_NAME/$PROJECT_NAME
+ARG USER_NAME=develop
+ARG WORK_DIR=/home/$USER_NAME/PROJECT
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONFAULTHANDLER=1 \
-    POETRY_VERSION=1.1.13 \
+    POETRY_VERSION=1.1.14 \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_INTERACTION=1 \
-    PATH=/home/$PROJECT_NAME/.local/bin:$PATH
+    POETRY_HOME=/usr/bin/poetry \
+    PATH=/usr/bin/poetry/bin:$PATH
 
-RUN groupadd --gid $GROUP_ID $PROJECT_NAME \
-    && useradd --uid $USER_ID --gid $GROUP_ID --create-home $PROJECT_NAME
-USER $PROJECT_NAME
-RUN mkdir $WORK_DIR
-WORKDIR $WORK_DIR
+WORKDIR /
 COPY --from=install-poetry ./install-poetry.py ./
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN python ./install-poetry.py \
-    && rm -rf ./install-poetry.py
+    && rm ./install-poetry.py \
+    && groupadd --gid $GROUP_ID $USER_NAME \
+    && useradd --uid $USER_ID --gid $GROUP_ID --create-home $USER_NAME \
+    && runuser --user $USER_NAME -- mkdir $WORK_DIR
+USER $USER_NAME
 
-FROM setup as install
-
+WORKDIR $WORK_DIR
 COPY pyproject.toml poetry.lock ./
 RUN poetry install
