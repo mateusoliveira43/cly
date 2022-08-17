@@ -12,3 +12,6 @@ insert_final_newline = true
 
 [*.{yaml,yml}]
 indent_size = 2
+
+[*.{md,rst}]
+indent_size = unset

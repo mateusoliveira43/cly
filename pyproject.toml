@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-cli-script-template"
-version = "0.1.0"
+version = "1.0.0"
 description = "Template to create Python CLI scripts"
 authors = ["Mateus Oliveira"]
 license = "MIT"
@@ -19,6 +19,9 @@ editorconfig-checker = "^2.4.0"
 black = "^22.3.0"
 prospector = "^1.7.7"
 mypy = "^0.961"
+Sphinx = "^5.1.1"
+sphinx-rtd-theme = "^1.0.0"
+types-toml = "^0.10.8"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

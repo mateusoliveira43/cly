@@ -71,6 +71,11 @@ jobs:
           bandit --recursive example
           safety check --file requirements/dev.txt --full-report
 
+      - name: Test documentation
+        run: |
+          sphinx-apidoc --module-first --private --output-dir docs/modules cli
+          sphinx-build -W -T -v -n docs public
+
       - name: Usage example
         run: |
           ./batcomputer.py --help
