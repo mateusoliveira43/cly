@@ -1,0 +1,47 @@
+cli package
+===========
+
+.. automodule:: cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Submodules
+----------
+
+cli.colors module
+-----------------
+
+.. automodule:: cli.colors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+cli.config module
+-----------------
+
+.. automodule:: cli.config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+cli.docstring module
+--------------------
+
+.. automodule:: cli.docstring
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+cli.utils module
+----------------
+
+.. automodule:: cli.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

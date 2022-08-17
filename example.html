@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example of use &mdash; Python CLI script template  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Welcome to Python CLI script template’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python CLI script template
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example of use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-the-example">Understanding the example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">cli</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python CLI script template</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Example of use</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/example.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-of-use">
+<h1>Example of use<a class="headerlink" href="#example-of-use" title="Permalink to this heading"></a></h1>
+<p>The <a class="reference external" href="https://github.com/mateusoliveira43/python-cli-script-template/tree/main/example">example folder</a>
+and the <a class="reference external" href="https://github.com/mateusoliveira43/python-cli-script-template/blob/main/batcomputer.py">batcomputer.py</a>
+file are an example of use of the template, with a Batman Theme.</p>
+<p>To display the example script’s help, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>Run the script with Python 3 command is optional.</p>
+<section id="how-to-use">
+<h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h2>
+<p>The idea of use of this template is to copy the <a class="reference external" href="https://github.com/mateusoliveira43/python-cli-script-template/tree/main/cli">cli Python package</a>
+in your project and use it. A suggestion would be to have a <code class="docutils literal notranslate"><span class="pre">scripts</span></code> folder
+and stores your scripts like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>scripts/
+├── cli/
+├── script_name_cli/
+└── script_name.py
+</pre></div>
+</div>
+<p>Then, to call it, you would run <code class="docutils literal notranslate"><span class="pre">./scripts/script_name.py</span></code>.</p>
+<p>Do not forget that to run a Python script without the Python3 command, it is
+needed to add a <strong>shebang</strong> to the file and grant run permission to it.</p>
+<p>To grant run permission to a file in your Linux’s system, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">file_name</span>
+</pre></div>
+</div>
+</section>
+<section id="understanding-the-example">
+<h2>Understanding the example<a class="headerlink" href="#understanding-the-example" title="Permalink to this heading"></a></h2>
+<p>To understand what the template does, let’s check out how would be the example
+implementation with pure argparse:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">.commands.identify</span> <span class="kn">import</span> <span class="n">identify</span>
+<span class="kn">from</span> <span class="nn">.commands.list_aliases</span> <span class="kn">import</span> <span class="n">list_aliases</span>
+
+
+<span class="k">def</span> <span class="nf">decorate_kwargs</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">kwarg</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">kwarg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrap</span>
+
+
+<span class="n">COMMANDS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">decorate_kwargs</span><span class="p">(</span><span class="n">identify</span><span class="p">),</span>
+    <span class="s2">&quot;ls&quot;</span><span class="p">:</span> <span class="n">decorate_kwargs</span><span class="p">(</span><span class="n">list_aliases</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+    <span class="n">prog</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Run Batcomputer analysis on selected areas.&quot;</span><span class="p">,</span>
+    <span class="n">epilog</span><span class="o">=</span><span class="s2">&quot;Wayne Enterprises </span><span class="se">\N{office building}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># formatter_class=CustomFormatter, Defined in cli package</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">_positionals</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Arguments&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">_optionals</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Options&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">_actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Show script&#39;s help message.&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--version&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Batcomputer version </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Show script&#39;s version.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--oracle&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Use Oracle&#39;s help to get more data.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">subparser</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;commands&quot;</span><span class="p">,</span>
+    <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Commands&quot;</span><span class="p">,</span>
+    <span class="n">prog</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">identify_command</span> <span class="o">=</span> <span class="n">subparser</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Identify the person behind each alias.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">identify_command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span>
+    <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span>
+    <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;One or more alias to be identified, separated by spaces.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">subparser</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+    <span class="s2">&quot;ls&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;List all aliases in Batcomputer.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">CLI</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">namespace</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot;--help&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">namespace</span><span class="o">.</span><span class="n">commands</span><span class="p">:</span>
+        <span class="n">COMMANDS</span><span class="p">[</span><span class="n">namespace</span><span class="o">.</span><span class="n">commands</span><span class="p">](</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">namespace</span><span class="o">.</span><span class="n">_get_kwargs</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>You can copy this content into <code class="docutils literal notranslate"><span class="pre">example/batcomputer_cli.py</span></code> and run the
+example to check it out.</p>
+<p>Now let’s check the example further:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cli</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">.commands.identify</span> <span class="kn">import</span> <span class="n">identify</span>
+<span class="kn">from</span> <span class="nn">.commands.list_aliases</span> <span class="kn">import</span> <span class="n">list_aliases</span>
+
+<span class="n">CLI_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Batcomputer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Run Batcomputer analysis on selected areas.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;epilog&quot;</span><span class="p">:</span> <span class="s2">&quot;Wayne Enterprises </span><span class="se">\N{office building}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">CLI</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">ConfiguredParser</span><span class="p">(</span><span class="n">CLI_CONFIG</span><span class="p">)</span>
+<span class="n">CLI</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+    <span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--oracle&quot;</span><span class="p">,</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Use Oracle&#39;s help to get more data.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">identify_command</span> <span class="o">=</span> <span class="n">CLI</span><span class="o">.</span><span class="n">create_command</span><span class="p">(</span><span class="n">identify</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+<span class="n">identify_command</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+<span class="n">CLI</span><span class="o">.</span><span class="n">create_command</span><span class="p">(</span><span class="n">list_aliases</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When we call the <code class="docutils literal notranslate"><span class="pre">ConfiguredParser</span></code> class, it creates a
+<code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code>, doing everything the parser calls do in the pure
+argparse example, except adding the <code class="docutils literal notranslate"><span class="pre">oracle</span></code> argument.</p>
+<p>When we call the <code class="docutils literal notranslate"><span class="pre">create_command</span></code> function, it creates a subparser, if one
+does not already exists, and adds the command to it. If you notice, in the
+pure argparse example, the parser configuration is lost in the subparser. This
+does not happens with the template, because it passes the same configurations
+to the subparser. In the template, you do not need to pass the help for the
+commands’ arguments, since it is parsed from the command’s docstring.</p>
+<p>Finally, the template implements a <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method for parsing the user
+inputs. The pure argparse example have 77 lines of code, against 25 lines of code of
+when using the template.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Python CLI script template’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mateus Oliveira.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
