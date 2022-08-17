@@ -71,21 +71,7 @@ def decorate_kwargs(func: Callable[..., Any]) -> Callable[..., Any]:
 
 
 class CustomFormatter(argparse.HelpFormatter):
-    """
-    Custom formatter for argparse's argument parser.
-
-    Methods
-    -------
-    _format_usage(self, usage, actions, groups, prefix)
-        Formats prefix of usage section.
-
-    _format_action(self, action)
-        Removes subparser's metavar when listing its parsers.
-
-    _format_action_invocation(self, action)
-        Adds metavar only once to arguments.
-
-    """
+    """Custom formatter for argparse's argument parser."""
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Call super class init's."""
@@ -98,9 +84,43 @@ class CustomFormatter(argparse.HelpFormatter):
         groups: Iterable[argparse._ArgumentGroup],
         prefix: Optional[str],
     ) -> str:
+        """
+        Format prefix of usage section.
+
+        Parameters
+        ----------
+        usage : str
+            usage.
+        actions : Iterable[argparse.Action]
+            argparse actions.
+        groups : Iterable[argparse._ArgumentGroup]
+            argparse groups.
+        prefix : Optional[str]
+            usage prefix.
+
+        Returns
+        -------
+        str
+            Formatted usage section.
+
+        """
         return super()._format_usage(usage, actions, groups, USAGE_PREFIX)
 
     def _format_action(self, action: argparse.Action) -> str:
+        """
+        Remove subparser's metavar when listing its parsers.
+
+        Parameters
+        ----------
+        action : argparse.Action
+            argparse action.
+
+        Returns
+        -------
+        str
+            subparser's section without metavar.
+
+        """
         parts = super()._format_action(action)
         if action.nargs == argparse.PARSER:
             line_break = "\n"
@@ -108,6 +128,20 @@ class CustomFormatter(argparse.HelpFormatter):
         return parts
 
     def _format_action_invocation(self, action: argparse.Action) -> str:
+        """
+        Add metavar only once to arguments.
+
+        Parameters
+        ----------
+        action : argparse.Action
+            argparse action.
+
+        Returns
+        -------
+        str
+            How to use option with only one metavar.
+
+        """
         if not action.option_strings or action.nargs == 0:
             return super()._format_action_invocation(action)
         metavar = self._format_args(
@@ -163,7 +197,7 @@ class ConfiguredParser:
 
         Returns
         -------
-        ArgumentParser
+        argparse.ArgumentParser
             Configured argparse's parser.
 
         """
@@ -220,9 +254,9 @@ class ConfiguredParser:
         ----------
         command : Callable[..., Any]
             Function that represents the command.
-        alias : Optional[str], optional
+        alias : Optional[str]
             Alias to call command, by default None
-        help_message : Optional[str], optional
+        help_message : Optional[str]
             Help message of the command, by default None
 
         Returns
@@ -257,7 +291,7 @@ class ConfiguredParser:
 
         Returns
         -------
-        Namespace
+        argparse.Namespace
             Arguments in argparse's namespace.
 
         """

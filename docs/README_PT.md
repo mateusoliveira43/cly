@@ -1,6 +1,7 @@
 # Modelo de script com CLI em Python
 
 [![Integração Contínua](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
+[![Entrega Contínua](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateusoliveira43_python-cli-script-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateusoliveira43_python-cli-script-template)
 [![Importações: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![Estilo de código: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -11,28 +12,64 @@
 
 Modelo para criar scripts com interfaces de linha de comando em Python, usando a biblioteca padrão do Python [argparse](https://docs.python.org/3/library/argparse.html).
 
-Confira a [Wiki](https://github.com/mateusoliveira43/python-cli-script-template/wiki) do repositório para mais detalhes.
+Confira a documentação do projeto [aqui](https://mateusoliveira43.github.io/python-cli-script-template/).
 
-# Exemplo de uso
+## Requirements
 
-A pasta `example` e o arquivo `batcomputer.py` são um exemplo de uso do modelo.
+Para rodar o modelo, são necessárias as seguintes ferramentas:
 
-Para rodar o exemplo, execute
+- [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.7 ou maior
+
+## Desenvolvimento
+
+Escolha uma das seguintes seções para configurar seu ambiente de desenvolvimento.
+
+### Python
+
+Para criar um ambiente virtual, execute
 ```
-[python|python3] ./batcomputer.py
-[python|python3] ./batcomputer.py -h
-[python|python3] ./batcomputer.py --help
+virtualenv .venv
 ```
-para mostrar a mensagem de ajuda do script de exemplo. Executar o script com o comando de Python 3 é opcional.
 
-# Docker
+Para ativar o ambiente virtual, execute
+```
+source .venv/bin/activate
+```
+
+Para instalar as dependências de desenvolvimento do modelo no ambiente virtual, execute
+```
+pip install -r requirements/dev.txt
+```
+Para desativar o ambiente virtual, execute `deactivate`.
+
+Execute os comandos das seções seguintes com o ambiente virtual ativo.
+
+### Poetry
+
+Para instalar as dependências de desenvolvimento do modelo em um ambiente virtual, execute
+```
+poetry install
+```
+
+Para ativar o ambiente virtual, execute
+```
+poetry shell
+```
+Para desativar o ambiente virtual, execute `CTRL+D` ou `exit`.
+
+Para atualizar o arquivo de dependências, execute
+```
+poetry export --format requirements.txt --output requirements/dev.txt --dev
+```
+
+Execute os comandos das seções seguintes com o ambiente virtual ativo.
+
+### Docker
 
 Para se conectar na shell do container Docker do projeto, execute
 ```
 docker/run.sh
 ```
-Não é necessário ter um ambiente virtual ativo no container.
-
 Para sair da shell do container, execute `CTRL+D` ou `exit`.
 
 Para rodar o linter de arquivos Dockerfile, execute
@@ -53,24 +90,13 @@ docker/down.sh
 
 Para mudar a configuração do Docker, altere as variáveis no arquivo `.env`.
 
-# Qualidade
+Execute os comandos das seções seguintes na shell do container.
 
-Para rodar as métricas de qualidade do modelo, é necessário instalar seus requisitos de desenvolvimento e ter um ambiente virtual ativo. Para instalá-los em um ambiente virtual, execute
-```
-virtualenv .venv
-source .venv/bin/activate
-pip install -r requirements/dev.txt
-```
-ou
-```
-poetry install --no-root
-poetry shell
-```
-Para desativar o ambiente virtual, execute `CTRL+D` ou `exit`.
+## Qualidade
 
 As métricas de qualidade do modelo são reproduzidas pelas etapas de integração contínua do projeto. Configurações das etapas de integração contínua descritas no arquivo `.github/workflows/ci.yml`.
 
-## Testes
+### Testes
 
 Para rodar os testes e relatório de cobertura, execute
 ```
@@ -81,7 +107,7 @@ Para ver o relatório html, confira `tests/coverage-results/htmlcov/index.html`.
 
 Configurações dos testes e relatório de cobertura descritas no arquivo `pyproject.toml`.
 
-## Checagem de tipo
+### Checagem de tipo
 
 Para gerar arquivos de tipo do python, execute
 ```
@@ -95,7 +121,7 @@ mypy .
 
 Configurações do checador de tipo do Python descritas no arquivo `pyproject.toml`.
 
-## Linter
+### Linter
 
 Para rodar o linter de código Python, execute
 ```
@@ -105,7 +131,7 @@ prospector --profile tests/.prospector.yaml tests
 
 Configurações do linter de Python descritas nos arquivos `.prospector.yaml` e `tests/.prospector.yaml`.
 
-## Formatadores de código
+### Formatadores de código
 
 Para checar o formato das importações no código Python, execute
 ```
@@ -136,7 +162,7 @@ ec -verbose
 
 Configurações do formato dos arquivos descritas no arquivo `.editorconfig`.
 
-## Varredura de vulnerabilidades de segurança
+### Varredura de vulnerabilidades de segurança
 
 Para checar problemas de segurança comuns no código Python, execute
 ```
@@ -149,11 +175,30 @@ Para checar vulnerabilidades de segurança conhecidas nas dependências Python, 
 safety check --file requirements/dev.txt --full-report
 ```
 
-## Análise de código com SonarCloud
+### Documentação
+
+Para verificar a geração de documentação do código Python, execute
+```
+sphinx-apidoc --module-first --private --output-dir docs/modules cli
+sphinx-build -W -T -v -n docs public
+```
+
+Para gerar a documentação do código Python, execute
+```
+sphinx-apidoc --module-first --private --output-dir docs/modules cli
+sphinx-build -v -n docs public
+```
+Para ver a documentação, confira `public/index.html`.
+
+Configuração do Sphinx no arquivo [`docs/conf.py`](docs/conf.py).
+
+A documentação é atualizada automaticamente pelas etapas de entrega contínua (CD) do projeto. Configuração das etapas de entrega contínua no arquivo [`.github/workflows/cd.yml`](.github/workflows/cd.yml).
+
+### Análise de código com SonarCloud
 
 [SonarCloud](https://sonarcloud.io/) analisa o código fonte do repositório através das etapas de integração contínua.
 
-# Pre-commit
+## Pre-commit
 
 Para configurar o pre-commit automaticamente ao clonar o repositório, execute
 ```
@@ -161,7 +206,7 @@ pip install pre-commit
 git config --global init.templateDir ~/.git-template
 pre-commit init-templatedir --hook-type commit-msg --hook-type pre-commit ~/.git-template
 ```
-Precisa ser instalado de forma global. Mais informações em https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories
+Precisa ser instalado de forma global. Mais informações [aqui](https://pre-commit.com/#automatically-enabling-pre-commit-on-repositories).
 
 Para configurar o pre-commit localmente, execute
 ```
@@ -175,6 +220,6 @@ Para testá-lo, execute
 pre-commit run --all-files
 ```
 
-# Licença
+## Licença
 
 Esse repositório é licenciado sob os termos da [Licença MIT](LICENSE).

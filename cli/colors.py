@@ -73,7 +73,7 @@ def underline_text(text: str, color: Optional[str] = None) -> str:
     ----------
     text : str
         Text to underline.
-    color : Optional[str], optional
+    color : Optional[str]
         One of the available colors' name for end character of text, by default
         None
 

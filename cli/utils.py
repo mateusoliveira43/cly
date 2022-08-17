@@ -92,7 +92,7 @@ def get_standard_output(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
-    lines : bool, optional
+    lines : bool
         Separate output in lines instead of separating in words, by default
         False.
 
