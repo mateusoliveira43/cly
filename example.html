@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example of use &mdash; Python CLI script template  documentation</title>
+  <title>Example of use &mdash; CLY?!  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changelog" href="changelog.html" />
-    <link rel="prev" title="Welcome to Python CLI script template’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to CLY’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,7 +28,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Python CLI script template
+            <a href="index.html" class="icon icon-home"> CLY?!
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -45,7 +45,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">cli</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">cly</a></li>
 </ul>
 
         </div>
@@ -54,7 +54,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Python CLI script template</a>
+          <a href="index.html">CLY?!</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -74,8 +74,8 @@
              
   <section id="example-of-use">
 <h1>Example of use<a class="headerlink" href="#example-of-use" title="Permalink to this heading"></a></h1>
-<p>The <a class="reference external" href="https://github.com/mateusoliveira43/python-cli-script-template/tree/main/example">example folder</a>
-and the <a class="reference external" href="https://github.com/mateusoliveira43/python-cli-script-template/blob/main/batcomputer.py">batcomputer.py</a>
+<p>The <a class="reference external" href="https://github.com/mateusoliveira43/cly/tree/main/example">example folder</a>
+and the <a class="reference external" href="https://github.com/mateusoliveira43/cly/blob/main/batcomputer.py">batcomputer.py</a>
 file are an example of use of the template, with a Batman Theme.</p>
 <p>To display the example script’s help, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span>
@@ -92,11 +92,11 @@ file are an example of use of the template, with a Batman Theme.</p>
 <p>Run the script with Python 3 command is optional.</p>
 <section id="how-to-use">
 <h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h2>
-<p>The idea of use of this template is to copy the <a class="reference external" href="https://github.com/mateusoliveira43/python-cli-script-template/tree/main/cli">cli Python package</a>
+<p>The idea of use of this template is to copy the <a class="reference external" href="https://github.com/mateusoliveira43/cly/tree/main/cly">cly Python package</a>
 in your project and use it. A suggestion would be to have a <code class="docutils literal notranslate"><span class="pre">scripts</span></code> folder
 and stores your scripts like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>scripts/
-├── cli/
+├── cly/
 ├── script_name_cli/
 └── script_name.py
 </pre></div>
@@ -196,7 +196,7 @@ implementation with pure argparse:</p>
 <p>You can copy this content into <code class="docutils literal notranslate"><span class="pre">example/batcomputer_cli.py</span></code> and run the
 example to check it out.</p>
 <p>Now let’s check the example further:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cli</span> <span class="kn">import</span> <span class="n">config</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cly</span> <span class="kn">import</span> <span class="n">config</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">.commands.identify</span> <span class="kn">import</span> <span class="n">identify</span>
@@ -242,7 +242,7 @@ when using the template.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Python CLI script template’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to CLY’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

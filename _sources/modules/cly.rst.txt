@@ -1,7 +1,7 @@
-cli package
+cly package
 ===========
 
-.. automodule:: cli
+.. automodule:: cly
    :members:
    :undoc-members:
    :show-inheritance:
@@ -10,37 +10,37 @@ cli package
 Submodules
 ----------
 
-cli.colors module
+cly.colors module
 -----------------
 
-.. automodule:: cli.colors
+.. automodule:: cly.colors
    :members:
    :undoc-members:
    :show-inheritance:
    :private-members:
 
-cli.config module
+cly.config module
 -----------------
 
-.. automodule:: cli.config
+.. automodule:: cly.config
    :members:
    :undoc-members:
    :show-inheritance:
    :private-members:
 
-cli.docstring module
+cly.docstring module
 --------------------
 
-.. automodule:: cli.docstring
+.. automodule:: cly.docstring
    :members:
    :undoc-members:
    :show-inheritance:
    :private-members:
 
-cli.utils module
+cly.utils module
 ----------------
 
-.. automodule:: cli.utils
+.. automodule:: cly.utils
    :members:
    :undoc-members:
    :show-inheritance:
