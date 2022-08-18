@@ -6,11 +6,8 @@ import inspect
 import sys
 from typing import Any, Callable, Dict, Iterable, Optional
 
-from cli.colors import color_text
-from cli.docstring import (
-    get_help_from_docstring,
-    get_param_help_from_docstring,
-)
+from .colors import color_text
+from .docstring import get_help_from_docstring, get_param_help_from_docstring
 
 USAGE_PREFIX = "Usage:\n  [python|python3] "
 POSITIONALS_TITLE = "Arguments"

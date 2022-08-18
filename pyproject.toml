@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "python-cli-script-template"
-version = "1.0.0"
-description = "Template to create Python CLI scripts"
+name = "cly"
+version = "1.0.1"
+description = "CLY?! Template to create Python CLI scripts"
 authors = ["Mateus Oliveira"]
 license = "MIT"
 readme = "README.md"

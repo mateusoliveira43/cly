@@ -4,8 +4,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from cli.colors import color_text
-from cli.config import (
+from cly.colors import color_text
+from cly.config import (
     MAJOR_VERSION,
     MINOR_VERSION,
     check_python_minimum_version,

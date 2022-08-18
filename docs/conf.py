@@ -12,7 +12,7 @@ sys.path.append(PROJECT_ROOT)
 
 # -- Project information -----------------------------------------------------
 
-project = "Python CLI script template"
+project = "CLY?!"
 copyright = "2022, Mateus Oliveira"
 author = "Mateus Oliveira"
 

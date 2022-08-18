@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from cli.colors import (
+from cly.colors import (
     COLORS,
     DEFAULT,
     UNDERLINE,

@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from cli.colors import (
+from cly.colors import (
     COLORS,
     DEFAULT,
     UNDERLINE,
@@ -123,7 +123,7 @@ def test_get_print_length(scenario_input: str, scenario_output: int) -> None:
 
 
 @pytest.mark.parametrize("scenario", PRINT_FLASHY_DATA)
-@patch("cli.colors.get_print_length")
+@patch("cly.colors.get_print_length")
 @patch("shutil.get_terminal_size")
 def test_print_flashy(
     mock_shutil: Mock,

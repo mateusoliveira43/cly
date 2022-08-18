@@ -1,9 +1,21 @@
-Welcome to Python CLI script template's documentation!
-======================================================
+Welcome to CLY's documentation!
+===============================
 
 Python Command Line Interface (CLI) script template using Python standard
 library `argparse <https://docs.python.org/3/library/argparse.html>`_. Build
 CLIs without dependencies!
+
+Name
+----
+
+The name of the package is a little joke. If you read each letter instead of reading
+the word, the **Y** sounds like **WHY**. Why should you use the template? That
+is the reason it has a question mark in the name (and the question I try to
+answer in the next section). And it also has a exclamation mark as a reply to
+it, now the **Y** taking the role as **.py** file extension.
+
+In other words, the name of the package is **"Why should I use this CLI? Because
+It is written in Python!"**.
 
 Motivation
 ----------

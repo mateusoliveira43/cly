@@ -1,6 +1,19 @@
 Changelog
 =========
 
+1.0.1
+-----
+
+In this version:
+
+- Fixing imports in cli package: using relative imports both for performance and
+  for not break package use.
+- Change cli package name to **cly** (this should be a major change, but since
+  this is not a Python package that you will download, just copy, I am considering
+  it a patch change).
+- Change repository name to **cly**.
+- Add name explanation to documentation.
+
 1.0.0
 -----
 

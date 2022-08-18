@@ -24,7 +24,7 @@ jobs:
         run: pip install -r requirements/dev.txt
       - name: Generate documentation
         run: |
-          sphinx-apidoc --module-first --private --output-dir docs/modules cli
+          sphinx-apidoc --module-first --private --output-dir docs/modules cly
           sphinx-build -v -n docs public
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4.3.3
