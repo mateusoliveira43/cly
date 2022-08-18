@@ -3,10 +3,10 @@ from pathlib import Path
 import pytest
 import toml
 
-import cli
+import cly
 from tests import ABSOLUTE_PATH
 
-VERSION_LABELS = cli.__version__.split(".", maxsplit=2)
+VERSION_LABELS = cly.__version__.split(".", maxsplit=2)
 
 
 def read_variable_from_file(variable_name: str, file_path: Path) -> str:
@@ -41,18 +41,18 @@ def test_pyproject_version() -> None:
     THEN they should be the same
     """
     with open(
-        Path(cli.__file__).resolve().parents[1] / "pyproject.toml",
+        Path(cly.__file__).resolve().parents[1] / "pyproject.toml",
         encoding="utf-8",
     ) as pyproject_file:
         pyproject = toml.loads(pyproject_file.read())
 
     pyproject_version = pyproject["tool"]["poetry"]["version"]
 
-    assert cli.__version__ == pyproject_version
+    assert cly.__version__ == pyproject_version
 
 
 def test_sonar_version() -> None:
-    assert cli.__version__ == read_variable_from_file(
+    assert cly.__version__ == read_variable_from_file(
         "sonar.projectVersion", ABSOLUTE_PATH / "sonar-project.properties"
     )
 

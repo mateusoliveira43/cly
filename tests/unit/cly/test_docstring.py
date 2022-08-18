@@ -2,7 +2,7 @@ from typing import Optional
 
 import pytest
 
-from cli.docstring import (
+from cly.docstring import (
     get_help_from_docstring,
     get_param_help_from_docstring,
 )

@@ -3,9 +3,9 @@ from typing import Any, Callable, Dict, Optional
 
 from _typeshed import Incomplete
 
-from cli.colors import color_text as color_text
-from cli.docstring import get_help_from_docstring as get_help_from_docstring
-from cli.docstring import (
+from .colors import color_text as color_text
+from .docstring import get_help_from_docstring as get_help_from_docstring
+from .docstring import (
     get_param_help_from_docstring as get_param_help_from_docstring,
 )
 

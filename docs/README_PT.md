@@ -1,7 +1,7 @@
-# Modelo de script com CLI em Python
+# CLY? CLY!
 
-[![Integração Contínua](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
-[![Entrega Contínua](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
+[![Integração Contínua](https://github.com/mateusoliveira43/cly/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
+[![Entrega Contínua](https://github.com/mateusoliveira43/cly/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateusoliveira43_python-cli-script-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateusoliveira43_python-cli-script-template)
 [![Importações: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![Estilo de código: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -12,7 +12,7 @@
 
 Modelo para criar scripts com interfaces de linha de comando em Python, usando a biblioteca padrão do Python [argparse](https://docs.python.org/3/library/argparse.html).
 
-Confira a documentação do projeto [aqui](https://mateusoliveira43.github.io/python-cli-script-template/).
+Confira a documentação do projeto [aqui](https://mateusoliveira43.github.io/cly/).
 
 ## Requirements
 
@@ -111,7 +111,7 @@ Configurações dos testes e relatório de cobertura descritas no arquivo `pypro
 
 Para gerar arquivos de tipo do python, execute
 ```
-stubgen --verbose --package cli --output .
+stubgen --verbose --package cly --output .
 ```
 
 Para rodar o checador de tipo do Python, execute
@@ -166,7 +166,7 @@ Configurações do formato dos arquivos descritas no arquivo `.editorconfig`.
 
 Para checar problemas de segurança comuns no código Python, execute
 ```
-bandit --recursive cli
+bandit --recursive cly
 bandit --recursive example
 ```
 
@@ -179,13 +179,13 @@ safety check --file requirements/dev.txt --full-report
 
 Para verificar a geração de documentação do código Python, execute
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules cli
+sphinx-apidoc --module-first --private --output-dir docs/modules cly
 sphinx-build -W -T -v -n docs public
 ```
 
 Para gerar a documentação do código Python, execute
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules cli
+sphinx-apidoc --module-first --private --output-dir docs/modules cly
 sphinx-build -v -n docs public
 ```
 Para ver a documentação, confira `public/index.html`.

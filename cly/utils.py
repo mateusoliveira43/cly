@@ -5,7 +5,7 @@
 import subprocess  # nosec
 from typing import List, Optional, Union
 
-from cli.colors import color_text
+from .colors import color_text
 
 SPACE = " "
 

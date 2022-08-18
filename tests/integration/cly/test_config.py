@@ -1,6 +1,6 @@
 import pytest
 
-from cli import config
+from cly import config
 
 CLI_CONFIG = {
     "name": "Test",

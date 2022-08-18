@@ -1,6 +1,6 @@
 """Create configured argparse's CLI example."""
 
-from cli import config
+from cly import config
 
 from . import __version__
 from .commands.identify import identify

@@ -1,7 +1,7 @@
-# Python CLI script template
+# CLY? CLY!
 
-[![Continuos Integration](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
-[![Continuos Delivery](https://github.com/mateusoliveira43/python-cli-script-template/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/python-cli-script-template/actions)
+[![Continuos Integration](https://github.com/mateusoliveira43/cly/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
+[![Continuos Delivery](https://github.com/mateusoliveira43/cly/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mateusoliveira43_python-cli-script-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mateusoliveira43_python-cli-script-template)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -12,7 +12,7 @@
 
 Template to create Python command line interface scripts, using Python's standard library [argparse](https://docs.python.org/3/library/argparse.html).
 
-Check the project's documentation [here](https://mateusoliveira43.github.io/python-cli-script-template/).
+Check the project's documentation [here](https://mateusoliveira43.github.io/cly/).
 
 ## Requirements
 
@@ -111,7 +111,7 @@ Tests and coverage configuration in `pyproject.toml` file.
 
 To generate Python type files, run
 ```
-stubgen --verbose --package cli --output .
+stubgen --verbose --package cly --output .
 ```
 
 To run Python type checker, run
@@ -166,7 +166,7 @@ File format configuration in `.editorconfig` file.
 
 To check common security issues in Python code, run
 ```
-bandit --recursive cli
+bandit --recursive cly
 bandit --recursive example
 ```
 
@@ -179,13 +179,13 @@ safety check --file requirements/dev.txt --full-report
 
 To check Python documentation generation, run
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules cli
+sphinx-apidoc --module-first --private --output-dir docs/modules cly
 sphinx-build -W -T -v -n docs public
 ```
 
 To generate Python documentation, run
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules cli
+sphinx-apidoc --module-first --private --output-dir docs/modules cly
 sphinx-build -v -n docs public
 ```
 To see the documentation, check `public/index.html`.

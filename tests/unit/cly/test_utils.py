@@ -4,8 +4,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from cli.colors import color_text
-from cli.utils import (
+from cly.colors import color_text
+from cly.utils import (
     get_output,
     get_returncode,
     get_standard_output,

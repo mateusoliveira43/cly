@@ -2,9 +2,9 @@ Example of use
 ==============
 
 The `example folder
-<https://github.com/mateusoliveira43/python-cli-script-template/tree/main/example>`_
+<https://github.com/mateusoliveira43/cly/tree/main/example>`_
 and the `batcomputer.py
-<https://github.com/mateusoliveira43/python-cli-script-template/blob/main/batcomputer.py>`_
+<https://github.com/mateusoliveira43/cly/blob/main/batcomputer.py>`_
 file are an example of use of the template, with a Batman Theme.
 
 To display the example script's help, run::
@@ -24,13 +24,13 @@ Run the script with Python 3 command is optional.
 How to use
 ----------
 
-The idea of use of this template is to copy the `cli Python package
-<https://github.com/mateusoliveira43/python-cli-script-template/tree/main/cli>`_
+The idea of use of this template is to copy the `cly Python package
+<https://github.com/mateusoliveira43/cly/tree/main/cly>`_
 in your project and use it. A suggestion would be to have a ``scripts`` folder
 and stores your scripts like this::
 
     scripts/
-    ├── cli/
+    ├── cly/
     ├── script_name_cli/
     └── script_name.py
 
@@ -133,7 +133,7 @@ example to check it out.
 
 Now let's check the example further::
 
-    from cli import config
+    from cly import config
 
     from . import __version__
     from .commands.identify import identify
