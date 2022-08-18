@@ -7,7 +7,7 @@ Changelog
 In this version:
 
 - Fixing imports in cli package: using relative imports both for performance and
-  for not break package use.
+  for not breaking package use.
 - Change cli package name to **cly** (this should be a major change, but since
   this is not a Python package that you will download, just copy, I am considering
   it a patch change).
