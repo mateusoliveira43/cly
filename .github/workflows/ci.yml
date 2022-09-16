@@ -87,7 +87,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Docker image
-        run: docker build --tag cly - < docker/Dockerfile .
+        run: docker build --tag cly - < docker/Dockerfile
 
       - name: Dockerfile linter
         uses: hadolint/hadolint-action@v2.0.0
