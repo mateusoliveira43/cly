@@ -4,3 +4,4 @@
 from example.batcomputer_cli import CLI
 
 CLI()
+# TODO pass this file to example folder

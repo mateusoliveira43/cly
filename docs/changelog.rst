@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.1.1
+-----
+
+In this version:
+
+- TODO
+
+
 1.0.1
 -----
 
