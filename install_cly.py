@@ -35,7 +35,7 @@ def get_cly() -> str:
 
 def copy_files_to_scripts(folder: Path) -> None:
     """
-    Copy files to the project's scripts folder.
+    Copy package to the project's scripts folder.
 
     Files with the same name are overwritten.
 
@@ -49,7 +49,9 @@ def copy_files_to_scripts(folder: Path) -> None:
         if file.is_dir():
             copy_files_to_scripts(file)
         else:
-            destination = PROJECT_ROOT / "scripts" / file.relative_to(SOURCE)
+            destination = (
+                PROJECT_ROOT / "scripts/cly" / file.relative_to(SOURCE)
+            )
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(src=file, dst=destination)
 
