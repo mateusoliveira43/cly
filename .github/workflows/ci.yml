@@ -63,7 +63,6 @@ jobs:
         run: |
           isort --check --diff .
           black --check --diff .
-          ec -verbose
 
       - name: Security vulnerability scan
         run: |
@@ -85,20 +84,47 @@ jobs:
   docker-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Build Docker image
-        run: docker build --tag python-cli-script-template --file docker/Dockerfile .
+        run: docker build --tag cly - < docker/Dockerfile .
+
       - name: Dockerfile linter
         uses: hadolint/hadolint-action@v2.0.0
         with:
           dockerfile: docker/Dockerfile
+
       - name: Docker image security vulnerability scan
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: python-cli-script-template
+          image: cly
           args: --severity-threshold=medium --file=docker/Dockerfile
+
+  project-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} # Checkout pull request HEAD commit instead of merge commit
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+          cache: "pip"
+          cache-dependency-path: "requirements/*.txt"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements/dev.txt
+
+      - name: Check commit messages
+        run: gitlint --commits f9cb55e198f55faa8f06998985a88c785247c00c..
+
+      - name: Code format
+        run: ec -verbose
 
   sonarcloud:
     needs: build
