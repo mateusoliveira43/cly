@@ -1,7 +1,7 @@
 import pytest
 
-from example.commands.identify import identify
-from example.database import CHARACTERS
+from ....batcomputer_cli.commands.identify import identify
+from ....batcomputer_cli.database import CHARACTERS
 
 NON_IDENTIFIED_CHARACTERS = ["riddler", "nightwing", "penguin"]
 

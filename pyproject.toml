@@ -38,13 +38,8 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=html:tests/coverage-results/htmlcov",
     "--cov-report=xml:tests/coverage-results/coverage.xml",
-    "--cov=.",
+    "--cov=cly",
     "--cov-fail-under=100",
-]
-
-[tool.coverage.run]
-omit = [
-    "tests/*",
 ]
 
 [tool.mypy]
@@ -53,6 +48,12 @@ strict = true
 show_error_codes = true
 warn_redundant_casts = true
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = [
+    "batcomputer_cli.__main__",
+]
+ignore_missing_imports = true
 
 [tool.isort]
 profile = "black"

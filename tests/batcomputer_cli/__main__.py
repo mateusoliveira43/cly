@@ -1,5 +1,3 @@
-"""Create configured argparse's CLI example."""
-
 from cly import config
 
 from . import __version__

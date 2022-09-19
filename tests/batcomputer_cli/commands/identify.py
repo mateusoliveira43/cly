@@ -1,5 +1,3 @@
-"""Create command example."""
-
 from typing import List
 
 from ..database import CHARACTERS, get_alias_data, get_oracle_data

@@ -1,5 +1,3 @@
-"""Example's database."""
-
 CHARACTERS = {
     "batman": "Bruce Wayne",
     "joker": "Jack Napier",
