@@ -12,6 +12,8 @@ def identify(
     """
     Identify the person behind each alias.
 
+    For each alias, get person behind it, if it is stored in Batcomputer.
+
     Parameters
     ----------
     aliases : List[str]

@@ -3,7 +3,8 @@
 # Scripts that manipulate the shell must always be careful with possible
 # security implications.
 import subprocess  # nosec
-from typing import List, Optional, Union
+from pathlib import Path
+from typing import List, Optional, Sequence, Tuple, Union
 
 from .colors import color_text
 
@@ -31,8 +32,8 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
 
 
 def get_output(
-    arguments: Union[str, List[str]]
-) -> subprocess.CompletedProcess:
+    arguments: Union[str, List[str]], directory: Optional[Path] = None
+) -> subprocess.CompletedProcess:  # type: ignore
     """
     Get the output information of the shell command.
 
@@ -42,6 +43,8 @@ def get_output(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
+    directory : Optional[Path]
+        Directory to run shell command, by default runs in current directory.
 
     Returns
     -------
@@ -56,10 +59,13 @@ def get_output(
         check=False,
         capture_output=True,
         encoding="utf-8",
+        cwd=directory,
     )
 
 
-def get_returncode(arguments: Union[str, List[str]]) -> int:
+def get_returncode(
+    arguments: Union[str, List[str]], directory: Optional[Path] = None
+) -> int:
     """
     Get the returncode of the shell command.
 
@@ -69,6 +75,8 @@ def get_returncode(arguments: Union[str, List[str]]) -> int:
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
+    directory : Optional[Path]
+        Directory to run shell command, by default runs in current directory.
 
     Returns
     -------
@@ -76,12 +84,14 @@ def get_returncode(arguments: Union[str, List[str]]) -> int:
         Command's returncode.
 
     """
-    output = get_output(arguments)
+    output = get_output(arguments, directory)
     return output.returncode
 
 
 def get_standard_output(
-    arguments: Union[str, List[str]], lines: bool = False
+    arguments: Union[str, List[str]],
+    lines: bool = False,
+    directory: Optional[Path] = None,
 ) -> Optional[List[str]]:
     """
     Get the standard output of the shell command.
@@ -95,6 +105,8 @@ def get_standard_output(
     lines : bool
         Separate output in lines instead of separating in words, by default
         False.
+    directory : Optional[Path]
+        Directory to run shell command, by default runs in current directory.
 
     Returns
     -------
@@ -102,7 +114,7 @@ def get_standard_output(
         A list of strings containing the output's words or lines; else, None.
 
     """
-    output = get_output(arguments).stdout
+    output = get_output(arguments, directory).stdout
     if output:
         if lines:
             return [line for line in output.split("\n") if line]
@@ -113,8 +125,8 @@ def get_standard_output(
 
 
 def run_command(
-    arguments: Union[str, List[str]]
-) -> subprocess.CompletedProcess:
+    arguments: Union[str, List[str]], directory: Optional[Path] = None
+) -> subprocess.CompletedProcess:  # type: ignore
     """
     Run the shell command.
 
@@ -124,6 +136,8 @@ def run_command(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
+    directory : Optional[Path]
+        Directory to run shell command, by default runs in current directory.
 
     Returns
     -------
@@ -139,8 +153,55 @@ def run_command(
     command = parse_arguments(arguments)
     try:
         return subprocess.run(
-            command, shell=True, check=True, encoding="utf-8"  # nosec
+            command,
+            shell=True,  # nosec
+            check=True,
+            encoding="utf-8",
+            cwd=directory,
         )
     except subprocess.CalledProcessError as error:
         print(color_text(f"ERROR: {error}", "red"))
         raise SystemExit(error.returncode) from error
+
+
+def run_multiple_commands(
+    commands: Sequence[Tuple[Union[str, List[str]], Optional[Path]]]
+) -> None:
+    """
+    Run multiple shell commands.
+
+    **Be careful about security implications when manipulating the shell!**
+
+    Parameters
+    ----------
+    commands: Sequence[Sequence[Union[str, List[str]], Optional[Path]]]
+        List of commands, where each command is a tuple of commands and
+        arguments and directory, to be executed.
+
+    Raises
+    ------
+    SystemExit
+        If one of the command fails.
+
+    """
+    executed_commands = [
+        subprocess.run(
+            parse_arguments(arguments),
+            shell=True,  # nosec
+            check=False,
+            encoding="utf-8",
+            cwd=directory,
+        )
+        for arguments, directory in commands
+    ]
+    error_commands = [
+        print(
+            color_text(
+                f"ERROR: Command '{command.args}' returned non-zero "
+                f"exit status {command.returncode}.",
+                "red",
+            )
+        )
+        for command in filter(lambda c: c.returncode > 0, executed_commands)
+    ]
+    raise SystemExit(len(error_commands))

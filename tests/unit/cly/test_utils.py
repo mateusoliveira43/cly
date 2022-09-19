@@ -133,6 +133,7 @@ def test_get_output(
         check=False,
         capture_output=True,
         encoding="utf-8",
+        cwd=None,
     )
 
 

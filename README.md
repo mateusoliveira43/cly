@@ -109,11 +109,6 @@ Tests and coverage configuration in `pyproject.toml` file.
 
 ### Type checking
 
-To generate Python type files, run
-```
-stubgen --verbose --package cly --output .
-```
-
 To run Python type checker, run
 ```
 mypy .
