@@ -10,7 +10,8 @@ def identify(
     """
     Identify the person behind each alias.
 
-    For each alias, get person behind it, if it is stored in Batcomputer.
+    For each alias, get person behind it, if it is stored in Batcomputer. Else,
+    informs each one not yet identified.
 
     Parameters
     ----------

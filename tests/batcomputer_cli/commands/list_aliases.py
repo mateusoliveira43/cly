@@ -7,6 +7,9 @@ def list_aliases(
     """
     List all aliases in Batcomputer.
 
+    List each one of the aliases stored in Batcomputer. List one alias per
+    line.
+
     Parameters
     ----------
     oracle : bool, optional

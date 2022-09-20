@@ -75,16 +75,6 @@ def test_example_cli_without_command(option: str) -> None:
     assert exit_code == 2
 
 
-# TODO wrong!!!
-@pytest.mark.parametrize("option", OPTIONS["oracle"])
-def test_example_cli_with_option_oracle_with_command(
-    option: List[str],
-) -> None:
-    exit_code, output = run_cli(CLI, option)
-    assert ERROR_MESSAGES["NO_COMMAND"] in output
-    assert exit_code == 2
-
-
 @pytest.mark.parametrize("option", INVALID_USAGE["FLAGS"])
 def test_example_cli_with_invalid_options_with_command_ls(option: str) -> None:
     exit_code, output = run_cli(CLI, [option, "ls"])
@@ -133,9 +123,6 @@ def test_example_cli_command_id_with_option_help(option: List[str]) -> None:
 def test_example_cli_command_ls_with_option_help(option: List[str]) -> None:
     exit_code, output = run_cli(CLI, ["ls"] + option)
     assert USAGE_PREFIX in output
-    # TODO wrong!!
-    for word in COMMAND_HELPS["ls"]:
-        assert word in output
     assert all(word in output for word in COMMAND_HELPS["ls"])
     assert exit_code == 0
 
