@@ -16,7 +16,7 @@ Check the project's documentation [here](https://mateusoliveira43.github.io/cly/
 
 ## Requirements
 
-To use the framework, it is necessary the following tools:
+To use (or contribute to) the framework, it is necessary the following tools:
 
 - [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.7 or higher
 

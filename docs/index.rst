@@ -8,6 +8,14 @@ Python standard libraries, like `argparse <https://docs.python.org/3/library/arg
 
 Check the project's source code `here <https://github.com/mateusoliveira43/cly/>`_.
 
+Requirements
+------------
+
+To use the framework, it is necessary the following tools:
+
+- `Python <https://wiki.python.org/moin/BeginnersGuide/Download>`_
+  3.7 or higher
+
 Usage
 -----
 

@@ -1,4 +1,4 @@
-# CLY? CLY!
+# CLY?! Construa CLIs sem dependências!
 
 [![Integração Contínua](https://github.com/mateusoliveira43/cly/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
 [![Entrega Contínua](https://github.com/mateusoliveira43/cly/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
@@ -10,13 +10,13 @@
 
 - [README file in English](../README.md)
 
-Modelo para criar scripts com interfaces de linha de comando em Python, usando a biblioteca padrão do Python [argparse](https://docs.python.org/3/library/argparse.html).
+Um framework para criar interfaces de linha de comando em Python, usando apenas bibliotecas padrão do Python, como a [argparse](https://docs.python.org/3/library/argparse.html).
 
 Confira a documentação do projeto [aqui](https://mateusoliveira43.github.io/cly/).
 
 ## Requirements
 
-Para rodar o modelo, são necessárias as seguintes ferramentas:
+Para usar (ou contribuir com) o framework, são necessárias as seguintes ferramentas:
 
 - [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.7 ou maior
 
@@ -36,7 +36,7 @@ Para ativar o ambiente virtual, execute
 source .venv/bin/activate
 ```
 
-Para instalar as dependências de desenvolvimento do modelo no ambiente virtual, execute
+Para instalar as dependências de desenvolvimento do framework no ambiente virtual, execute
 ```
 pip install -r requirements/dev.txt
 ```
@@ -46,7 +46,7 @@ Execute os comandos das seções seguintes com o ambiente virtual ativo.
 
 ### Poetry
 
-Para instalar as dependências de desenvolvimento do modelo em um ambiente virtual, execute
+Para instalar as dependências de desenvolvimento do framework em um ambiente virtual, execute
 ```
 poetry install
 ```
@@ -94,7 +94,7 @@ Execute os comandos das seções seguintes na shell do container.
 
 ## Qualidade
 
-As métricas de qualidade do modelo são reproduzidas pelas etapas de integração contínua do projeto. Configurações das etapas de integração contínua descritas no arquivo `.github/workflows/ci.yml`.
+As métricas de qualidade do framework são reproduzidas pelas etapas de integração contínua do projeto. Configurações das etapas de integração contínua descritas no arquivo `.github/workflows/ci.yml`.
 
 ### Testes
 
@@ -108,11 +108,6 @@ Para ver o relatório html, confira `tests/coverage-results/htmlcov/index.html`.
 Configurações dos testes e relatório de cobertura descritas no arquivo `pyproject.toml`.
 
 ### Checagem de tipo
-
-Para gerar arquivos de tipo do python, execute
-```
-stubgen --verbose --package cly --output .
-```
 
 Para rodar o checador de tipo do Python, execute
 ```
@@ -167,7 +162,6 @@ Configurações do formato dos arquivos descritas no arquivo `.editorconfig`.
 Para checar problemas de segurança comuns no código Python, execute
 ```
 bandit --recursive cly
-bandit --recursive example
 ```
 
 Para checar vulnerabilidades de segurança conhecidas nas dependências Python, execute
@@ -180,13 +174,13 @@ safety check --file requirements/dev.txt --full-report
 Para verificar a geração de documentação do código Python, execute
 ```
 sphinx-apidoc --module-first --private --output-dir docs/modules cly
-sphinx-build -W -T -v -n docs public
+sphinx-build -W -T -v -n -a docs public
 ```
 
 Para gerar a documentação do código Python, execute
 ```
 sphinx-apidoc --module-first --private --output-dir docs/modules cly
-sphinx-build -v -n docs public
+sphinx-build -v -n -a docs public
 ```
 Para ver a documentação, confira `public/index.html`.
 
