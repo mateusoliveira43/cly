@@ -178,7 +178,7 @@ class CustomFormatter(argparse.HelpFormatter):
             index for index, line in enumerate(raw_lines) if line == "\n"
         ]:
             formatted_lines.append(
-                "".join(raw_lines[previous:index]).replace("\n", " ")
+                "".join(raw_lines[previous:index]).replace("\n", " ").strip()
             )
             formatted_lines.append(raw_lines[index])
             previous = index + 1

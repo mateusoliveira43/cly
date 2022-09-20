@@ -33,5 +33,5 @@ def run_cli(cli: ConfiguredParser, arguments: List[str]) -> Tuple[int, str]:
                 with redirect_stderr(output):
                     cli()
             return 0, output.getvalue()
-    except SystemExit as sys_exit:
+    except SystemExit as sys_exit:  # NOSONAR
         return sys_exit.code, output.getvalue()

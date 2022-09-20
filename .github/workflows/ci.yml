@@ -140,7 +140,7 @@ jobs:
           path: tests/coverage-results/
 
       - name: Change dir name for sonar
-        run: sed -i 's*home/runner/work/python-cli-script-template/python-cli-script-template*github/workspace*g' tests/coverage-results/coverage.xml
+        run: sed -i 's*home/runner/work/cly/cly*github/workspace*g' tests/coverage-results/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
