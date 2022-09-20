@@ -101,13 +101,6 @@ OUTPUT_DATA_LINES: List[
         ],
     ),
 ]
-# RUN_COMMAND_SUCCESS_DATA = [
-#     {
-#         "input": ["joker", "--help"],
-#         "output": "Why\nso\nserious\n?\n",
-#     },
-#     {"input": "batman --version", "output": "Batman 1.2.3\n"},
-# ]
 RUN_COMMAND_ERROR_DATA: List[Tuple[Union[str, List[str]], int]] = [
     # input, returncode
     (["riddler", "--help"], 127),
@@ -177,17 +170,6 @@ def test_get_standard_output_with_lines(
     mock_subprocess.return_value.stdout = scenario_mock
     output = get_standard_output(scenario_input, lines=True)
     assert output == scenario_output
-
-
-# @pytest.mark.parametrize("scenario", RUN_COMMAND_SUCCESS_DATA)
-# @patch("subprocess.run")
-# def test_run_command_success(
-#     mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str]]]
-# ) -> None:
-#     """Test run_command successfully."""
-#     mock_subprocess.return_value = scenario["output"]
-#     output = run_command(scenario["input"])
-#     assert output == scenario["output"]
 
 
 @pytest.mark.parametrize(
