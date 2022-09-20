@@ -2,7 +2,7 @@
 
 ROOT="$(dirname $( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P ))"
 
-docker build --tag cly --file $ROOT/docker/Dockerfile .
+docker build --tag cly - < $ROOT/docker/Dockerfile
 docker login
 # docker scan --login --token <TOKEN>
 # rm -rf  ~/.config/configstore/snyk.json

@@ -43,7 +43,7 @@ def get_output(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
-    directory : Optional[Path]
+    directory : Optional[pathlib.Path]
         Directory to run shell command, by default runs in current directory.
 
     Returns
@@ -75,7 +75,7 @@ def get_returncode(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
-    directory : Optional[Path]
+    directory : Optional[pathlib.Path]
         Directory to run shell command, by default runs in current directory.
 
     Returns
@@ -105,7 +105,7 @@ def get_standard_output(
     lines : bool
         Separate output in lines instead of separating in words, by default
         False.
-    directory : Optional[Path]
+    directory : Optional[pathlib.Path]
         Directory to run shell command, by default runs in current directory.
 
     Returns
@@ -136,7 +136,7 @@ def run_command(
     ----------
     arguments : Union[str, List[str]]
         A string, or list of strings, containing the commands and arguments.
-    directory : Optional[Path]
+    directory : Optional[pathlib.Path]
         Directory to run shell command, by default runs in current directory.
 
     Returns
@@ -174,7 +174,7 @@ def run_multiple_commands(
 
     Parameters
     ----------
-    commands: Sequence[Sequence[Union[str, List[str]], Optional[Path]]]
+    commands: Sequence[Tuple[Union[str, List[str]], Optional[pathlib.Path]]]
         List of commands, where each command is a tuple of commands and
         arguments and directory, to be executed.
 

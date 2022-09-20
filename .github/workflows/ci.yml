@@ -67,19 +67,18 @@ jobs:
       - name: Security vulnerability scan
         run: |
           bandit --recursive cly
-          bandit --recursive example
           safety check --file requirements/dev.txt --full-report
 
       - name: Test documentation
         run: |
           sphinx-apidoc --module-first --private --output-dir docs/modules cly
-          sphinx-build -W -T -v -n docs public
+          sphinx-build -W -T -v -n -a docs public
 
       - name: Usage example
         run: |
-          ./batcomputer.py --help
-          ./batcomputer.py id --help
-          ./batcomputer.py ls --help
+          tests/batcomputer.py
+          tests/batcomputer.py id --help
+          tests/batcomputer.py ls --help
 
   docker-check:
     runs-on: ubuntu-latest

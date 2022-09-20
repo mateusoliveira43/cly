@@ -3,7 +3,7 @@
 Install CLY?! package to project.
 
 Install/update CLY?! latest version or pass version to script (in the format
-major.minor.patch), to install/update to specific version.
+major.minor.patch), to install/update specific version.
 
 """
 

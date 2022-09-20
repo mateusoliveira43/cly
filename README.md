@@ -1,4 +1,4 @@
-# CLY? CLY!
+# CLY?! Build CLIs without dependencies!
 
 [![Continuos Integration](https://github.com/mateusoliveira43/cly/actions/workflows/ci.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
 [![Continuos Delivery](https://github.com/mateusoliveira43/cly/actions/workflows/cd.yml/badge.svg)](https://github.com/mateusoliveira43/cly/actions)
@@ -10,13 +10,13 @@
 
 - [Arquivo README em português](docs/README_PT.md)
 
-Template to create Python command line interface scripts, using Python's standard library [argparse](https://docs.python.org/3/library/argparse.html).
+A framework to create command line interfaces with Python, using only Python's standard libraries, like [argparse](https://docs.python.org/3/library/argparse.html).
 
 Check the project's documentation [here](https://mateusoliveira43.github.io/cly/).
 
 ## Requirements
 
-To run the template, it is necessary the following tools:
+To use the framework, it is necessary the following tools:
 
 - [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.7 or higher
 
@@ -36,7 +36,7 @@ To activate the virtual environment, run
 source .venv/bin/activate
 ```
 
-To install the template's development requirements in the virtual environment, run
+To install the framework's development requirements in the virtual environment, run
 ```
 pip install -r requirements/dev.txt
 ```
@@ -46,7 +46,7 @@ Run the commands of the following sections with the virtual environment active.
 
 ### Poetry
 
-To install the template's development requirements in a virtual environment, run
+To install the framework's development requirements in a virtual environment, run
 ```
 poetry install
 ```
@@ -94,7 +94,7 @@ Run the commands of the following sections in the container's shell.
 
 ## Quality
 
-The quality measures of the template are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in `.github/workflows/ci.yml` file.
+The quality measures of the framework are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in `.github/workflows/ci.yml` file.
 
 ### Tests
 
@@ -162,7 +162,6 @@ File format configuration in `.editorconfig` file.
 To check common security issues in Python code, run
 ```
 bandit --recursive cly
-bandit --recursive example
 ```
 
 To check known security vulnerabilities in Python dependencies, run
@@ -175,13 +174,13 @@ safety check --file requirements/dev.txt --full-report
 To check Python documentation generation, run
 ```
 sphinx-apidoc --module-first --private --output-dir docs/modules cly
-sphinx-build -W -T -v -n docs public
+sphinx-build -W -T -v -n -a docs public
 ```
 
 To generate Python documentation, run
 ```
 sphinx-apidoc --module-first --private --output-dir docs/modules cly
-sphinx-build -v -n docs public
+sphinx-build -v -n -a docs public
 ```
 To see the documentation, check `public/index.html`.
 
