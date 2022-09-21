@@ -1,12 +1,12 @@
 services:
-  python-cli-script-template:
-    image: ${PROJECT_NAME}
-    container_name: ${PROJECT_NAME}
+  cly:
+    image: ${SERVICE_NAME}
+    container_name: ${SERVICE_NAME}
     hostname: docker
-    entrypoint: ["poetry", "run"]
+    entrypoint: ["./docker/entrypoint.sh"]
+    command: ["/bin/bash"]
     build:
-      context: ./
-      dockerfile: ./docker/Dockerfile
+      context: ./docker/
       args:
         GROUP_ID: ${GROUP_ID}
         USER_ID: ${USER_ID}

@@ -1,32 +1,15 @@
-FROM python:3.10.6-bullseye as install-poetry
-
-RUN curl -sSL https://install.python-poetry.org > ./install-poetry.py
-
-FROM python:3.10.6-slim-bullseye as development
+FROM mateusoliveira43/poetry:1.2-python3.10-slim
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
 ARG USER_NAME=develop
-ARG WORK_DIR=/home/$USER_NAME/PROJECT
+ARG WORK_DIR=/home/$USER_NAME/cly
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONFAULTHANDLER=1 \
-    POETRY_VERSION=1.1.14 \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1 \
-    POETRY_HOME=/usr/bin/poetry \
-    PATH=/usr/bin/poetry/bin:$PATH
-
-WORKDIR /
-COPY --from=install-poetry ./install-poetry.py ./
-RUN python ./install-poetry.py \
-    && rm ./install-poetry.py \
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+    git=1:2.30.* \
+    && rm -rf /var/lib/apt/lists/* \
     && groupadd --gid $GROUP_ID $USER_NAME \
     && useradd --uid $USER_ID --gid $GROUP_ID --create-home $USER_NAME \
-    && runuser --user $USER_NAME -- mkdir $WORK_DIR
+    && runuser --user $USER_NAME -- mkdir --parents $WORK_DIR/.venv
 USER $USER_NAME
-
 WORKDIR $WORK_DIR
-COPY pyproject.toml poetry.lock ./
-RUN poetry install

@@ -1,6 +1,19 @@
 Changelog
 =========
 
+1.1.1
+-----
+
+In this version:
+
+- `installation script <https://github.com/mateusoliveira43/cly/blob/main/install_cly.py>`_ for CLY?!.
+- Shell functions now accept a directory argument, to run commands in the
+  directory the user wants.
+- :py:func:`cly.utils.run_multiple_commands`: function to run multiple shell commands at once.
+- Long help messages are broken in the CLI's help and only completely appear in
+  the commands help.
+- :py:func:`cly.testing.run_cli`: CLY?! now provides a test environment for the users.
+
 1.0.1
 -----
 

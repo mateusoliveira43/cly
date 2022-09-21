@@ -1,32 +1,38 @@
 Example of use
 ==============
 
-The `example folder
-<https://github.com/mateusoliveira43/cly/tree/main/example>`_
+The `batcomputer_cli folder
+<https://github.com/mateusoliveira43/cly/tree/main/tests/batcomputer_cli>`_
 and the `batcomputer.py
-<https://github.com/mateusoliveira43/cly/blob/main/batcomputer.py>`_
-file are an example of use of the template, with a Batman Theme.
+<https://github.com/mateusoliveira43/cly/blob/main/tests/batcomputer.py>`_
+file are an example of use of the framework, with a Batman Theme.
 
 To display the example script's help, run::
 
-    [python|python3] ./batcomputer.py
+    [python|python3] tests/batcomputer.py
 
 or::
 
-    [python|python3] ./batcomputer.py -h
+    [python|python3] tests/batcomputer.py -h
 
 or::
 
-    [python|python3] ./batcomputer.py --help
+    [python|python3] tests/batcomputer.py --help
 
 Run the script with Python 3 command is optional.
+
+Another examples of use of the framework:
+
+- `Docky <https://github.com/mateusoliveira43/docky>`_: Run Docker commands
+  with Python.
+- `Dev <https://github.com/mateusoliveira43/python-project-template/tree/main/scripts/dev_cli>`_:
+  Development scripts to run less and shorter development related commands.
 
 How to use
 ----------
 
-The idea of use of this template is to copy the `cly Python package
-<https://github.com/mateusoliveira43/cly/tree/main/cly>`_
-in your project and use it. A suggestion would be to have a ``scripts`` folder
+The idea of use of this framework is to copy the :py:mod:`cly` package to
+your project and use it. A suggestion would be to have a ``scripts`` folder
 and stores your scripts like this::
 
     scripts/
@@ -34,19 +40,30 @@ and stores your scripts like this::
     ├── script_name_cli/
     └── script_name.py
 
-Then, to call it, you would run ``./scripts/script_name.py``.
+Then, to call it, you would run ``scripts/script_name.py``.
 
 Do not forget that to run a Python script without the Python3 command, it is
-needed to add a **shebang** to the file and grant run permission to it.
+needed to add a **shebang**, at the beginning of the file, and grant run
+permission to it. An example of Python shebang::
+
+    #!/usr/bin/env python3
 
 To grant run permission to a file in your Linux's system, run::
 
     chmod +x file_name
 
+You can also add the CLI to your project scripts. For example, in your
+``pyproject.toml``, you can add something like::
+
+    [tool.poetry.scripts]
+    script_name = "scripts.script_name_cli.__main__:CLI"
+
+Then, you can call it with just ``script_name``, after installing the project.
+
 Understanding the example
 -------------------------
 
-To understand what the template does, let's check out how would be the example
+To understand what the framework does, let's check out how would be the example
 implementation with pure argparse::
 
     import argparse
@@ -79,7 +96,7 @@ implementation with pure argparse::
         description="Run Batcomputer analysis on selected areas.",
         epilog="Wayne Enterprises \N{office building}",
         allow_abbrev=False,
-        # formatter_class=CustomFormatter, Defined in cli package
+        # formatter_class=CustomFormatter, Defined in cly package
     )
     parser._positionals.title = "Arguments"
     parser._optionals.title = "Options"
@@ -128,7 +145,7 @@ implementation with pure argparse::
         if namespace.commands:
             COMMANDS[namespace.commands](**dict(namespace._get_kwargs()))
 
-You can copy this content into ``example/batcomputer_cli.py`` and run the
+You can copy this content into ``tests/batcomputer_cli/__main__.py`` and run the
 example to check it out.
 
 Now let's check the example further::
@@ -166,10 +183,10 @@ argparse example, except adding the ``oracle`` argument.
 When we call the ``create_command`` function, it creates a subparser, if one
 does not already exists, and adds the command to it. If you notice, in the
 pure argparse example, the parser configuration is lost in the subparser. This
-does not happens with the template, because it passes the same configurations
-to the subparser. In the template, you do not need to pass the help for the
+does not happens with the framework, because it passes the same configurations
+to the subparser. With **CLY?!**, you do not need to pass the help for the
 commands' arguments, since it is parsed from the command's docstring.
 
-Finally, the template implements a ``__call__`` method for parsing the user
+Finally, **CLY?!** implements a ``__call__`` method for parsing the user
 inputs. The pure argparse example have 77 lines of code, against 25 lines of code of
-when using the template.
+when using the framework.

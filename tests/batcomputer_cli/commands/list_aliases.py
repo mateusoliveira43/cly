@@ -1,5 +1,3 @@
-"""Create command example."""
-
 from ..database import CHARACTERS, get_alias_data, get_oracle_data
 
 
@@ -8,6 +6,9 @@ def list_aliases(
 ) -> None:
     """
     List all aliases in Batcomputer.
+
+    List each one of the aliases stored in Batcomputer. List one alias per
+    line.
 
     Parameters
     ----------

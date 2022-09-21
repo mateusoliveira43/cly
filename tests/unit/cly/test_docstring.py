@@ -73,7 +73,7 @@ def test_get_help_from_docstring(style: str) -> None:
     function_to_test_docstring.__doc__ = DOCSTRINGS[style]
     assert (
         get_help_from_docstring(function_to_test_docstring)
-        == "Function to test docstring styles.\n"
+        == "Function to test docstring styles.\n\n"
     )
 
 
@@ -88,7 +88,7 @@ def test_get_help_from_docstring_with_no_style() -> None:
     )
     assert (
         get_help_from_docstring(function_to_test_docstring)
-        == "Function to test docstring styles.\n"
+        == "Function to test docstring styles."
     )
 
 

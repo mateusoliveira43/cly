@@ -1,5 +1,3 @@
-"""Create command example."""
-
 from typing import List
 
 from ..database import CHARACTERS, get_alias_data, get_oracle_data
@@ -11,6 +9,9 @@ def identify(
 ) -> None:
     """
     Identify the person behind each alias.
+
+    For each alias, get person behind it, if it is stored in Batcomputer. Else,
+    informs each one not yet identified.
 
     Parameters
     ----------

@@ -4,8 +4,8 @@ import pytest
 import toml
 
 import cly
-from tests import ABSOLUTE_PATH
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 VERSION_LABELS = cly.__version__.split(".", maxsplit=2)
 
 
@@ -53,7 +53,7 @@ def test_pyproject_version() -> None:
 
 def test_sonar_version() -> None:
     assert cly.__version__ == read_variable_from_file(
-        "sonar.projectVersion", ABSOLUTE_PATH / "sonar-project.properties"
+        "sonar.projectVersion", PROJECT_ROOT / "sonar-project.properties"
     )
 
 

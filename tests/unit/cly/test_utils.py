@@ -1,4 +1,3 @@
-import subprocess
 from typing import Dict, List, Optional, Tuple, Union
 from unittest.mock import Mock, patch
 
@@ -101,13 +100,6 @@ OUTPUT_DATA_LINES: List[
         ],
     ),
 ]
-# RUN_COMMAND_SUCCESS_DATA = [
-#     {
-#         "input": ["joker", "--help"],
-#         "output": "Why\nso\nserious\n?\n",
-#     },
-#     {"input": "batman --version", "output": "Batman 1.2.3\n"},
-# ]
 RUN_COMMAND_ERROR_DATA: List[Tuple[Union[str, List[str]], int]] = [
     # input, returncode
     (["riddler", "--help"], 127),
@@ -133,6 +125,7 @@ def test_get_output(
         check=False,
         capture_output=True,
         encoding="utf-8",
+        cwd=None,
     )
 
 
@@ -178,40 +171,28 @@ def test_get_standard_output_with_lines(
     assert output == scenario_output
 
 
-# @pytest.mark.parametrize("scenario", RUN_COMMAND_SUCCESS_DATA)
-# @patch("subprocess.run")
-# def test_run_command_success(
-#     mock_subprocess: Mock, scenario: Dict[str, Union[str, List[str]]]
-# ) -> None:
-#     """Test run_command successfully."""
-#     mock_subprocess.return_value = scenario["output"]
-#     output = run_command(scenario["input"])
-#     assert output == scenario["output"]
-
-
 @pytest.mark.parametrize(
     "scenario_input,scenario_returncode", RUN_COMMAND_ERROR_DATA
 )
+@patch("subprocess.Popen")
 def test_run_command_error(
+    mock_subprocess: Mock,
     scenario_input: Union[str, List[str]],
     scenario_returncode: int,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    side_effect = subprocess.CalledProcessError(
-        returncode=scenario_returncode,
-        cmd=scenario_input,
-    )
+    mock_subprocess.return_value.args = scenario_input
+    mock_subprocess.return_value.returncode = scenario_returncode
     formatted = color_text(
         f"ERROR: Command '{scenario_input}' returned "
         f"non-zero exit status {scenario_returncode}.",
         "red",
     )
     formatted += "\n"
-    with patch.object(subprocess, "run", side_effect=side_effect):
-        with pytest.raises(SystemExit) as sys_exit:
-            run_command(scenario_input)
+    with pytest.raises(SystemExit) as sys_exit:
+        run_command(scenario_input)
     sys_output, sys_error = capsys.readouterr()
     assert not sys_error
-    assert sys_output == formatted
+    assert formatted in sys_output
     assert sys_exit.type == SystemExit
     assert sys_exit.value.code == scenario_returncode
