@@ -171,7 +171,7 @@ class CustomFormatter(argparse.HelpFormatter):
             Formatted text.
 
         """
-        return "\n".join(
+        return "\n\n".join(
             textwrap.fill(
                 line,
                 width,

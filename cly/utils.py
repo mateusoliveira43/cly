@@ -11,13 +11,13 @@ from .colors import color_text
 SPACE = " "
 
 
-def print_error_message(command: subprocess.Popen[str]) -> None:
+def print_error_message(command: subprocess.Popen) -> None:  # type: ignore
     """
     Print error message from a command.
 
     Parameters
     ----------
-    command : subprocess.Popen[str]
+    command : subprocess.Popen
         Command to get information from.
 
     """
@@ -143,7 +143,7 @@ def get_standard_output(
 
 def get_command_after_execution(
     arguments: Union[str, List[str]], directory: Optional[Path] = None
-) -> subprocess.Popen[str]:
+) -> subprocess.Popen:  # type: ignore
     """
     Get shell command information after it executes.
 
@@ -158,7 +158,7 @@ def get_command_after_execution(
 
     Returns
     -------
-    subprocess.Popen[str]
+    subprocess.Popen
         Executed command.
 
     """
