@@ -19,10 +19,10 @@ RUN_COMMAND_WITH_DIRECTORY: List[Tuple[Union[str, List[str]], str]] = [
 def test_run_command(
     scenario_input: Union[str, List[str]],
     scenario_output: str,
-    capfd: pytest.CaptureFixture[str],
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     run_command(scenario_input)
-    output, error = capfd.readouterr()
+    output, error = capsys.readouterr()
     assert not error
     assert scenario_output in output
 
@@ -33,45 +33,41 @@ def test_run_command(
 def test_run_command_with_directory(
     scenario_input: Union[str, List[str]],
     scenario_output: str,
-    capfd: pytest.CaptureFixture[str],
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     run_command(scenario_input, Path(__file__).parent)
-    output, error = capfd.readouterr()
+    output, error = capsys.readouterr()
     assert not error
     assert scenario_output in output
 
 
 def test_run_multiple_commands(
-    capfd: pytest.CaptureFixture[str],
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
-    with pytest.raises(SystemExit) as sys_exit:
-        run_multiple_commands([(["ls", "-a"], None), ("git --version", None)])
-    output, error = capfd.readouterr()
+    run_multiple_commands([(["ls", "-a"], None), ("git --version", None)])
+    output, error = capsys.readouterr()
     assert not error
     assert "cly" in output
     assert "git version" in output
-    assert sys_exit.value.code == 0
 
 
 def test_run_multiple_commands_with_directory(
-    capfd: pytest.CaptureFixture[str],
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
-    with pytest.raises(SystemExit) as sys_exit:
-        run_multiple_commands(
-            [
-                (["ls", "-a"], Path(__file__).parent),
-                ("git --version", Path(__file__).parent),
-            ]
-        )
-    output, error = capfd.readouterr()
+    run_multiple_commands(
+        [
+            (["ls", "-a"], Path(__file__).parent),
+            ("git --version", Path(__file__).parent),
+        ]
+    )
+    output, error = capsys.readouterr()
     assert not error
     assert "test_utils.py" in output
     assert "git version" in output
-    assert sys_exit.value.code == 0
 
 
 def test_run_multiple_commands_error(
-    capfd: pytest.CaptureFixture[str],
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     with pytest.raises(SystemExit) as sys_exit:
         run_multiple_commands(
@@ -81,9 +77,10 @@ def test_run_multiple_commands_error(
                 ("git --version", None),
             ]
         )
-    output, error = capfd.readouterr()
+    output, error = capsys.readouterr()
+    assert not error
     assert "cly" in output
-    assert "batman: not found" in error
+    assert "batman: not found" in output
     assert "git version" in output
     assert "ERROR: Command 'batman --version' returned non-zero exit" in output
     assert sys_exit.value.code == 1

@@ -171,17 +171,6 @@ class CustomFormatter(argparse.HelpFormatter):
             Formatted text.
 
         """
-        raw_lines = text.splitlines(keepends=True)
-        formatted_lines = []
-        previous = 0
-        for index in [
-            index for index, line in enumerate(raw_lines) if line == "\n"
-        ]:
-            formatted_lines.append(
-                "".join(raw_lines[previous:index]).replace("\n", " ").strip()
-            )
-            formatted_lines.append(raw_lines[index])
-            previous = index + 1
         return "\n".join(
             textwrap.fill(
                 line,
@@ -189,7 +178,7 @@ class CustomFormatter(argparse.HelpFormatter):
                 initial_indent=indent,
                 subsequent_indent=indent,
             )
-            for line in formatted_lines or raw_lines
+            for line in text.split("\n\n")
         )
 
 
