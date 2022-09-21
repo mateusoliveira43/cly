@@ -37,6 +37,15 @@ cly.docstring module
    :show-inheritance:
    :private-members:
 
+cly.testing module
+------------------
+
+.. automodule:: cly.testing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
 cly.utils module
 ----------------
 

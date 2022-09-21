@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changelog" href="changelog.html" />
-    <link rel="prev" title="Welcome to CLY’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to CLY?!’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -74,26 +74,33 @@
              
   <section id="example-of-use">
 <h1>Example of use<a class="headerlink" href="#example-of-use" title="Permalink to this heading"></a></h1>
-<p>The <a class="reference external" href="https://github.com/mateusoliveira43/cly/tree/main/example">example folder</a>
-and the <a class="reference external" href="https://github.com/mateusoliveira43/cly/blob/main/batcomputer.py">batcomputer.py</a>
-file are an example of use of the template, with a Batman Theme.</p>
+<p>The <a class="reference external" href="https://github.com/mateusoliveira43/cly/tree/main/tests/batcomputer_cli">batcomputer_cli folder</a>
+and the <a class="reference external" href="https://github.com/mateusoliveira43/cly/blob/main/tests/batcomputer.py">batcomputer.py</a>
+file are an example of use of the framework, with a Batman Theme.</p>
 <p>To display the example script’s help, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="n">tests</span><span class="o">/</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="n">tests</span><span class="o">/</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="o">./</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">python</span><span class="o">|</span><span class="n">python3</span><span class="p">]</span> <span class="n">tests</span><span class="o">/</span><span class="n">batcomputer</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
 </pre></div>
 </div>
 <p>Run the script with Python 3 command is optional.</p>
+<p>Another examples of use of the framework:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mateusoliveira43/docky">Docky</a>: Run Docker commands
+with Python.</p></li>
+<li><p><a class="reference external" href="https://github.com/mateusoliveira43/python-project-template/tree/main/scripts/dev_cli">Dev</a>:
+Development scripts to run less and shorter development related commands.</p></li>
+</ul>
 <section id="how-to-use">
 <h2>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h2>
-<p>The idea of use of this template is to copy the <a class="reference external" href="https://github.com/mateusoliveira43/cly/tree/main/cly">cly Python package</a>
-in your project and use it. A suggestion would be to have a <code class="docutils literal notranslate"><span class="pre">scripts</span></code> folder
+<p>The idea of use of this framework is to copy the <a class="reference internal" href="modules/cly.html#module-cly" title="cly"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cly</span></code></a> package to
+your project and use it. A suggestion would be to have a <code class="docutils literal notranslate"><span class="pre">scripts</span></code> folder
 and stores your scripts like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>scripts/
 ├── cly/
@@ -101,17 +108,28 @@ and stores your scripts like this:</p>
 └── script_name.py
 </pre></div>
 </div>
-<p>Then, to call it, you would run <code class="docutils literal notranslate"><span class="pre">./scripts/script_name.py</span></code>.</p>
+<p>Then, to call it, you would run <code class="docutils literal notranslate"><span class="pre">scripts/script_name.py</span></code>.</p>
 <p>Do not forget that to run a Python script without the Python3 command, it is
-needed to add a <strong>shebang</strong> to the file and grant run permission to it.</p>
+needed to add a <strong>shebang</strong>, at the beginning of the file, and grant run
+permission to it. An example of Python shebang:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+</pre></div>
+</div>
 <p>To grant run permission to a file in your Linux’s system, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">file_name</span>
 </pre></div>
 </div>
+<p>You can also add the CLI to your project scripts. For example, in your
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, you can add something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tool</span><span class="o">.</span><span class="n">poetry</span><span class="o">.</span><span class="n">scripts</span><span class="p">]</span>
+<span class="n">script_name</span> <span class="o">=</span> <span class="s2">&quot;scripts.script_name_cli.__main__:CLI&quot;</span>
+</pre></div>
+</div>
+<p>Then, you can call it with just <code class="docutils literal notranslate"><span class="pre">script_name</span></code>, after installing the project.</p>
 </section>
 <section id="understanding-the-example">
 <h2>Understanding the example<a class="headerlink" href="#understanding-the-example" title="Permalink to this heading"></a></h2>
-<p>To understand what the template does, let’s check out how would be the example
+<p>To understand what the framework does, let’s check out how would be the example
 implementation with pure argparse:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">functools</span>
@@ -143,7 +161,7 @@ implementation with pure argparse:</p>
     <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Run Batcomputer analysis on selected areas.&quot;</span><span class="p">,</span>
     <span class="n">epilog</span><span class="o">=</span><span class="s2">&quot;Wayne Enterprises </span><span class="se">\N{office building}</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="n">allow_abbrev</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="c1"># formatter_class=CustomFormatter, Defined in cli package</span>
+    <span class="c1"># formatter_class=CustomFormatter, Defined in cly package</span>
 <span class="p">)</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">_positionals</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Arguments&quot;</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">_optionals</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Options&quot;</span>
@@ -193,7 +211,7 @@ implementation with pure argparse:</p>
         <span class="n">COMMANDS</span><span class="p">[</span><span class="n">namespace</span><span class="o">.</span><span class="n">commands</span><span class="p">](</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">namespace</span><span class="o">.</span><span class="n">_get_kwargs</span><span class="p">()))</span>
 </pre></div>
 </div>
-<p>You can copy this content into <code class="docutils literal notranslate"><span class="pre">example/batcomputer_cli.py</span></code> and run the
+<p>You can copy this content into <code class="docutils literal notranslate"><span class="pre">tests/batcomputer_cli/__main__.py</span></code> and run the
 example to check it out.</p>
 <p>Now let’s check the example further:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cly</span> <span class="kn">import</span> <span class="n">config</span>
@@ -229,12 +247,12 @@ argparse example, except adding the <code class="docutils literal notranslate"><
 <p>When we call the <code class="docutils literal notranslate"><span class="pre">create_command</span></code> function, it creates a subparser, if one
 does not already exists, and adds the command to it. If you notice, in the
 pure argparse example, the parser configuration is lost in the subparser. This
-does not happens with the template, because it passes the same configurations
-to the subparser. In the template, you do not need to pass the help for the
+does not happens with the framework, because it passes the same configurations
+to the subparser. With <strong>CLY?!</strong>, you do not need to pass the help for the
 commands’ arguments, since it is parsed from the command’s docstring.</p>
-<p>Finally, the template implements a <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method for parsing the user
+<p>Finally, <strong>CLY?!</strong> implements a <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method for parsing the user
 inputs. The pure argparse example have 77 lines of code, against 25 lines of code of
-when using the template.</p>
+when using the framework.</p>
 </section>
 </section>
 
@@ -242,7 +260,7 @@ when using the template.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to CLY’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to CLY?!’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

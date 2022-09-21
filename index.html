@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to CLY’s documentation! &mdash; CLY?!  documentation</title>
+  <title>Welcome to CLY?!’s documentation! &mdash; CLY?!  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -57,7 +57,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Welcome to CLY’s documentation!</li>
+      <li>Welcome to CLY?!’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -68,19 +68,41 @@
            <div itemprop="articleBody">
              
   <section id="welcome-to-cly-s-documentation">
-<h1>Welcome to CLY’s documentation!<a class="headerlink" href="#welcome-to-cly-s-documentation" title="Permalink to this heading"></a></h1>
-<p>Python Command Line Interface (CLI) script template using Python standard
-library <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>. Build
-CLIs without dependencies!</p>
+<h1>Welcome to CLY?!’s documentation!<a class="headerlink" href="#welcome-to-cly-s-documentation" title="Permalink to this heading"></a></h1>
+<p><strong>Build CLIs without dependencies!</strong></p>
+<p>A framework to create Command Line Interface (CLI) with Python, using only
+Python standard libraries, like <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>.</p>
+<p>Check the project’s source code <a class="reference external" href="https://github.com/mateusoliveira43/cly/">here</a>.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
+<p>To use the framework, it is necessary the following tools:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wiki.python.org/moin/BeginnersGuide/Download">Python</a>
+3.7 or higher</p></li>
+</ul>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<p>To use <strong>CLY?!</strong> in your project, in your project’s root, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">mateusoliveira43</span><span class="o">/</span><span class="n">cly</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">install_cly</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">python</span> <span class="o">-</span>
+</pre></div>
+</div>
+<p>This will copy <strong>CLY?!</strong> (latest version) files to the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> folder of your project.</p>
+<p>To install (or update) a specific version of <strong>CLY?!</strong>, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">mateusoliveira43</span><span class="o">/</span><span class="n">cly</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">install_cly</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">python</span> <span class="o">-</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Where version is one of <a class="reference external" href="https://github.com/mateusoliveira43/cly/tags">these</a>.</p>
+</section>
 <section id="name">
 <h2>Name<a class="headerlink" href="#name" title="Permalink to this heading"></a></h2>
 <p>The name of the package is a little joke. If you read each letter instead of reading
-the word, the <strong>Y</strong> sounds like <strong>WHY</strong>. Why should you use the template? That
+the word, the <strong>Y</strong> sounds like <strong>WHY</strong>. Why should you use this framework? That
 is the reason it has a question mark in the name (and the question I try to
 answer in the next section). And it also has a exclamation mark as a reply to
 it, now the <strong>Y</strong> taking the role as <strong>.py</strong> file extension.</p>
-<p>In other words, the name of the package is <strong>“Why should I use this CLI? Because
-It is written in Python!”</strong>.</p>
+<p>In other words, the name of the package is <strong>“Why should I use this framework
+to build CLIs? Because It is written in Python!”</strong>.</p>
 </section>
 <section id="motivation">
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading"></a></h2>
@@ -97,12 +119,12 @@ I like to write scripts that could probably run before the project’s
 dependencies are installed, I want them to have no dependencies (only Python
 standard libraries). But if that is not a problem to you, you probably should
 use a more robust solution, like <a class="reference external" href="https://github.com/tiangolo/typer">typer</a>.</p>
-<p>The goal of this template is to improve productivity when writing new CLI
-scripts using Python’s standard library <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>. This is done by
-automatically creating a subparser, if it do not already exists, when a command
-is created, reusing the parser configuration into the subparser configuration
-(the commands) and parsing the commands’ docstring to get help for it and it’s
-options.</p>
+<p><strong>CLY?!</strong>’s goal is to improve productivity when writing new CLI scripts using
+Python’s standard library <a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>.
+This is done by automatically creating a subparser, if it do not already exists,
+when a command is created, reusing the parser configuration into the subparser
+configuration (the commands) and parsing the commands’ docstring to get help for
+it and it’s options.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>

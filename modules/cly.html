@@ -46,6 +46,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cly.colors">cly.colors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cly.config">cly.config module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cly.docstring">cly.docstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cly.testing">cly.testing module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cly.utils">cly.utils module</a></li>
 </ul>
 </li>
@@ -313,6 +314,29 @@ None</p></li>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HelpFormatter</span></code></p>
 <p>Custom formatter for argparse’s argument parser.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="cly.config.CustomFormatter._fill_text">
+<span class="sig-name descname"><span class="pre">_fill_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cly.config.CustomFormatter._fill_text" title="Permalink to this definition"></a></dt>
+<dd><p>Format text to fit desired width.</p>
+<p>Breaks text in paragraphs so it does not exceed the width limit,
+respecting indentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Text to be formatted.</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – Width limit.</p></li>
+<li><p><strong>indent</strong> (<em>str</em>) – Indentation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Formatted text.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cly.config.CustomFormatter._format_action">
 <span class="sig-name descname"><span class="pre">_format_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Action</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cly.config.CustomFormatter._format_action" title="Permalink to this definition"></a></dt>
 <dd><p>Remove subparser’s metavar when listing its parsers.</p>
@@ -348,12 +372,12 @@ None</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cly.config.CustomFormatter._format_usage">
-<span class="sig-name descname"><span class="pre">_format_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">usage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Action</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">_ArgumentGroup</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cly.config.CustomFormatter._format_usage" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_format_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">usage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Action</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">_ArgumentGroup</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cly.config.CustomFormatter._format_usage" title="Permalink to this definition"></a></dt>
 <dd><p>Format prefix of usage section.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>usage</strong> (<em>str</em>) – usage.</p></li>
+<li><p><strong>usage</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – usage.</p></li>
 <li><p><strong>actions</strong> (<em>Iterable</em><em>[</em><em>argparse.Action</em><em>]</em>) – argparse actions.</p></li>
 <li><p><strong>groups</strong> (<em>Iterable</em><em>[</em><em>argparse._ArgumentGroup</em><em>]</em>) – argparse groups.</p></li>
 <li><p><strong>prefix</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – usage prefix.</p></li>
@@ -520,17 +544,65 @@ None</p></li>
 </dd></dl>
 
 </section>
+<section id="module-cly.testing">
+<span id="cly-testing-module"></span><h2>cly.testing module<a class="headerlink" href="#module-cly.testing" title="Permalink to this heading"></a></h2>
+<p>Testing environment for CLY?! object.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="cly.testing.run_cli">
+<span class="sig-prename descclassname"><span class="pre">cly.testing.</span></span><span class="sig-name descname"><span class="pre">run_cli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cly.config.ConfiguredParser" title="cly.config.ConfiguredParser"><span class="pre">ConfiguredParser</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cly.testing.run_cli" title="Permalink to this definition"></a></dt>
+<dd><p>Run CLY?! object with desired arguments and capturing output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cli</strong> (<a class="reference internal" href="#cly.config.ConfiguredParser" title="cly.config.ConfiguredParser"><em>ConfiguredParser</em></a>) – CLY?! object.</p></li>
+<li><p><strong>arguments</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Arguments to pass to CLY?! object.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Exit code from CLI?! object execution and it’s output.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[int, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-cly.utils">
 <span id="cly-utils-module"></span><h2>cly.utils module<a class="headerlink" href="#module-cly.utils" title="Permalink to this heading"></a></h2>
 <p>Utils functions for calling shell.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="cly.utils.get_command_after_execution">
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_command_after_execution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Popen</span></span></span><a class="headerlink" href="#cly.utils.get_command_after_execution" title="Permalink to this definition"></a></dt>
+<dd><p>Get shell command information after it executes.</p>
+<p>The command output is printed to the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Shell command and arguments to be executed.</p></li>
+<li><p><strong>directory</strong> (<em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em>) – Directory to run shell command, by default runs in current directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Executed command.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>subprocess.Popen</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="cly.utils.get_output">
-<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span></span></span><a class="headerlink" href="#cly.utils.get_output" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span></span></span><a class="headerlink" href="#cly.utils.get_output" title="Permalink to this definition"></a></dt>
 <dd><p>Get the output information of the shell command.</p>
 <p><strong>Be careful about security implications when manipulating the shell!</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p></li>
+<li><p><strong>directory</strong> (<em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em>) – Directory to run shell command, by default runs in current directory.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Command’s output information.</p>
@@ -543,12 +615,15 @@ None</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cly.utils.get_returncode">
-<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_returncode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#cly.utils.get_returncode" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_returncode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#cly.utils.get_returncode" title="Permalink to this definition"></a></dt>
 <dd><p>Get the returncode of the shell command.</p>
 <p><strong>Be careful about security implications when manipulating the shell!</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p></li>
+<li><p><strong>directory</strong> (<em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em>) – Directory to run shell command, by default runs in current directory.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Command’s returncode.</p>
@@ -561,7 +636,7 @@ None</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cly.utils.get_standard_output">
-<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_standard_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cly.utils.get_standard_output" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_standard_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cly.utils.get_standard_output" title="Permalink to this definition"></a></dt>
 <dd><p>Get the standard output of the shell command.</p>
 <p><strong>Be careful about security implications when manipulating the shell!</strong></p>
 <dl class="field-list simple">
@@ -570,6 +645,7 @@ None</p></li>
 <li><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p></li>
 <li><p><strong>lines</strong> (<em>bool</em>) – Separate output in lines instead of separating in words, by default
 False.</p></li>
+<li><p><strong>directory</strong> (<em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em>) – Directory to run shell command, by default runs in current directory.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -599,22 +675,46 @@ False.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="cly.utils.print_error_message">
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">print_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Popen</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cly.utils.print_error_message" title="Permalink to this definition"></a></dt>
+<dd><p>Print error message from a command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>subprocess.Popen</em>) – Command to get information from.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="cly.utils.run_command">
-<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span></span></span><a class="headerlink" href="#cly.utils.run_command" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">run_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cly.utils.run_command" title="Permalink to this definition"></a></dt>
 <dd><p>Run the shell command.</p>
 <p><strong>Be careful about security implications when manipulating the shell!</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Executes the command.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>subprocess.CompletedProcess</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A string, or list of strings, containing the commands and arguments.</p></li>
+<li><p><strong>directory</strong> (<em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em>) – Directory to run shell command, by default runs in current directory.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><strong>SystemExit</strong> – If command fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cly.utils.run_multiple_commands">
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">run_multiple_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cly.utils.run_multiple_commands" title="Permalink to this definition"></a></dt>
+<dd><p>Run multiple shell commands.</p>
+<p><strong>Be careful about security implications when manipulating the shell!</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>commands</strong> (<em>Sequence</em><em>[</em><em>Tuple</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>, </em><em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em><em>]</em><em>]</em>) – List of commands, where each command is a tuple of commands and
+arguments and directory, to be executed.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SystemExit</strong> – If one of the command fails.</p>
 </dd>
 </dl>
 </dd></dl>
