@@ -22,8 +22,8 @@ def test_identify_with_one_non_identified_alias(
 ) -> None:
     identify([alias])
     output, error = capsys.readouterr()
-    assert not error
-    assert "not identified" in output
+    assert not output
+    assert "not identified" in error
 
 
 # TODO test with more then one input

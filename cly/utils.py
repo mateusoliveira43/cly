@@ -3,31 +3,13 @@
 # Scripts that manipulate the shell must always be careful with possible
 # security implications.
 import subprocess  # nosec
+import sys
 from pathlib import Path
 from typing import List, Optional, Sequence, Tuple, Union
 
 from .colors import color_text
 
 SPACE = " "
-
-
-def print_error_message(command: subprocess.Popen) -> None:  # type: ignore
-    """
-    Print error message from a command.
-
-    Parameters
-    ----------
-    command : subprocess.Popen
-        Command to get information from.
-
-    """
-    print(
-        color_text(
-            f"ERROR: Command '{command.args}' returned "  # type: ignore
-            f"non-zero exit status {command.returncode}.",
-            "red",
-        )
-    )
 
 
 def parse_arguments(arguments: Union[str, List[str]]) -> str:
@@ -141,42 +123,6 @@ def get_standard_output(
     return None
 
 
-def get_command_after_execution(
-    arguments: Union[str, List[str]], directory: Optional[Path] = None
-) -> subprocess.Popen:  # type: ignore
-    """
-    Get shell command information after it executes.
-
-    The command output is printed to the user.
-
-    Parameters
-    ----------
-    arguments : Union[str, List[str]]
-        Shell command and arguments to be executed.
-    directory : Optional[pathlib.Path]
-        Directory to run shell command, by default runs in current directory.
-
-    Returns
-    -------
-    subprocess.Popen
-        Executed command.
-
-    """
-    command = subprocess.Popen(
-        parse_arguments(arguments),
-        shell=True,  # nosec
-        encoding="utf-8",
-        cwd=directory,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    with command:
-        while command.poll() is None:
-            print(command.stdout.readline(), end="")  # type: ignore
-        print(command.stdout.read(), end="")  # type: ignore
-    return command
-
-
 def run_command(
     arguments: Union[str, List[str]], directory: Optional[Path] = None
 ) -> None:
@@ -198,10 +144,19 @@ def run_command(
         If command fails.
 
     """
-    command = get_command_after_execution(arguments, directory)
-    if command.returncode:
-        print_error_message(command)
-        raise SystemExit(command.returncode)
+    try:
+        subprocess.run(
+            parse_arguments(arguments),
+            shell=True,  # nosec
+            check=True,
+            encoding="utf-8",
+            cwd=directory,
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+        )
+    except subprocess.CalledProcessError as error:
+        print(color_text(f"ERROR: {error}", "red"), file=sys.stderr)
+        raise SystemExit(error.returncode) from error
 
 
 def run_multiple_commands(
@@ -225,11 +180,26 @@ def run_multiple_commands(
 
     """
     executed_commands = [
-        get_command_after_execution(arguments, directory)
+        subprocess.run(
+            parse_arguments(arguments),
+            shell=True,  # nosec
+            check=False,
+            encoding="utf-8",
+            cwd=directory,
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+        )
         for arguments, directory in commands
     ]
     error_commands = [
-        print_error_message(command)  # type: ignore
+        print(
+            color_text(
+                f"ERROR: Command '{command.args}' returned "
+                f"non-zero exit status {command.returncode}.",
+                "red",
+            ),
+            file=sys.stderr,
+        )
         for command in executed_commands
         if command.returncode
     ]

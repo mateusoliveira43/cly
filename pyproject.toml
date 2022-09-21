@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cly"
-version = "1.1.1"
+version = "1.1.2"
 description = "CLY?! Template to create Python CLI scripts"
 authors = ["Mateus Oliveira"]
 license = "MIT"
