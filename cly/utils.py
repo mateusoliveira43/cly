@@ -153,7 +153,7 @@ def get_command_after_execution(
     ----------
     arguments : Union[str, List[str]]
         Shell command and arguments to be executed.
-    directory : Optional[Path]
+    directory : Optional[pathlib.Path]
         Directory to run shell command, by default runs in current directory.
 
     Returns
