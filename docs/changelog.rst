@@ -6,7 +6,7 @@ Changelog
 
 In this version:
 
-- TODO
+- Fix shell functions that print output in run time by using `subprocess.run` again.
 
 1.1.1
 -----
