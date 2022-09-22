@@ -33,8 +33,8 @@ nitpick_ignore = [
     ("py:class", "argparse._ArgumentGroup"),
     ("py:class", "argparse._SubParsersAction"),
     ("py:class", "pathlib.Path"),
+    ("py:class", "subprocess.CalledProcessError"),
     ("py:class", "subprocess.CompletedProcess"),
-    ("py:class", "subprocess.Popen"),
 ]
 
 

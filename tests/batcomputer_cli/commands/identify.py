@@ -1,3 +1,4 @@
+import sys
 from typing import List
 
 from ..database import CHARACTERS, get_alias_data, get_oracle_data
@@ -22,9 +23,13 @@ def identify(
 
     """
     responses = [
-        (get_oracle_data(alias) if oracle else get_alias_data(alias))
+        (
+            get_oracle_data(alias) if oracle else get_alias_data(alias),
+            sys.stdout,
+        )
         if CHARACTERS.get(alias.lower())
-        else f"{alias.title()} not identified by Batcomputer yet"
+        else (f"{alias.title()} not identified by Batcomputer yet", sys.stderr)
         for alias in aliases
     ]
-    print(*responses, sep="\n")
+    for response in responses:
+        print(response[0], file=response[1])
