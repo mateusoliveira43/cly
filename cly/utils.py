@@ -12,6 +12,19 @@ from .colors import color_text
 SPACE = " "
 
 
+def print_error_message(error: subprocess.CalledProcessError) -> None:
+    """
+    Print error message from a command.
+
+    Parameters
+    ----------
+    error : subprocess.CalledProcessError
+        Error from command.
+
+    """
+    print(color_text(f"ERROR: {error}", "red"), file=sys.stderr)
+
+
 def parse_arguments(arguments: Union[str, List[str]]) -> str:
     """
     Parse arguments into a string.
@@ -155,7 +168,7 @@ def run_command(
             stderr=sys.stderr,
         )
     except subprocess.CalledProcessError as error:
-        print(color_text(f"ERROR: {error}", "red"), file=sys.stderr)
+        print_error_message(error)
         raise SystemExit(error.returncode) from error
 
 
@@ -192,13 +205,8 @@ def run_multiple_commands(
         for arguments, directory in commands
     ]
     error_commands = [
-        print(
-            color_text(
-                f"ERROR: Command '{command.args}' returned "
-                f"non-zero exit status {command.returncode}.",
-                "red",
-            ),
-            file=sys.stderr,
+        print_error_message(  # type: ignore
+            subprocess.CalledProcessError(command.returncode, command.args)
         )
         for command in executed_commands
         if command.returncode
