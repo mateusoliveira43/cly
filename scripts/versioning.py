@@ -20,7 +20,7 @@ from cly import __version__
 from cly.utils import get_standard_output
 
 previous_git_version = get_standard_output("git describe --tag --abbrev=0")
-previous_version = previous_git_version or [None]
+previous_version = previous_git_version or [None]  # type: ignore
 
 
 def get_release_body() -> str:
