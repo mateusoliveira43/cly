@@ -1,6 +1,9 @@
 Changelog
 =========
 
+Latest Changes
+--------------
+
 1.1.2
 -----
 
