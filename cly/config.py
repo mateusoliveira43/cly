@@ -31,13 +31,12 @@ def check_python_minimum_version() -> None:
         If user Python's version is invalid.
 
     """
-    user_version = (sys.version_info.major, sys.version_info.minor)
-    if user_version < PYTHON_MINIMUM_VERSION:
+    if sys.version_info < PYTHON_MINIMUM_VERSION:
         print(
             color_text(
-                f"ERROR: Python version {user_version[0]}.{user_version[1]} "
-                f"does not meet minimum requirement of {MAJOR_VERSION}."
-                f"{MINOR_VERSION}.",
+                f"ERROR: Python version {sys.version_info.major}."
+                f"{sys.version_info.minor} does not meet minimum requirement "
+                f"of {MAJOR_VERSION}.{MINOR_VERSION}.",
                 "red",
             )
         )
