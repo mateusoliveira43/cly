@@ -1,6 +1,8 @@
+import sys
+from collections import namedtuple
 from contextlib import nullcontext
 from typing import Tuple
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -20,17 +22,19 @@ VALID_VERSIONS = [(3, 7), (3, 8), (3, 9), (3, 10)]
 INVALID_VERSIONS = [(2, 7), (3, 5), (3, 6)]
 
 
+VersionMock = namedtuple("VersionMock", ("major", "minor"))
+
+
 @pytest.mark.parametrize("version", VALID_VERSIONS)
-@patch("sys.version_info")
 def test_check_python_minimum_version_with_valid_version(
-    mock_version_info: Mock,
     version: Tuple[int, int],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    mock_version_info.major = version[0]
-    mock_version_info.minor = version[1]
-    with nullcontext() as sys_exit:
-        check_python_minimum_version()
+    with patch.object(
+        sys, "version_info", VersionMock(version[0], version[1])
+    ):
+        with nullcontext() as sys_exit:
+            check_python_minimum_version()
     sys_output, sys_error = capsys.readouterr()
     assert not sys_error
     assert not sys_output
@@ -38,16 +42,15 @@ def test_check_python_minimum_version_with_valid_version(
 
 
 @pytest.mark.parametrize("version", INVALID_VERSIONS)
-@patch("sys.version_info")
 def test_check_python_minimum_version_with_invalid_version(
-    mock_version_info: Mock,
     version: Tuple[int, int],
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    mock_version_info.major = version[0]
-    mock_version_info.minor = version[1]
-    with pytest.raises(SystemExit) as sys_exit:
-        check_python_minimum_version()
+    with patch.object(
+        sys, "version_info", VersionMock(version[0], version[1])
+    ):
+        with pytest.raises(SystemExit) as sys_exit:
+            check_python_minimum_version()
     sys_output, sys_error = capsys.readouterr()
     assert not sys_error
     assert sys_output == (
