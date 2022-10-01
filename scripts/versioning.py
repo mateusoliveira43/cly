@@ -52,6 +52,7 @@ def get_release_body() -> str:
 
     return text
 
+
 release_body = get_release_body()
 is_version_new = previous_version[0] != __version__
 if is_version_new and not release_body:
