@@ -50,16 +50,17 @@ def get_release_body() -> str:
             if append:
                 text += line
 
-    if not text:
-        print("No release body provided")
-        raise SystemExit(1)
-
     return text
 
+release_body = get_release_body()
+is_version_new = previous_version[0] != __version__
+if is_version_new and not release_body:
+    print("No release body provided for release")
+    raise SystemExit(1)
 
 versioning = {
-    "isVersionNew": previous_version[0] != __version__,
+    "isVersionNew": is_version_new,
     "version": __version__,
-    "releaseBody": get_release_body(),
+    "releaseBody": release_body,
 }
 print(json.dumps(versioning))
