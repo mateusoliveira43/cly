@@ -79,7 +79,7 @@ def test_run_multiple_commands_error(
         )
     output, error = capfd.readouterr()
     assert "cly" in output
-    assert "batman: not found" in error
+    assert all(word in error for word in ["batman:", "not found"])
     assert "git version" in output
     assert "ERROR: Command 'batman --version' returned non-zero exit" in error
     assert sys_exit.value.code == 1

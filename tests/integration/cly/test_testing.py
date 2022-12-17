@@ -33,7 +33,7 @@ def test_run_cli() -> None:
     assert "test_testing.py" in stdout
     assert "did you get me?" in stdout
     assert "git version" in stdout
-    assert "batman: not found" in stderr
+    assert all(word in stderr for word in ["batman:", "not found"])
     assert "Python" in stdout
     assert "ERROR:" in stderr
     assert returncode == 1

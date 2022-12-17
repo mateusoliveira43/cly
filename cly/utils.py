@@ -47,7 +47,7 @@ def parse_arguments(arguments: Union[str, List[str]]) -> str:
 
 def get_output(
     arguments: Union[str, List[str]], directory: Optional[Path] = None
-) -> subprocess.CompletedProcess:  # type: ignore
+) -> "subprocess.CompletedProcess[str]":
     """
     Get the output information of the shell command.
 
@@ -204,12 +204,12 @@ def run_multiple_commands(
         )
         for arguments, directory in commands
     ]
-    error_commands = [
-        print_error_message(  # type: ignore
-            subprocess.CalledProcessError(command.returncode, command.args)
-        )
-        for command in executed_commands
-        if command.returncode
-    ]
-    if error_commands:
-        raise SystemExit(len(error_commands))
+    number_of_errors = 0
+    for command in executed_commands:
+        if command.returncode:
+            print_error_message(
+                subprocess.CalledProcessError(command.returncode, command.args)
+            )
+            number_of_errors += 1
+    if number_of_errors:
+        raise SystemExit(number_of_errors)

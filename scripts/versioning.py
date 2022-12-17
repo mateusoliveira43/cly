@@ -14,13 +14,19 @@ to Release Notes (changelog) in the documentation.
 """
 
 import json
+import sys
 from pathlib import Path
 
 from cly import __version__
+from cly.colors import color_text
 from cly.utils import get_standard_output
 
 previous_git_version = get_standard_output("git describe --tag --abbrev=0")
-previous_version = previous_git_version or [None]  # type: ignore
+previous_version = (
+    previous_git_version[0]
+    if isinstance(previous_git_version, list)
+    else "None"
+)
 
 
 def get_release_body() -> str:
@@ -43,7 +49,7 @@ def get_release_body() -> str:
         encoding="utf-8",
     ) as changelog:
         for line in changelog:
-            if line.strip() == previous_version[0]:
+            if line.strip() == previous_version:
                 break
             if line.strip() == __version__:
                 append = True
@@ -54,9 +60,12 @@ def get_release_body() -> str:
 
 
 release_body = get_release_body()
-is_version_new = previous_version[0] != __version__
+is_version_new = previous_version != __version__
 if is_version_new and not release_body:
-    print("No release body provided for release")
+    print(
+        color_text("ERROR: No release body provided for release.", "red"),
+        file=sys.stderr,
+    )
     raise SystemExit(1)
 
 versioning = {
