@@ -250,7 +250,7 @@ None</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cly.config.ConfiguredParser.create_subparser">
-<span class="sig-name descname"><span class="pre">create_subparser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_SubParsersAction</span></span></span><a class="headerlink" href="#cly.config.ConfiguredParser.create_subparser" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_subparser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">argparse._SubParsersAction</span><span class="p"><span class="pre">[</span></span><span class="pre">argparse.ArgumentParser</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cly.config.ConfiguredParser.create_subparser" title="Permalink to this definition"></a></dt>
 <dd><p>Create configured subparser to add commands.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -295,6 +295,17 @@ None</p></li>
 <dt class="sig sig-object py" id="cly.config.ConfiguredParser.parser">
 <span class="sig-name descname"><span class="pre">parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ArgumentParser</span></em><a class="headerlink" href="#cly.config.ConfiguredParser.parser" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cly.config.ConfiguredParser.populate_commands_param_help">
+<span class="sig-name descname"><span class="pre">populate_commands_param_help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cly.config.ConfiguredParser.populate_commands_param_help" title="Permalink to this definition"></a></dt>
+<dd><p>Populate commands’ parameters help with docstrings content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>commands</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – Narrowed type self.commands.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cly.config.ConfiguredParser.subparser">
@@ -418,6 +429,20 @@ respecting indentation.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Callable[…, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cly.config.iterate_through_params">
+<span class="sig-prename descclassname"><span class="pre">cly.config.</span></span><span class="sig-name descname"><span class="pre">iterate_through_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArgumentParser</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cly.config.iterate_through_params" title="Permalink to this definition"></a></dt>
+<dd><p>Iterate through commands’ parameters help with docstrings content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>commands</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – Narrowed type ConfiguredParser’ commands.</p></li>
+<li><p><strong>choices</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>argparse.ArgumentParser</em><em>]</em>) – Narrowed type argparse’s choices.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -580,7 +605,7 @@ respecting indentation.</p>
 <p>Utils functions for calling shell.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cly.utils.get_output">
-<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span></span></span><a class="headerlink" href="#cly.utils.get_output" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cly.utils.</span></span><span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cly.utils.get_output" title="Permalink to this definition"></a></dt>
 <dd><p>Get the output information of the shell command.</p>
 <p><strong>Be careful about security implications when manipulating the shell!</strong></p>
 <dl class="field-list simple">

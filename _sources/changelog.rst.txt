@@ -4,7 +4,8 @@ Changelog
 Latest Changes
 --------------
 
-* fix: CD versioning pipeline permission. PR [#72](https://github.com/mateusoliveira43/cly/pull/72) by [@mateusoliveira43](https://github.com/mateusoliveira43).
+- fix: CD versioning pipeline permission. PR `#72 <https://github.com/mateusoliveira43/cly/pull/72>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
+
 1.1.2
 -----
 
