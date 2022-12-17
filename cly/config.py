@@ -253,7 +253,7 @@ class ConfiguredParser:
 
     def create_subparser(
         self,
-    ) -> argparse._SubParsersAction:  # type: ignore
+    ) -> "argparse._SubParsersAction[argparse.ArgumentParser]":
         """
         Create configured subparser to add commands.
 
