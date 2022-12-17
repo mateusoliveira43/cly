@@ -77,10 +77,6 @@ def test_version_format(label: str) -> None:
     assert label.isdigit()
 
 
-@pytest.mark.skipif(
-    get_standard_output("git describe --tag --abbrev=0") is None,
-    reason="No previous version",
-)
 class TestSemanticVersioning(TestCase):
     """Test semantic versioning as described in https://semver.org/."""
 
@@ -88,10 +84,13 @@ class TestSemanticVersioning(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        previous_version = get_standard_output(  # type: ignore
-            "git describe --tag --abbrev=0"
-        )[0]
-        cls.previous_version_labels = previous_version.split(".", maxsplit=2)
+        previous_version = get_standard_output("git describe --tag --abbrev=0")
+        if isinstance(previous_version, list):
+            cls.previous_version_labels = previous_version[0].split(
+                ".", maxsplit=2
+            )
+        else:
+            pytest.skip(reason="No previous version")
 
     @staticmethod
     def alert_increment(label: str) -> str:
