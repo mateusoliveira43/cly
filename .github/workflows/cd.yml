@@ -26,7 +26,7 @@ jobs:
           sphinx-apidoc --module-first --private --output-dir docs/modules cly
           sphinx-build -v -n -a docs public
       - name: Deploy documentation
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: public
