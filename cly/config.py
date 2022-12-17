@@ -68,6 +68,31 @@ def decorate_kwargs(func: Callable[..., Any]) -> Callable[..., Any]:
     return wrap
 
 
+def iterate_through_params(
+    commands: Dict[str, Callable[..., Any]],
+    choices: Dict[str, argparse.ArgumentParser],
+) -> None:
+    """
+    Iterate through commands' parameters help with docstrings content.
+
+    Parameters
+    ----------
+    commands : Dict[str, Callable[..., Any]]
+        Narrowed type ConfiguredParser' commands.
+    choices : Dict[str, argparse.ArgumentParser]
+        Narrowed type argparse's choices.
+
+    """
+    for command_name, command in commands.items():
+        for param in inspect.signature(command).parameters.values():
+            for action in choices[command_name]._actions[1:]:
+                if action.dest == param.name and not action.help:
+                    action.help = get_param_help_from_docstring(
+                        param.name, command
+                    )
+                    break
+
+
 class CustomFormatter(argparse.HelpFormatter):
     """Custom formatter for argparse's argument parser."""
 
@@ -329,26 +354,33 @@ class ConfiguredParser:
             sys.argv[1:] or ["--help"] if self.add_help else sys.argv[1:]
         )
 
+    def populate_commands_param_help(
+        self,
+        commands: Dict[str, Callable[..., Any]],
+    ) -> None:
+        """
+        Populate commands' parameters help with docstrings content.
+
+        Parameters
+        ----------
+        commands : Dict[str, Callable[..., Any]]
+            Narrowed type self.commands.
+
+        """
+        subparsers = self.parser._subparsers
+        if isinstance(subparsers, argparse._ArgumentGroup):
+            choices = subparsers._group_actions[0].choices
+            if isinstance(choices, dict):
+                iterate_through_params(commands, choices)
+
     def __call__(self) -> None:
         """Initialize the CLI parser."""
-        for command in (
-            self.subparser._choices_actions if self.subparser else []
-        ):
-            command_call = self.commands[command.dest]  # type: ignore
-            for param in inspect.signature(command_call).parameters.values():
-                for action in (
-                    self.parser._subparsers._group_actions[0]  # type: ignore
-                    .choices[command.dest]
-                    ._actions[1:]
-                ):
-                    if action.dest == param.name and not action.help:
-                        action.help = get_param_help_from_docstring(
-                            param.name, command_call
-                        )
-                        break
-
-        namespace = self.get_arguments()
-        if namespace.commands:
-            self.commands[namespace.commands](  # type: ignore
-                **dict(namespace._get_kwargs())
-            )
+        if isinstance(self.commands, dict):
+            self.populate_commands_param_help(self.commands)
+            namespace = self.get_arguments()
+            if namespace.commands:
+                self.commands[namespace.commands](
+                    **dict(namespace._get_kwargs())
+                )
+        else:
+            self.get_arguments()
