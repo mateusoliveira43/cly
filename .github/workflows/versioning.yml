@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.ACTIONS_TOKEN }}
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
@@ -28,7 +28,7 @@ jobs:
         run: |
           pip install -e .
           versioning=$(./scripts/versioning.py)
-          echo "::set-output name=info::$versioning"
+          echo "info=$versioning" >> $GITHUB_OUTPUT
 
       - uses: ncipollo/release-action@v1
         if: fromJson(steps.versioning.outputs.info).isVersionNew
