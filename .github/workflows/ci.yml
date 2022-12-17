@@ -119,8 +119,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements/dev.txt
 
-      - name: Check commit messages
-        run: gitlint --commits f9cb55e198f55faa8f06998985a88c785247c00c..
+      # TODO study how to check commit messages with emojis
+      #- name: Check commit messages
+      #  run: gitlint --commits f9cb55e198f55faa8f06998985a88c785247c00c..
 
       - name: Code format
         run: ec -verbose
