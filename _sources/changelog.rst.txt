@@ -4,7 +4,8 @@ Changelog
 Latest Changes
 --------------
 
-- fix: jinja template line break. PR `#74 <https://github.com/mateusoliveira43/cly/pull/74>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.\n- fix: Remove type ignore comments from code. PR `#73 <https://github.com/mateusoliveira43/cly/pull/73>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
+- fix: jinja template line break. PR `#74 <https://github.com/mateusoliveira43/cly/pull/74>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
+- fix: Remove type ignore comments from code. PR `#73 <https://github.com/mateusoliveira43/cly/pull/73>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: CD versioning pipeline permission. PR `#72 <https://github.com/mateusoliveira43/cly/pull/72>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 
 1.1.2
