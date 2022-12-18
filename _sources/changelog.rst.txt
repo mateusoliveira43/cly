@@ -4,6 +4,7 @@ Changelog
 Latest Changes
 --------------
 
+- feat: improve README documentation. PR `#79 <https://github.com/mateusoliveira43/cly/pull/79>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: jinja template line break. PR `#75 <https://github.com/mateusoliveira43/cly/pull/75>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: jinja template line break. PR `#74 <https://github.com/mateusoliveira43/cly/pull/74>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: Remove type ignore comments from code. PR `#73 <https://github.com/mateusoliveira43/cly/pull/73>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
