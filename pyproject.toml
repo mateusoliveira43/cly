@@ -26,6 +26,9 @@ sphinx-rtd-theme = "^1.0.0"
 toml = "^0.10.2"
 types-toml = "^0.10.8"
 
+[tool.poetry.group.docs.dependencies]
+diagrams = "^0.23.1"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
