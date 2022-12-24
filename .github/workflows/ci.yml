@@ -126,6 +126,11 @@ jobs:
       - name: Code format
         run: ec -verbose
 
+      - name: Check version information
+        run: |
+          pip install -e .
+          ./scripts/versioning.py
+
   sonarcloud:
     needs: build
     runs-on: ubuntu-latest
