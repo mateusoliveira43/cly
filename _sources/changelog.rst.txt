@@ -4,6 +4,7 @@ Changelog
 Latest Changes
 --------------
 
+- fix: Trigger CI/CD only once after a PR closes. PR `#80 <https://github.com/mateusoliveira43/cly/pull/80>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - feat: improve README documentation. PR `#79 <https://github.com/mateusoliveira43/cly/pull/79>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: jinja template line break. PR `#75 <https://github.com/mateusoliveira43/cly/pull/75>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: jinja template line break. PR `#74 <https://github.com/mateusoliveira43/cly/pull/74>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
