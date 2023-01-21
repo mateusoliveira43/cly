@@ -7,8 +7,8 @@
 [![Estilo de código: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![segurança: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-![versões de Python](https://img.shields.io/badge/Python-3.7%20|%203.8%20|%203.9%20|%203.10-success)
-![versões de PyPy](https://img.shields.io/badge/PyPy-3.8-success)
+![versões de Python](https://img.shields.io/badge/Python-3.7%20|%203.8%20|%203.9%20|%203.10%20|%203.11-success)
+![versões de PyPy](https://img.shields.io/badge/PyPy-3.8%20|%203.9-success)
 
 - [README file in English](../README.md)
 
