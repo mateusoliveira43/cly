@@ -4,6 +4,7 @@ Changelog
 Latest Changes
 --------------
 
+- fix: safety security vulnerability scan. PR `#82 <https://github.com/mateusoliveira43/cly/pull/82>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 
 
 1.1.3
