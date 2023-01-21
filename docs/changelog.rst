@@ -4,6 +4,7 @@ Changelog
 Latest Changes
 --------------
 
+- feat: Add support to Python 3.11. PR `#83 <https://github.com/mateusoliveira43/cly/pull/83>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 - fix: safety security vulnerability scan. PR `#82 <https://github.com/mateusoliveira43/cly/pull/82>`_ by `@mateusoliveira43 <https://github.com/mateusoliveira43>`_.
 
 
