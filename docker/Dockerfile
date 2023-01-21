@@ -1,4 +1,4 @@
-FROM mateusoliveira43/poetry:1.2-python3.10-slim
+FROM mateusoliveira43/poetry:1.3-python3.11-slim
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
