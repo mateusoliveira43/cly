@@ -1,3 +1,5 @@
+#!/bin/bash
+
 DOCKER_COMPOSE_BIN="docker-compose"
 DOCKER_COMPOSE_FROM_DOCKER="docker compose"
 DOCKER_COMPOSE=""
