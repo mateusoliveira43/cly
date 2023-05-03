@@ -1,3 +1,4 @@
+import re
 import pytest
 
 from ....batcomputer_cli.commands.identify import identify
@@ -7,6 +8,20 @@ NON_IDENTIFIED_CHARACTERS = ["riddler", "nightwing", "penguin"]
 
 UPPER_CASE_CHARACTERS = [character.upper() for character in CHARACTERS]
 TITLE_CASE_CHARACTERS = [character.title() for character in CHARACTERS]
+
+@pytest.mark.parametrize(
+    "alias", list(CHARACTERS) + UPPER_CASE_CHARACTERS + TITLE_CASE_CHARACTERS
+)
+def test_identify_with_one_identified_alias_and_its_oracle(
+    alias: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    bring_oracle = True
+    identify([alias], bring_oracle)
+    output, error = capsys.readouterr()
+    print("output", output)
+    assert not error
+    assert "A.K.A" in output
+    assert re.search('(\\d{4})', output)
 
 
 @pytest.mark.parametrize(
