@@ -1,4 +1,3 @@
-import re
 import pytest
 
 from ....batcomputer_cli.commands.identify import identify
