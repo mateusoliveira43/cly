@@ -47,4 +47,3 @@ def test_identify_with_one_non_identified_alias(
 
 
 # TODO test with more then one input
-# TODO test with oracle option
