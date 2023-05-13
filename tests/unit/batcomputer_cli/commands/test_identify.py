@@ -21,7 +21,7 @@ def test_identify_with_one_identified_alias_and_its_oracle(
     print("output", output)
     assert not error
     assert "A.K.A" in output
-    assert re.search('(\\d{4})', output)
+    assert "The Dark Knight (2008)" in output
 
 
 @pytest.mark.parametrize(
