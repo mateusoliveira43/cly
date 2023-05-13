@@ -8,6 +8,7 @@ NON_IDENTIFIED_CHARACTERS = ["riddler", "nightwing", "penguin"]
 UPPER_CASE_CHARACTERS = [character.upper() for character in CHARACTERS]
 TITLE_CASE_CHARACTERS = [character.title() for character in CHARACTERS]
 
+
 @pytest.mark.parametrize(
     "alias", list(CHARACTERS) + UPPER_CASE_CHARACTERS + TITLE_CASE_CHARACTERS
 )
