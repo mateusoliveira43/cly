@@ -18,7 +18,6 @@ def test_identify_with_one_identified_alias_and_its_oracle(
     bring_oracle = True
     identify([alias], bring_oracle)
     output, error = capsys.readouterr()
-    print("output", output)
     assert not error
     assert "A.K.A" in output
     assert "The Dark Knight (2008)" in output
