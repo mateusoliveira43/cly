@@ -24,7 +24,9 @@ def identify(
     """
     responses = [
         (
-            get_oracle_data(alias) if oracle else get_alias_data(alias),
+            get_oracle_data(alias.lower())
+            if oracle
+            else get_alias_data(alias.lower()),
             sys.stdout,
         )
         if CHARACTERS.get(alias.lower())
