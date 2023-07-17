@@ -73,5 +73,6 @@ it and it's options.
    :hidden:
 
    example.rst
+   contributing.rst
    changelog.rst
    modules/modules.rst
