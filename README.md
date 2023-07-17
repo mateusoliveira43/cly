@@ -179,13 +179,18 @@ safety check --file requirements/dev.txt --full-report
 
 ### Documentation
 
-To check Python documentation generation, run
+To generate the project's documentation diagrams, run
+```
+(cd docs/images && python ../generate_diagrams.py)
+```
+
+To check the project's documentation generation, run
 ```
 sphinx-apidoc --module-first --private --output-dir docs/modules cly
 sphinx-build -W -T -v -n -a docs public
 ```
 
-To generate Python documentation, run
+To generate the project's documentation, run
 ```
 sphinx-apidoc --module-first --private --output-dir docs/modules cly
 sphinx-build -v -n -a docs public
